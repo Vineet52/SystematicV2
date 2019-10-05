@@ -108,17 +108,17 @@ $(()=>{
 	let deliveryCheck=$("#deliveryCheck").text();
 	
 	console.log(deliveryCheck);
+	let saleCheck =$("#SALE_STATUS_ID").val();
+	console.log(saleCheck);
 	if(deliveryCheck=="")
 	{
+		console.log("Here");
 		$("#btnAddDelivery").attr("disabled",false);
 	}
 	else
 	{
 		$("#btnAddDelivery").attr("disabled",true);
 	}
-
-	let saleCheck =$("#SALE_STATUS_ID").val();
-	console.log(saleCheck);
 	if(saleCheck >= 2)
 	{
 		console.log("EQUAL");
@@ -132,6 +132,7 @@ $(()=>{
 		$("#collectSaleButton").attr("disabled",true);
 		$("#btnMakeReturn").attr("disabled",true);
 	}
+
 
 	if(saleCheck == 3)
 	{

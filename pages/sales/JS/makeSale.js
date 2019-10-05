@@ -44,6 +44,7 @@ $(()=>{
 
 			$("input[id='dropdownItem']").on('click', function(){
 				let productIndex = this.name;
+				console.log(SALEDELIVERYADD);
 
 				if (productsArray[productIndex].QUANTITY_AVAILABLE == 0) 
 				{
@@ -205,7 +206,7 @@ $(()=>{
 
 			$("input[id*='dropdownItemCust']").on('click', function(){
 				let customerIndex = this.name;
-
+				console.log(SALEDELIVERYADD);
 
 				SALECUSTOMERID = customersArray[customerIndex].CUSTOMER_ID;
 				//console.log(SALECUSTOMERID);
@@ -392,7 +393,7 @@ $("button#finaliseSale").on('click', event => {
 });
 
 $("button#confirmSalesManagerPassword").on('click', event => {
-
+	console.log(SALEDELIVERYADD);
 	var password = $("#salesManagerPassword").val().trim();
 	$.ajax({
         url:'PHPcode/verifySalesManagerPassword.php',
@@ -436,7 +437,8 @@ $("button#confirmSalesManagerPassword").on('click', event => {
 				saleDeliveryLongitude = coordinates["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
 
 				//console.log("Longitude Before => "+saleDeliveryLongitude+", Latitude Before => "+saleDeliveryLatitude);
-
+				console.log(SALEDELIVERYADD); 
+				
 				$.ajax({
 			        url:'PHPcode/makeSale_.php',
 			        type:'post',
@@ -569,12 +571,12 @@ $('#addSaleDeliveryCheckbox').on('input', function()
 	if (makeDelivery == true) 
 	{
 		SALEDELIVERYADD = true;
-		//console.log("Adding Delivery => "+makeDelivery);
+		console.log("Adding Delivery => "+makeDelivery);
 	}
 	else
 	{
 		SALEDELIVERYADD = false;
-		//console.log("Not adding Delivery => "+makeDelivery);
+		console.log("Not adding Delivery => "+makeDelivery);
 	}
 });
 
