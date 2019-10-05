@@ -85,7 +85,7 @@
 			mysqli_query($DBConnect, $queryUpdateQuantity);
 		}
 
-		if ($addSaleDelivery == true) 
+		if($addSaleDelivery === true) 
 		{
 			$dateFiveFromNow = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 3, date('Y')));
 

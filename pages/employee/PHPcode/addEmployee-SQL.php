@@ -235,17 +235,17 @@ include "meRaviQr/qrlib.php";
                         }
                         else
                         {
-                            echo "Employee does not earn wage";
+                            echo "Employee does not earn wage,";
                         }
                     }
                     else
                     {
-                        echo "Fetch array has errors";
+                        echo "Fetch array has errors,";
                     }
                 }
                 else
                 {
-                        echo "This employee does not earn wage";
+                        echo "This employee does not earn wage,";
                 }
 
 

@@ -29,8 +29,21 @@ $(document).ready(function(){
                         $("#modalText").text(confirmation);
                         $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
 						$("#modalHeader").css("background-color", "#1ab394");
-                        $("#btnClose").attr("onclick","window.location='../../employee.php'");
+                        //$("#btnClose").attr("onclick","window.location='../../employee.php'");
                         $("#changeTimeSuccess").modal("show");
+
+                         $("#btnClose").click(function(e) {
+
+                                    e.preventDefault();
+                                   
+                                    window.location=`../../employee.php`;
+                                });
+
+                                setTimeout(function(){
+                                    $('#changeTimeSuccess').modal("hide");
+                                    window.location=`../../employee.php`;
+                                }, 2000);
+                
                     }
                     else
                     {

@@ -22,24 +22,72 @@
     	$username=$_POST["username"];
     	$sub_name=$_POST["sub_name"];
     	$changes=$_POST["changed"];
+    	$date=$_POST["date_"];
 
-		// SELECT AUDIT_LOG.AUDIT_DATE, USER.USERNAME , SUB_FUNCTIONALITY.NAME, AUDIT_LOG.CHANGES
-		// FROM AUDIT_LOG 
-		// INNER JOIN USER ON AUDIT_LOG.USER_ID = USER.USER_ID 
-		// INNER JOIN SUB_FUNCTIONALITY ON AUDIT_LOG.SUB_FUNCTIONALITY_ID = SUB_FUNCTIONALITY.SUB_FUNCTIONALITY_ID
-		// WHERE USER.USERNAME = "rangy@gmail.com" AND SUB_FUNCTIONALITY.NAME="Maintain Customer" AND AUDIT_LOG.CHANGES LIKE "%%" AND CAST(AUDIT_DATE AS DATE) = '2019-10-01'
+    	$day=date_format(new DateTime($date), 'Y-m-d');
 
-
-
-		$sql_query ="SELECT AUDIT_LOG.AUDIT_DATE, USER.USERNAME , SUB_FUNCTIONALITY.NAME, AUDIT_LOG.CHANGES
+		$sql_query ="SELECT AUDIT_LOG.AUDIT_DATE, EMPLOYEE.NAME AS EMPLOYEE_NAME,EMPLOYEE.SURNAME ,SUB_FUNCTIONALITY.NAME AS SUB_FUNCTIONALITY_NAME, AUDIT_LOG.CHANGES 
 		FROM AUDIT_LOG 
 		INNER JOIN USER ON AUDIT_LOG.USER_ID = USER.USER_ID 
-		INNER JOIN SUB_FUNCTIONALITY ON AUDIT_LOG.SUB_FUNCTIONALITY_ID = SUB_FUNCTIONALITY.SUB_FUNCTIONALITY_ID 
-		WHERE USER.USERNAME = '$username' AND SUB_FUNCTIONALITY.NAME='$sub_name' AND AUDIT_LOG.CHANGES LIKE '%$changes%'";
+		INNER JOIN EMPLOYEE ON USER.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID
+		INNER JOIN SUB_FUNCTIONALITY ON AUDIT_LOG.SUB_FUNCTIONALITY_ID = SUB_FUNCTIONALITY.SUB_FUNCTIONALITY_ID
+		WHERE ";
+
+		$added=FALSE;
+    	$checkdatequery="";
+    	if($date!=""){
+    		$checkdatequery="CAST(AUDIT_DATE AS DATE) = '$date' ";
+    		$sql_query=$sql_query.$checkdatequery;
+    		$added=TRUE;
+    	}
+
+
+
+    	if($sub_name!="none"){
+    		$checkSub=" SUB_FUNCTIONALITY.NAME='$sub_name'";
+    		if($added){
+    			$sql_query=$sql_query." AND".$checkSub;
+    		}
+    		else{
+    			$sql_query=$sql_query.$checkSub;
+    			$added=TRUE;
+    		}
+
+    	}
+
+    	 if($username!=""){
+    		$checkName=" EMPLOYEE.NAME LIKE '%$username%'";
+    		if($added){
+    			$sql_query=$sql_query." AND".$checkName;
+    		}
+    		else{
+    			$sql_query=$sql_query.$checkName;
+    			$added=TRUE;
+    		}
+
+    	}
+
+    	if($changes!=""){
+    		$checkchanges=" AUDIT_LOG.CHANGES LIKE '%$changes%'";
+    		if($added){
+    			$sql_query=$sql_query." AND".$checkchanges;
+    		}
+    		else{
+    			$sql_query=$sql_query.$checkchanges;
+    			$added=TRUE;
+    		}
+
+    	}
+    	
+    	//EMPLOYEE.NAME LIKE '%$username%' AND SUB_FUNCTIONALITY.NAME='$sub_name' AND AUDIT_LOG.CHANGES LIKE '%$changes%' AND
+
+
+		
 	    $result = mysqli_query($con,$sql_query);
 	    //$row = mysqli_fetch_array($result);
 	    //var_dump( $result);
-	    if (mysqli_num_rows($result)>0) {
+	    if($result){
+	    	if (mysqli_num_rows($result)>0) {
 	        $count=0;
 	        while ($row=$result->fetch_assoc())
 	        {
@@ -51,9 +99,14 @@
 	        echo json_encode($vals);
 	        
 	    }
+
+
+	    }
 	    else{
 	         echo "Error";
 	    }
+
+	 
 
 	  }
 ?>

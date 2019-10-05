@@ -32,6 +32,20 @@
 		}
 	}
 
+	function updateCustomerAccount($con,$amount,$id)
+	{
+		$update_query="UPDATE CUSTOMER_ACCOUNT SET BALANCE=BALANCE-'$amount' WHERE CUSTOMER_ID='$id'";
+		$update_result=mysqli_query($con,$update_query);
+		if($update_result)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	function addAuditForPayAccount($con,$customerid,$amount)
 	{
 		$DateAudit = date('Y-m-d H:i:s');
@@ -46,6 +60,7 @@
 	$dte=Date('Y-m-d');
 	if(captureAccountPayment($con,$accountNo,$_POST["customerID"],$_POST["amount"],$dte))
 	{
+		updateCustomerAccount($con,$_POST["amount"],$_POST["customerID"]);
 		addAuditForPayAccount($con,$_POST["customerID"],$_POST["amount"]);
 		echo "T";
 	}
