@@ -21,6 +21,50 @@
 		return $cityID;
 	}
 
+	function getSupplierAccountID($con,$supid)
+	{
+		$get_query="SELECT * FROM SUPPLIER_ACCOUNT WHERE SUPPLIER_ID='$supid'";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			$row=$get_result->fetch_assoc();
+			$cityID=$row["SUPPLIER_ACCOUNT_ID"];
+		}
+		else
+		{
+			$cityID=false;
+		}
+		return $cityID;
+	}
+
+	function insertSupplierAccount($con,$supid,$amount)
+	{
+		$add_query="INSERT INTO SUPPLIER_ACCOUNT (AMOUNT_OWED,SUPPLIER_ID) VALUES ('$amount','$supid')";
+		$add_result=mysqli_query($con,$add_query);
+		if($add_result)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	function updateSupplierAccountAmount($con,$supid,$amount)
+	{
+		$update_query="UPDATE SUPPLIER_ACCOUNT SET AMOUNT_OWED=AMOUNT_OWED+'$amount' WHERE SUPPLIER_ID='$id'";
+		$update_result=mysqli_query($con,$update_query);
+		if($update_result)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 
 	$supplierID = "";
 	$userID = "";
@@ -92,6 +136,19 @@
 	    $changes="ID : ".$lastID;
         $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
         $audit_result=mysqli_query($DBConnect,$audit_query);
+
+        ///////////////////// Insert or Update Supplier Account
+
+        $supplierAccountID=getSupplierAccountID($DBConnect,$supplierID);
+        if($supplierAccountID==false)
+        {
+        	insertSupplierAccount($DBConnect,$supplierID,$orderTotal);
+        }
+        else
+        {
+        	updateSupplierAccountAmount($DBConnect,$supplierID,$orderTotal);
+        }
+
 
 	    ///////////
 

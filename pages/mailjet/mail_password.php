@@ -89,7 +89,7 @@ $email=$_POST["email"];;
 
               
                 $subject = "Password Recovery - StockPath.com";
-                $href1 = 'http://stockpath.co.za/pages/user/reset-user-password.php?key='.$key.'&userID='.$userId.'&action=reset';
+                $href1 = 'http://stockpath.herokuapp.com/pages/user/reset-user-password.php?key='.$key.'&userID='.$userId.'&action=reset';
                 $href = '<a href='.$href1.'>Reset Password Now!</a>';
                 
 
