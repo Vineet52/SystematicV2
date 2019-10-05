@@ -59,19 +59,15 @@
                   </div>
                   <div class="col-2" style="text-align: right;"><p class="mt-2 mb-0">Search By:</p></div>
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary mr-1 col-1" onclick="setIndexer(3)">
-                  Data
-                  </button>
-                  <button type="button" class="btn btn-primary mr-1 col-1 px-2" onclick="setIndexer(0)">User ID
-                  </button>
-                  <button type="button" class="btn btn-primary col-1 px-2" onclick="setIndexer(2)">Function
-                  </button>
+
+                   <button type="button" class="btn btn-success mr-1 " id="refresh" ><i class="fas fa-sync-alt"></i></button>
+                    <button type="button" class="btn btn-success mr-1  col-2" data-toggle="modal" data-target="#modal-form">Advanced Search</button>
+      
                 </div>
               </div>
               <div class="row mt-4 mb-2">
                     <div class="col-md-4 ">
-                      <button type="button" class="btn btn-block btn-success  col-6" data-toggle="modal" data-target="#modal-form">Advanced Search</button>
-                      <button type="button" class="btn btn-success col-3 mt-3" id="refresh" ><i class="fas fa-sync-alt"></i></button>
+        
                       <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                         <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -84,17 +80,17 @@
                                           <form  id="advanced_search_form">
                                             <div class="form-row">
                                               <div class="form-group mb-3 col-6">
-                                                 <label for="username">User Name</label>
+                                                 <label for="username">Employee Name & Surname</label>
                                                   <div class="input-group input-group-alternative ">
                                                      
-                                                      <input class="form-control"id="username" name="username" placeholder="Username" type="text">
+                                                      <input class="form-control"id="username" name="username" placeholder="Name & Surname" type="text">
                                                   </div>
                                               </div>
                                               <div class="form-group mb-3 col-6">
                                                  <label for="function_name">Function</label>
                                                   <div class="input-group input-group-alternative">
                                                     <select class="form-control " id="function_name" name="function_name" required>
-                                                     
+                                                     <option value="none">-none-</option>
                                                     </select>
                                                       <!-- <input class="form-control" placeholder="Password" type="select"> -->
                                                   </div>
@@ -106,7 +102,15 @@
                                                  <label for="data_changed">Data/Changed </label>
                                                   <div class="input-group input-group-alternative ">
                                                      
-                                                      <input class="form-control"  id="data_changed" name="data_changed" placeholder="Username" type="text">
+                                                      <input class="form-control"  id="data_changed" name="data_changed" placeholder="Data changed" type="text">
+                                                  </div>
+                                              </div>
+                                            </div>
+                                           <div class="form-row">
+                                              <div class="form-group mb-3 col-12">
+                                                 <label for="data_changed">Date </label>
+                                                  <div class="input-group input-group-alternative "> 
+                                                      <input class="form-control"  id="date_" name="date_"  type="date">
                                                   </div>
                                               </div>
                                             </div>
@@ -133,7 +137,7 @@
                <thead class="thead-light">
               <tr class="header">
                 
-                <th> Username</th>
+                <th> Employee Name</th>
                 <th> DATE : TIME</th>
                 <th> Function Used</th>
                 <th> Added/Changed Data</th>
@@ -145,9 +149,7 @@
                 <td><b>No Audit Log Entry Found</b></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                
-                
+                <td></td>                
               </tr>
               </tbody>
             </table>
@@ -169,20 +171,27 @@
 
               function myFunction() 
               {
-                console.log(indexer);
-                var input, filter, table, tr, td, i, txtValue;
+                var input, filter, table, tr, td,td3,td4, i, txtValue,txtValue3,txtValue4;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 var showCount = 0;
+                //console.log(tr.length);
                 for (i = 0; i < tr.length; i++) 
                 {
-                  td = tr[i].getElementsByTagName("td")[indexer];
-                  if (td) 
+                  td = tr[i].getElementsByTagName("td")[0];
+                 
+                  td4 = tr[i].getElementsByTagName("td")[2];
+                  td3 = tr[i].getElementsByTagName("td")[3];
+
+                  if (td || td3 || td4) 
                   {
                     txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter)> -1) 
+                    
+                    txtValue4 = td4.textContent || td4.innerText;
+                    txtValue3 = td3.textContent || td3.innerText;
+                    if ((txtValue.toUpperCase().indexOf(filter)> -1) ||(txtValue4.toUpperCase().indexOf(filter)> -1) || (txtValue3.toUpperCase().indexOf(filter)> -1)) 
                     {
                       tr[i].style.display = "";
                       showCount += 1;
