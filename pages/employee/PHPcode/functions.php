@@ -360,9 +360,7 @@
 			{
 						$dir= "../images/ProfilePic/";		
 						//$counter = count($fileTo["name"]);
-						if(($fileTo["type"] == "image/jpeg")&& ($fileTo["size"] < 125000))
-						{
-							
+						
 									if($fileTo["error"] > 0)
 									{
 													echo "Error: " . $fileTo["error"]  . "<br/>";
@@ -389,18 +387,12 @@
 											}
 											else
 											{
-												return "F,Error in saving employee pic";
+												
 											}
 																
 									}
 				
-						}
-						else
-						{
-								return  'F,There was an error within the picture upload';
-								
-						}
-
+						
 				
 			}
 			

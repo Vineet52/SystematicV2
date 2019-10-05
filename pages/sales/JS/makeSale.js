@@ -3,7 +3,7 @@ var SALEUSERID;
 var SALEUSERNAME;
 var SALEPRODUCTIDs = [];
 var SALEPRODUCTS = [];
-var SALEDELIVERYADD = false;
+var SALEDELIVERYADD ="NO";
 var SALEDELIVERYADDRESSID;
 var productElementsCount = 1;
 var productsArray;
@@ -16,6 +16,22 @@ var INVOICE_SALE_ID;
 
 let saleDeliveryLongitude;
 let saleDeliveryLatitude;
+
+let checkDate=function()
+{
+   var selectedText =$("#delDate").val() //document.getElementById('datepicker').value;
+   var selectedDate = new Date(selectedText);
+   var now = new Date();
+   console.log(selectedDate.getDate());
+   console.log(now.getDate());
+   if (selectedDate.getDate() < now.getDate()) {
+    return false;
+   }
+   else
+   {
+   	return true;
+   }
+}
 
 Array.prototype.remByVal = function(val) {
     for (var i = 0; i < this.length; i++) {
@@ -44,6 +60,7 @@ $(()=>{
 
 			$("input[id='dropdownItem']").on('click', function(){
 				let productIndex = this.name;
+				console.log(SALEDELIVERYADD);
 
 				if (productsArray[productIndex].QUANTITY_AVAILABLE == 0) 
 				{
@@ -205,7 +222,7 @@ $(()=>{
 
 			$("input[id*='dropdownItemCust']").on('click', function(){
 				let customerIndex = this.name;
-
+				console.log(SALEDELIVERYADD);
 
 				SALECUSTOMERID = customersArray[customerIndex].CUSTOMER_ID;
 				//console.log(SALECUSTOMERID);
@@ -257,6 +274,7 @@ $(()=>{
 						}
 						let addressesDiv = $('#customerAddresses');
 						addressesDiv.html(addresses);
+						addressesDiv.append($("<input type='date' name='dtp' id='delDate' style='width:15rem'></input>").addClass("form-control"));
 
 						SALEDELIVERYADDRESSID = $('.deliveryAddressSelect:checked').val();
 						//console.log(SALEDELIVERYADDRESSID);
@@ -306,6 +324,8 @@ $(()=>{
 $("button#finaliseSale").on('click', event => {
 	//console.log(SALECUSTOMERID);
 	//console.log(SALEPRODUCTIDs);
+	let doAjax=true;
+	let deliveryDate=$("#delDate").val();
 	if (SALECUSTOMERID == undefined && SALEPRODUCTIDs.length == 0) 
 	{
 		event.stopPropagation();
@@ -335,6 +355,31 @@ $("button#finaliseSale").on('click', event => {
 		$("#modalHeader").css("background-color", "red");
 		$("#modalCloseButton").attr("onclick","");
 		$('#successfullyAdded').modal("show");
+	}
+	else if(SALEDELIVERYADD)
+	{
+		if(!checkDate())
+		{
+			event.stopPropagation();
+			$('#modal-title-default2').text("Error!");
+			$('#modalText').text("The selected date is before the current date.");
+			$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+			$("#modalHeader").css("background-color", "red");
+			$("#modalCloseButton").attr("onclick","");
+			$('#successfullyAdded').modal("show");
+			doAjax=false;
+		}
+		else if(deliveryDate=="")
+		{
+			event.stopPropagation();
+			$('#modal-title-default2').text("Error!");
+			$('#modalText').text("Please select a date");
+			$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+			$("#modalHeader").css("background-color", "red");
+			$("#modalCloseButton").attr("onclick","");
+			$('#successfullyAdded').modal("show");
+			doAjax=false;
+		}
 	}
 
 	let placeProductQty=[];
@@ -392,7 +437,7 @@ $("button#finaliseSale").on('click', event => {
 });
 
 $("button#confirmSalesManagerPassword").on('click', event => {
-
+	console.log(SALEDELIVERYADD);
 	var password = $("#salesManagerPassword").val().trim();
 	$.ajax({
         url:'PHPcode/verifySalesManagerPassword.php',
@@ -436,7 +481,9 @@ $("button#confirmSalesManagerPassword").on('click', event => {
 				saleDeliveryLongitude = coordinates["Response"]["View"][0]["Result"][0]["Location"]["DisplayPosition"]["Longitude"];
 
 				//console.log("Longitude Before => "+saleDeliveryLongitude+", Latitude Before => "+saleDeliveryLatitude);
-
+				console.log(SALEDELIVERYADD);
+				let dDate=$("#delDate").val();
+				console.log(dDate);
 				$.ajax({
 			        url:'PHPcode/makeSale_.php',
 			        type:'post',
@@ -445,6 +492,7 @@ $("button#confirmSalesManagerPassword").on('click', event => {
 			        	customerID : SALECUSTOMERID,
 			        	saleUserID : SALEUSERID,
 			        	addSaleDelivery: SALEDELIVERYADD,
+			        	addDeliveryDate:dDate,
 			        	saleDeliveryID: SALEDELIVERYADDRESSID,
 			        	deliveryLongitude_: saleDeliveryLongitude,
 			        	deliveryLatitude_: saleDeliveryLatitude
@@ -568,13 +616,13 @@ $('#addSaleDeliveryCheckbox').on('input', function()
 	var makeDelivery = $('#addSaleDeliveryCheckbox').is(":checked");
 	if (makeDelivery == true) 
 	{
-		SALEDELIVERYADD = true;
-		//console.log("Adding Delivery => "+makeDelivery);
+		SALEDELIVERYADD ="YES";
+		console.log("Adding Delivery => "+makeDelivery);
 	}
 	else
 	{
-		SALEDELIVERYADD = false;
-		//console.log("Not adding Delivery => "+makeDelivery);
+		SALEDELIVERYADD ="NO";
+		console.log("Not adding Delivery => "+makeDelivery);
 	}
 });
 
