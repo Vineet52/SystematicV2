@@ -123,17 +123,21 @@
                             </select>
                           </div>
                           
-                            <div class="form-group col-lg-12 col-md-12 col-sm-12 uploader" id="ImageUpload"  onclick="$('#fileUpload').click()">
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12">
                               <!--div class=""-->
-                              <img id="uplaodImage" src=""/>
-                                  <label for="fileUpload" id="ImageUploadLabel">Upload Employee Picture</label>
-                                  
-                                  <input type='hidden' class='form-control' name='set' id="UploadsPic" class="form-control"/>
-                                  <input type='file' class='form-control' id="fileUpload" name='UploadsPic'  class="form-control" required/><br/>
+                
+
+                           
+                              <label for="exampleInputPassword1">Upload Employee Picture</label>
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="UploadsPic" id="fileUpload" onchange="PreviewPic();" required>
+                                  <label class="custom-file-label btn-primary" for="inputGroupFile01">Choose file</label>
+                                </div>
                               </div>
-
-                                
-
+                              <div class="card shadow" style="clear:both">
+                                <iframe id="IDViewer" frameborder="0" scrolling="no" style="height: 230px; width: 100%;"></iframe>
+                              </div>
 
                              
                           <!--/div-->
@@ -170,7 +174,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                       
                     </form>
                   </div>
                 
