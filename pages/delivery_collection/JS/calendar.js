@@ -12,7 +12,7 @@ $(()=>{
         let calArr=[];
         for(let k=0;k<arr.length;k++)
         {
-          calArr[k]={title:'Delivery: '+arr[k]["DELIVERY_ID"],start:arr[k]["EXPECTED_DATE"]};
+          calArr[k]={id:arr[k]["SALE_ID"],title:'Delivery: '+arr[k]["SALE_ID"],start:arr[k]["EXPECTED_DATE"]};
         }
         console.log(calArr);
         var calendarEl = document.getElementById('calender');
@@ -29,7 +29,19 @@ $(()=>{
           events:calArr,
           eventClick: function(info) {
             info.jsEvent.preventDefault();
-            window.open("assign-truck-view-delivery.php");
+            let saleid=parseInt(info.event.id);
+            $.ajax({
+              url:'pages/delivery_collection/PHPcode/calendardelivery.php',
+              type:'POST',
+              data:{SALE_ID:saleid}
+            })
+            .done(data=>{
+              $("#delID").val(saleid);
+              $("#delInfo").val(data);
+              $("#delView").submit();
+            });
+            
+            //window.open("assign-truck-view-delivery.php");
             // alert('Event: ' + info.event.title);
             // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
             // alert('View: ' + info.view.type);

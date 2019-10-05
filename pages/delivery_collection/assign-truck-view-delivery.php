@@ -5,6 +5,7 @@
   $employeeData=getAllEmployees($con);
   $saleProductData=getSaleProductDetails($con,$_POST["SALE_ID"]);
   $productData=getProductDetails($con);
+  
   mysqli_close($con);
 ?>
 <!DOCTYPE html>
@@ -78,6 +79,8 @@
                 <div class="col-7 table">
                   <div class="card card-stats table light" id="myTabContent" >
                     <div class="card-body px-3">
+                      <label id="delChoice" hidden="true"><?php echo $_POST["choice"];?></label>
+                      <label id="delInfo" hidden="true"><?php echo $_POST["DEL_INFO"];?></label>
                       <label id="dctData" hidden="true"><?php echo $_POST["DCT_STATUS_ID"];?></label>
                       <label id="aData" hidden="true"><?php echo $_POST["ADDRESS_DATA"];?></label>
                       <label id="subData" hidden="true"><?php echo $_POST["SUBURB_DATA"];?></label>
