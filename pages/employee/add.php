@@ -15,6 +15,9 @@
   <!-- Icons -->
   <link href="../../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
   <link href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <!-- Image Uploader CSS -->
+  <!--link type="text/css" href="ImageUploader_CSS/imageUploader.css" rel="stylesheet"-->
+
   <!-- Argon CSS -->
   <link type="text/css" href="../../assets/css/argon.css?v=1.0.0" rel="stylesheet">
   <link href="../../assets/jqueryui/jquery-ui.css" rel="stylesheet">
@@ -120,13 +123,20 @@
                             </select>
                           </div>
                           
-                            <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                                <label for="UploadsPic">Upload Employee Picture</label>
-                                <input type='hidden' class='form-control' name='set' id="UploadsPic" class="form-control"/>
-                                <input type='file' class='form-control' id="fileUpload" name='UploadsPic'  class="form-control"/><br/>
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 uploader" id="ImageUpload"  onclick="$('#fileUpload').click()">
+                              <!--div class=""-->
+                              <img id="uplaodImage" src=""/>
+                                  <label for="fileUpload" id="ImageUploadLabel">Upload Employee Picture</label>
+                                  
+                                  <input type='hidden' class='form-control' name='set' id="UploadsPic" class="form-control"/>
+                                  <input type='file' class='form-control' id="fileUpload" name='UploadsPic'  class="form-control" required/><br/>
+                              </div>
+
                                 
+
+
                              
-                          </div>
+                          <!--/div-->
                           
                         </div>
                         <div>
@@ -140,9 +150,7 @@
                                       <div class="modal-header" id="modalHeader">
 
                                           <h6 class="modal-title" id="modal-title-default" >Success!</h6>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">×</span>
-                                          </button>
+                                          
                                       </div>
                                       
                                       <div class="modal-body">

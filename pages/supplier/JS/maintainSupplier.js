@@ -352,12 +352,11 @@ $(()=>{
 				data: {choice:2,ID:supID,num:count,name:arr["name"],vat:arr["VATNumber"],contact:arr["con"],email:arr["email"],address:arr["address"],suburb:arr["suburb"],city:arr["city"],zip:arr["zip"]},
 				beforeSend:function(){
 					$('.loadingModal').modal('show');
-				},
-				complete:function(){
-					$('.loadingModal').modal('hide');
-				} 
+				}
 			})
 			.done(data=>{
+
+				$('.loadingModal').modal('hide');
 				let doneData=data.split(",");
 				console.log(doneData);
 				if(doneData[0]=="T")
@@ -366,7 +365,7 @@ $(()=>{
 					$("#MMessage").text(doneData[1]);
 					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
 					$("#modalHeader").css("background-color", "#1ab394");
-					$("#btnClose").attr("onclick","window.location='../../supplier.php'");
+					$("#btnClose").attr("onclick","window.location='search-supplier.php'");
 					$("#displayModal").modal("show");
 				}
 				else

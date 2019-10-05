@@ -2,9 +2,16 @@ $(()=>{
 	$.ajax({
 		url: 'PHPcode/searchUser-SQL.php',
 		type: 'POST',
-		data: {choice:2} 
+		data: {choice:2},
+		beforeSend: function(){
+			$('.loadingModal').modal('show');
+		}
 	})
 	.done(data=>{
+
+
+		$('.loadingModal').modal('hide');
+		
 		console.log(data);
 		if(data!="False")
 		{

@@ -13,8 +13,9 @@ $(document).ready(function(){
                 data:{employee_ID:employeeID, reason:dismissalReason},
                 beforeSend: function(){
                     $('.loadingModal').modal('show');
-                },
-                success:function(data)
+                }
+                })
+                .done(data=>
                 {
                     $('.loadingModal').modal('hide');
                     console.log(data);
@@ -44,7 +45,7 @@ $(document).ready(function(){
                         $("#modalHeader").css("background-color", "red");
                         $("#dismissEmployeeSuccess").modal("show");
                     }
-                },
+                
             });
         
         

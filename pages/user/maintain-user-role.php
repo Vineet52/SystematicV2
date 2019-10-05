@@ -34,7 +34,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Add User Role</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Maintain User Role</a>
         <?php include_once("../usernavbar.php");?>
         
       </div>
@@ -134,25 +134,32 @@
               </div>
 
                       <div class="form-group col-md-2">
-                          <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h6 class="modal-title" id="modal-title-default">Success!</h6>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">×</span>
-                                    </button>
+                          <div class="modal fade errorModal successModal text-center" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                              <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header" id="modalHeader">
+                                          <h6 class="modal-title" id="modal-title-default">Success!</h6>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">×</span>
+                                          </button>
+                                      </div>      
+                                      <div class="modal-body text-left">
+                                          <p id="modalText"></p>
+                                            <div id="animation" style="text-align:center;">
+
+                                            </div>                             
+                                      </div>
+                                      <div class="modal-footer">  
+                                          <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal"id="modalCloseButton" onclick="">Close</button> 
+                                      </div>
                                   </div>
-                                  <div class="modal-body">
-                                    <p id="modalText"></p>
-                                  </div>
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn btn-link" id="modalCloseButton" ml-auto" data-dismiss="modal" onclick="window.location='../../user.php'">Close</button> 
-                                  </div>
-                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
+
+
+                        
 
                     </form>
                   </div>
@@ -168,6 +175,13 @@
     </div>
   </div>
 
+  <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content px-auto" style="">
+              <img class="loading" src="../../assets/img/loading/loading.gif">
+          </div>
+      </div>
+  </div>
   <!-- Argon Scripts -->
   <!-- Core -->
 

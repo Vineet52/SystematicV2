@@ -5,11 +5,7 @@ $(()=>{
 
         console.log(dateFrom);
         console.log(dateTo);
-        let comDateFrom = new Date(dateFrom);
-        let comDateTo = new Date(dateTo);
-
-        console.log(comDateFrom);
-        console.log(comDateTo);
+        
 
         $.ajax({
             url: 'PHPcode/productTrends.php',

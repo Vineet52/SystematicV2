@@ -55,7 +55,7 @@ $(()=>{
 	let accountButton="";
 	if(accountCheck=="True")
 	{
-		accountButton=$("<button></button>").addClass("btn btn-icon btn-2 btn-default btn-sm").css("width", "8rem");
+		accountButton=$("<button></button>").addClass("btn btn-icon btn-2 btn-default btn-sm").css("width", "10rem");
 		accountButton.attr("type","submit");
 		accountButton.append("<span class='btn-inner--icon'><i class='fas fa-eye'></i></span>");
 		let innerButtonText=$("<span></span>").addClass("btn-inner--text");
@@ -66,7 +66,7 @@ $(()=>{
 	}
 	else
 	{
-		accountButton=$("<button></button>").addClass("btn btn-icon btn-2 btn-default btn-sm").css("width", "9rem");
+		accountButton=$("<button></button>").addClass("btn btn-icon btn-2 btn-default btn-sm").css("width", "10rem");
 		accountButton.attr("type","submit");
 		accountButton.append("<span class='btn-inner--icon'><i class='fas fa-eye'></i></span>");
 		let innerButtonText=$("<span></span>").addClass("btn-inner--text");
@@ -145,11 +145,25 @@ $(()=>{
                 console.log(data);
                 if(data=="success"){
                 	console.log("success");
-                	$("#modal-succ-del").modal("show");
+	    			$('#modal-title-default2').text("Success!");
+					$('#modalText').text("Customer deleted successfully");
+					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+					$("#modalHeader").css("background-color", "#1ab394");
+					$('#successfullyAdded').modal("show");
+					$("#btnClose").attr("onclick","window.location='search.php'");
+					$("#displayModal").modal("show");
+										
                 }
                 else{
                
                 	console.log("failed");
+					$('#modal-title-default2').text("Error!");
+					$('#modalText').text("Customer has a transaction(s) , customer not deleted");
+					$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+					$("#modalHeader").css("background-color", "red");
+					$('#successfullyAdded').modal("show");
+					$("#btnClose").attr("data-dismiss","modal");
+					$("#displayModal").modal("show");
                 }
        
               }           

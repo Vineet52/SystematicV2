@@ -183,7 +183,7 @@ if(isset($_SESSION['userID']))
                 ?>
                 <div class="col-lg-4 col-md-6">
                   <button type="button" class="btn-icon-clipboard"  href="#">
-                    <a href="pages/admin/delete-user.php">
+                    <a href="pages/admin/view-audit-log.php">
                       <div>
                         <i class="fas fa-user-times"></i>
                         <span>Export Audit Log</span>
@@ -203,7 +203,7 @@ if(isset($_SESSION['userID']))
                     <a href="">
                       <div>
                       <i class="far fa-clock"></i>
-                        <span>Maintain Overdue Delivery Status</span>
+                        <span>Configureable timer</span>
                       </div>
                     </a>
                   </button>

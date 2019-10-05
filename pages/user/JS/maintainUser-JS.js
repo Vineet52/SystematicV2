@@ -9,9 +9,15 @@ $(document).ready(function()
             $.ajax({
                 url:"PHPcode/addUser-SQL.php",
                 type:'POST',
-                data:{choice:0}
+                data:{choice:0},
+                beforeSend: function(){
+                    $('.loadingModal').modal('show');
+                }
             })
             .done(data=>{
+              
+                    $('.loadingModal').modal('hide');
+              
                 if(data!="False")
                 {
                     let arr=JSON.parse(data);
@@ -86,12 +92,16 @@ $(document).ready(function()
                         {
                             $("#modal-title-default").text("Success!");
                             $("#modalText").text("User updated successfully.");
+                            $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "#1ab394");
                             $("#btnClose").attr("onclick","window.location='../../user.php'");
                             $("#displayModal").modal("show");
                         }
                         else
                         {
                             $("#modal-title-default").text("Error!");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
                             $("#modalText").text("Database error");
                            
                             $("#displayModal").modal("show");

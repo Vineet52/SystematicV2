@@ -24,6 +24,7 @@
   $cityID;
   $titleID;
   $employeeStatus;
+  $wage_earner = false;
   if(isset($_GET["employeeID"]))
   {
     //include_once("PHPcode/connection.php");
@@ -70,6 +71,9 @@
                     $identityNo = $rowsQuery["IDENTITY_NUMBER"];
                     $addressID = $rowsQuery["ADDRESS_ID"];
                     $employeeTypeID = $rowsQuery["EMPLOYEE_TYPE_ID"];
+
+
+
                     $titleID = $rowsQuery["TITLE_ID"];
                     $employeeStatus = $rowsQuery["EMPLOYEE_STATUS_ID"];
                   }
@@ -86,14 +90,48 @@
                 {
                     echo "not found";
                 }
-                   
+
+
+
+                $Wagesql = "SELECT EMPLOYEE_TYPE.WAGE_EARNING FROM EMPLOYEE
+                INNER JOIN EMPLOYEE_TYPE
+                ON EMPLOYEE.EMPLOYEE_TYPE_ID = EMPLOYEE_TYPE.EMPLOYEE_TYPE_ID
+                 WHERE (EMPLOYEE_ID='$employeeID')";
+                $Wagequery_QR = mysqli_query($DBConnect , $Wagesql);
             
+            
+            
+            
+            
+            if(mysqli_num_rows($Wagequery_QR)>0)
+                {
+                    if($Wagerow = mysqli_fetch_assoc($Wagequery_QR))
+                    {
+                        if($Wagerow["WAGE_EARNING"] == 1)
+                        {
+                          $wage_earner = true;
+                        }
+                        else
+                        {
+                          $wage_earner = false;
+                        }
+                    }
+                }
                 mysqli_close($DBConnect);
+            
+               
     }
+
+
+
+
+   
     //getting the address stuff
 
     include_once("PHPcode/connection.php");
     include_once("PHPcode/functions.php");
+
+
 
     $addressInfo=getAddressInfo($con,$addressID);
     $suburbInfo=getSuburbInfo($con,$addressInfo["SUBURB_ID"]);
@@ -120,10 +158,42 @@
     $cityInfo=getCityInfo($con,$suburbInfo["CITY_ID"]);
     $employeeType=getEmployeeType($con,$_POST["EMPLOYEE_TYPE_ID"]);
     $titleInfo=getTitleInfo($con,$_POST["TITLE_ID"]);
-    mysqli_close($con);
+    
 
 
     $employeeID = $_POST["EMPLOYEE_ID"];  
+
+    $Wagesql = "SELECT EMPLOYEE_TYPE.WAGE_EARNING FROM EMPLOYEE
+    INNER JOIN EMPLOYEE_TYPE
+    ON EMPLOYEE.EMPLOYEE_TYPE_ID = EMPLOYEE_TYPE.EMPLOYEE_TYPE_ID
+     WHERE (EMPLOYEE_ID='$employeeID')";
+    $Wagequery_QR = mysqli_query($con, $Wagesql);
+
+
+
+
+
+if(mysqli_num_rows($Wagequery_QR)>0)
+    {
+        if($Wagerow = mysqli_fetch_assoc($Wagequery_QR))
+        {
+            if($Wagerow["WAGE_EARNING"] == 1)
+            {
+              $wage_earner = true;
+            }
+            else
+            {
+              $wage_earner = false;
+            }
+        }
+    }
+
+
+    mysqli_close($con);
+
+
+
+    //Initialise variables
     $name = $_POST["NAME"]; 
     $surname = $_POST["SURNAME"]; 
     $contactNumber = $_POST["CONTACT_NUMBER"]; 
@@ -136,6 +206,8 @@
     $addressInfoLine1 = $addressInfo["ADDRESS_LINE_1"];
     $suburbName = $suburbInfo["NAME"];
     $cityName = $cityInfo["CITY_NAME"];
+
+    
 
   }
 ?>
@@ -228,10 +300,11 @@
                 <h2>
                   <?php echo $titleName." ".$name." ".$surname; ?>
                 </h2>
-                  <div class="row mb-2">
+                  <div class="row mb-2" id="ShowDiv">
                     <div class="col d-inline mx-0 px-0">
                       <form action='' method="POST" id="addUserView">
                         <input type="hidden" name="ID" value=<?php echo $employeeID;?>>
+                        <input type="hidden" name="wageEarner" id="wager" value=<?php echo $wage_earner;?>>
                         <input type="hidden" name="EMAIL" value=<?php echo $email;?>>
 
                         <button class="btn btn-icon btn-2 btn-default btn-sm px-2" type="button" id="wageCalc" style="width: 10rem">
@@ -289,10 +362,14 @@
                   
                   <div class="pt-3"><b>Contact Number : </b><p class="d-inline"><?php echo $contactNumber ?></p></div>
                 </hr>
+                <?php 
+                
+                $address = $addressInfoLine1;
+                ?>
                 <hr class="h5 font-weight-300 pb-0 mt-3 pt-0">
                   <i class="ni location_pin mr-2 text-center"></i>
                   <h3 class="text-center pt-0 mt-0"><b>Address :</b></h3>
-                  <p class="mb-0"><?php echo $addressInfoLine1;?></p>
+                  <p class="mb-0" id="AddressMan"><?php echo $addressInfoLine1;?></p>
                   <p class="mb-0" id="eSuburb"><?php echo $suburbName.", ".$cityName.", ".$zipCode;?></p>
                   <p class="mb-0">South Africa</p>
                 </div>
@@ -309,9 +386,9 @@
                         <input type="hidden" name="TITLE_NAME" value=<?php echo $titleName;?>>
                         <input type="hidden" id="EMPLOYEE_TYPE_NAME" name="EMPLOYEE_TYPE_NAME">
                         <input type="hidden" name="EMPLOYEE_STATUS_ID" value=<?php echo $employeeStatus;?>>
-                        <input type="hidden" name="ADDR" id="ADDR">
-                        <input type="hidden" name="SUBURB" id="SUBURB">
-                        <input type="hidden" name="CITY" id="CITY">
+                        <input type="hidden" name="ADDR" id="ADDR" value="<?php echo $address?>">
+                        <input type="hidden" name="SUBURB" id="SUBURB" value=<?php echo $suburbName;?>>
+                        <input type="hidden" name="CITY" id="CITY" value=<?php echo $cityName;?>>
                         <input type="hidden" name="ZIP" value=<?php echo $zipCode;?>>
                         <button class="btn btn-icon btn-2 btn-primary btn-sm px-3" type="submit" style="width: 7rem">
                           <span class="btn-inner--icon"><i class="fas fa-wrench"></i>

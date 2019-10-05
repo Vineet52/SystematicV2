@@ -1,14 +1,8 @@
 $(()=>{
 	$.ajax({
-		url: 'PHPcode/addSupplierCode.php',
+		url: 'PHPcode/addSuppliercode.php',
 		type: 'POST',
-		data: {choice:3},
-		beforeSend:function(){
-			$('.loadingModal').modal('show');
-		},
-		complete:function(){
-			$('.loadingModal').modal('hide');
-		}  
+		data: {choice:3}
 	})
 	.done(data=>{
 		if(data!="False")

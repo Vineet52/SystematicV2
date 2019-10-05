@@ -78,20 +78,21 @@ $("#addUserRole").on("click",function(event)
                 userRoleName_ : userRoleName,
                 subFunctionalities_ : subFunctionalities
             },
-            success:function(data)
-            {
-                // $('#subFunctionalitites option:selected').each(function(){
-                //     $(this).prop('selected', false);
-                // });
-                //$('#subFunctionalitites').multiselect('refresh');
+            beforeSend: function(){
+                $('.loadingModal').modal('show');
             }
         })
         .done(response =>{
+           
+                $('.loadingModal').modal('hide');
+            
             
             if(response == "success")
             {
                 $("#modal-title-default").text("Success!");
                 $("#modalText").text("User role added successfully");
+                $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                $("#modalHeader").css("background-color", "#1ab394");
                 $("#btnClose").attr("onclick","window.location='../../user.php'");
                 $("#displayModal").modal("show");
             }
@@ -100,13 +101,16 @@ $("#addUserRole").on("click",function(event)
                 console.log(response);
                 $("#modal-title-default").text("Error!");
                 $("#modalText").text("User exists! , press close and try again");
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                $("#modalHeader").css("background-color", "red");
                 $("#displayModal").modal("show");
             }
             else
             {
                 $("#modal-title-default").text("Error!");
                 $("#modalText").text("Database error");
-               
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                $("#modalHeader").css("background-color", "red");
                 $("#displayModal").modal("show");
             }
         });

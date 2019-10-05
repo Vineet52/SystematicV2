@@ -1,6 +1,4 @@
 <?php
-
-	include_once("../../sessionCheckPages.php");
 	function getSupplierAddressIDs($con,$supID)
 	{
 		$get_query="SELECT ADDRESS_ID FROM SUPPLIER_ADDRESS WHERE SUPPLIER_ID='$supID'";
@@ -234,9 +232,9 @@
 		return $addressID;
 	}
 	//////////////////////////////////////////////////
-	function checkEmployee($con,$name,$surname,$contact)
+	function checkEmployee($con,$name,$surname,$contact,$email)
 	{
-		$check_query="SELECT * FROM EMPLOYEE WHERE NAME='$name' AND SURNAME='$surname' AND CONTACT_NUMBER='$contact'";
+		$check_query="SELECT * FROM EMPLOYEE WHERE (NAME='$name' AND SURNAME='$surname' AND CONTACT_NUMBER='$contact') OR (EMAIL = '$email')";
 		$check_result=mysqli_query($con,$check_query);
 		if(mysqli_num_rows($check_result)>0)
 		{
@@ -253,29 +251,24 @@
 		$add_query="INSERT INTO EMPLOYEE (NAME,SURNAME,CONTACT_NUMBER,EMAIL,IDENTITY_NUMBER,ADDRESS_ID,TITLE_ID,EMPLOYEE_TYPE_ID,EMPLOYEE_STATUS_ID) VALUES ('$name','$surname','$contact','$email','$passID','$addID','$titleID','$eTypeID','$eStatusID')";
 		$add_result=mysqli_query($con,$add_query);
 		$last_id = mysqli_insert_id($con);
-		if($add_result)
-		{
-
-		    $DateAudit = date('Y-m-d H:i:s');
-		    $Functionality_ID='2.1';
-		   $userID = $_SESSION['userID'];
-		    $changes="ID : ".$last_id."| Name : ".$name." ".$surname;
-	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
-	        $audit_result=mysqli_query($con,$audit_query);
-	        if($audit_result)
-	        {
-	          
-	        }
-	        else
-	        {
-	          
-	        }
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		
+			if($add_result)
+			{
+				
+				$DateAudit = date('Y-m-d H:i:s');
+				$Functionality_ID='2.1';
+			   	$userID = $_SESSION['userID'];
+				$changes="ID : ".$last_id."| Name : ".$name." ".$surname;
+				$audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+				$audit_result=mysqli_query($con,$audit_query);
+		
+	
+				return true;
+			}
+			else
+			{
+				return false;
+			}	
 	}
 	///////////////////////////////////////////////////
 	function getEmployeeID($con,$name,$surname,$contact)
@@ -326,12 +319,116 @@
 		}
 	}
 	//////////////////////////////////////////////////////////
-	function maintainEmployee($con,$id,$name,$surname,$contact,$email,$identity,$addID,$titleID,$employeeTypeID,$employeeStatusID)
+	function maintainEmployee($con,$id,$name,$surname,$contact,$email,$identity,$addID,$titleID,$employeeTypeID,$employeeStatusID,$fileTo)
 	{
-		$update_query="UPDATE EMPLOYEE SET NAME='$name',SURNAME='$surname',CONTACT_NUMBER='$contact',IDENTITY_NUMBER='$identity',EMAIL='$email',ADDRESS_ID='$addID',TITLE_ID='$titleID',EMPLOYEE_TYPE_ID='$employeeTypeID',EMPLOYEE_STATUS_ID='$employeeStatusID' WHERE EMPLOYEE_ID='$id'";
+
+		$changes="";
+		$employee_query="SELECT * FROM EMPLOYEE WHERE EMPLOYEE_ID='$id'";
+		$employee_result=mysqli_query($con,$employee_query);
+		if(mysqli_num_rows($employee_result)>0)
+		{
+			$row=$employee_result->fetch_assoc();
+			$changes="ID :".$row['EMPLOYEE_ID'];
+			if($name != $row['NAME']){
+				$changes=$changes." | Name :".$row['NAME'];
+			}
+			if($surname != $row['SURNAME']){
+				$changes=$changes." | Surname :".$row['SURNAME'];
+			}
+			if($contact != $row['CONTACT_NUMBER']){
+				$changes=$changes." | Contact number :".$row['CONTACT_NUMBER'];
+			}
+			if($identity != $row['IDENTITY_NUMBER']){
+				$changes=$changes." | Identity number :".$row['IDENTITY_NUMBER'];
+			}
+			if($email != $row['EMAIL']){
+				$changes=$changes." | Email :".$row['EMAIL'];
+			}
+			if($addID != $row['ADDRESS_ID']){
+				$changes=$changes." | Address ID :".$row['ADDRESS_ID'];
+			}
+			if($titleID != $row['TITLE_ID']){
+				$changes=$changes." | Title ID :".$row['TITLE_ID'];
+			}
+			if($employeeTypeID != $row['EMPLOYEE_TYPE_ID']){
+				$changes=$changes." | Employee Type ID :".$row['EMPLOYEE_TYPE_ID'];
+			}
+			if($employeeStatusID != $row['EMPLOYEE_STATUS_ID']){
+				$changes=$changes." | Employee Status ID :".$row['EMPLOYEE_STATUS_ID'];
+			}
+			if($fileTo != "Empty")
+			{
+						$dir= "../images/ProfilePic/";		
+						//$counter = count($fileTo["name"]);
+						if(($fileTo["type"] == "image/jpeg")&& ($fileTo["size"] < 125000))
+						{
+							
+									if($fileTo["error"] > 0)
+									{
+													echo "Error: " . $fileTo["error"]  . "<br/>";
+									}
+									else
+									{
+								
+											$faker = true;
+											$temp = explode(".", $fileTo["name"]);
+											$newfilename = $id . '.' . end($temp);
+											move_uploaded_file($fileTo["tmp_name"] , $dir . $newfilename);
+										
+											//Upload pic on database.
+											$query = "UPDATE EMPLOYEE_PICTURE
+											SET `FILENAME`= '$newfilename'
+											WHERE (`EMPLOYEE_ID` = '$id')"; // insert the user_id for specific pictures
+											$res = mysqli_query($con, $query);
+											//var_dump($res);
+												
+											if(($res== true))
+											{
+												$changes=$changes." | Updated Employee Profile Image";
+														
+											}
+											else
+											{
+												return "F,Error in saving employee pic";
+											}
+																
+									}
+				
+						}
+						else
+						{
+								return  'F,There was an error within the picture upload';
+								
+						}
+
+				
+			}
+			
+				
+			
+			
+
+
+			// $changes="ID :".$row['EMPLOYEE_ID']."Name :".$row['NAME']." | ".$row['SURNAME']." | ".$row['EMAIL']." | ".$row['CONTACT_NUMBER'];
+		}
+		else
+		{
+			return false;
+		}
+
+
+		$update_query="UPDATE EMPLOYEE 
+		SET NAME='$name',SURNAME='$surname',CONTACT_NUMBER='$contact',IDENTITY_NUMBER='$identity',EMAIL='$email',ADDRESS_ID='$addID',TITLE_ID='$titleID',EMPLOYEE_TYPE_ID='$employeeTypeID',EMPLOYEE_STATUS_ID='$employeeStatusID'
+		WHERE EMPLOYEE_ID='$id'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='2.2';
+		    $userID = $_SESSION['userID'];
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
+
 			return true;
 		}
 		else

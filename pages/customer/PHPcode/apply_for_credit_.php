@@ -13,18 +13,21 @@
 	$database = ltrim($dbparts['path'],'/');
 
 	$con = mysqli_connect($hostname, $username, $password, $database);
+	$errors = 0;
 
 	//Check connection
-		if (!$con) {
-		  die("Connection failed: " . mysqli_connect_error());
-		}
+	if (!$con) {
+	  echo "database error";
+	}
+	else
+	{
 		$customerID = $_POST["customerID"];
 		//echo $customerID;
 		$date= date("Y-m-d");
 		$balance=0;
 		$limit = $_POST["credit-limit"];
 		$add_query="INSERT INTO CUSTOMER_ACCOUNT (CUSTOMER_ID,DATE_OPENED,BALANCE,CREDIT_LIMIT) VALUES ('$customerID','$date','$balance','$limit')";
-		if(mysqli_query($con,$add_query))
+		if(!mysqli_query($con,$add_query))
 		{
 			$last_id=$customerID;
 			$DateAudit = date('Y-m-d H:i:s');
@@ -42,51 +45,55 @@
 	          
 	        }
 			echo "success";
+			$errors++;
+		}
+
+
+	    for($i=0; $i < count($_FILES); $i++)
+	    {
+	    	$name = $_FILES['file-'.($i+1)]["name"];
+	    	$extExplode = explode(".", $name);
+			$ext = end($extExplode);
+	    	$newFileName = "";
+	    	if ($i==0) 
+	    	{
+	    		$newFileName = $customerID."_Bank-Statement.".$ext;
+
+	    	} 
+	    	else if ($i==1) 
+	    	{
+	    		$newFileName = $customerID."_ID-Copy.".$ext;
+	    	}
+	    	else 
+	    	{
+	    		$newFileName = $customerID."_Proof-Of-Residence.".$ext;
+	    	}
+
+	    	if (!file_exists('../../../documents/'.$customerID)) {
+	    		mkdir('../../../documents/'.$customerID, 0777, true);
+	    	}
+
+		    if(move_uploaded_file($_FILES['file-'.($i+1)]['tmp_name'], '../../../documents/'.$customerID.'/'.$newFileName))
+		    {
+
+		    	$file = "../../../documents/".$customerID.'/'.$newFileName;
+		    	uploadFile($file, $customerID);
+		        
+		    } 
+		    else
+		    {
+		    	$errors++;
+		    }
+		}
+
+		if($errors == 0)
+		{
+			echo "success";
 		}
 		else
 		{
 			echo "failed";
-		}	
-	
-
-
-
-    for($i=0; $i < count($_FILES); $i++)
-    {
-    	$name = $_FILES['file-'.($i+1)]["name"];
-    	$extExplode = explode(".", $name);
-		$ext = end($extExplode);
-    	$newFileName = "";
-    	if ($i==0) 
-    	{
-    		$newFileName = $customerID."_Bank-Statement.".$ext;
-
-    	} 
-    	else if ($i==1) 
-    	{
-    		$newFileName = $customerID."_ID-Copy.".$ext;
-    	}
-    	else 
-    	{
-    		$newFileName = $customerID."_Proof-Of-Residence.".$ext;
-    	}
-
-    	if (!file_exists('../../../documents/'.$customerID)) {
-    		mkdir('../../../documents/'.$customerID, 0777, true);
-    	}
-
-	    if(move_uploaded_file($_FILES['file-'.($i+1)]['tmp_name'], '../../../documents/'.$customerID.'/'.$newFileName))
-	    {
-
-	    	$file = "../../../documents/".$customerID.'/'.$newFileName;
-	    	uploadFile($file, $customerID);
-	        echo "file has been uploaded successfully";
-	    } 
-	    else
-	    {
-
-	        echo "Error uploading file";
-	    }
+		}
 	}
 
 	function uploadFile($filePath, $custID)

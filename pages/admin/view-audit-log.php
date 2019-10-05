@@ -48,6 +48,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
+              <div class="row">
                <div class="input-group input-group-rounded input-group-merge col">
                  
                  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Enter audit log search details" title="Type in a name" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
@@ -65,7 +66,65 @@
                   </button>
                   <button type="button" class="btn btn-primary col-1 px-2" onclick="setIndexer(2)">Function
                   </button>
+                </div>
+              </div>
+              <div class="row mt-4 mb-2">
+                    <div class="col-md-4 ">
+                      <button type="button" class="btn btn-block btn-success  col-6" data-toggle="modal" data-target="#modal-form">Advanced Search</button>
+                      <button type="button" class="btn btn-success col-3 mt-3" id="refresh" ><i class="fas fa-sync-alt"></i></button>
+                      <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                        <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body p-0">
+                                  <div class="card bg-secondary shadow border-0">
+                                      <div class="card-header bg-transparent pb-3">
+                                          <div class="text-muted text-center mt-2 mb-3"><small>Advanced Search</small></div>
+                                      </div>
+                                      <div class="card-body px-lg-5 py-lg-5">
+                                          <form  id="advanced_search_form">
+                                            <div class="form-row">
+                                              <div class="form-group mb-3 col-6">
+                                                 <label for="username">User Name</label>
+                                                  <div class="input-group input-group-alternative ">
+                                                     
+                                                      <input class="form-control"id="username" name="username" placeholder="Username" type="text">
+                                                  </div>
+                                              </div>
+                                              <div class="form-group mb-3 col-6">
+                                                 <label for="function_name">Function</label>
+                                                  <div class="input-group input-group-alternative">
+                                                    <select class="form-control " id="function_name" name="function_name" required>
+                                                     
+                                                    </select>
+                                                      <!-- <input class="form-control" placeholder="Password" type="select"> -->
+                                                  </div>
+
+                                              </div>
+                                            </div>
+                                            <div class="form-row">
+                                              <div class="form-group mb-3 col-12">
+                                                 <label for="data_changed">Data/Changed </label>
+                                                  <div class="input-group input-group-alternative ">
+                                                     
+                                                      <input class="form-control"  id="data_changed" name="data_changed" placeholder="Username" type="text">
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                              <div class="text-center">
+                                                  <button type="button" id="advanced_search" class="btn btn-success my-4">Search</button>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
+      
 
           </div>
           <div class="table-responsive">
@@ -74,7 +133,7 @@
                <thead class="thead-light">
               <tr class="header">
                 
-                <th> User ID</th>
+                <th> Username</th>
                 <th> DATE : TIME</th>
                 <th> Function Used</th>
                 <th> Added/Changed Data</th>
@@ -165,6 +224,8 @@
   <script src="../../assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
+  <!-- Moment JS -->
+  <script src="../../assets/js/moment.js"></script>
   <script type="text/javascript" src="JS/viewAudit.js"></script>
 </body>
 

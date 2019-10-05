@@ -136,11 +136,11 @@ $(()=>{
 				$('#supplierSearchInput').val("");
 				let supplierID = $('#supplierSearchInput').val();
 				let supplierCard = $('#supplierCard');
-				let supplierInfo = '<tr><th style="width: 12rem">Supplier ID</th><td >'+suppliersArray[customerIndex].SUPPLIER_ID+'</td></tr><tr><th>Supplier Name</th><td>'+suppliersArray[customerIndex].NAME+'</td></tr>';
+				let supplierInfo = '<tr><th class="py-1">Supplier ID</th><td class="py-1">'+suppliersArray[customerIndex].SUPPLIER_ID+'</td></tr><tr><th class="py-1">Supplier Name</th><td class="py-1">'+suppliersArray[customerIndex].NAME+'</td></tr>';
 				
-				supplierInfo +='<tr><th>VAT #</th><td >'+suppliersArray[customerIndex].VAT_NUMBER+'</td></tr>';
-				supplierInfo +='<tr><th>Contact #</th><td >'+suppliersArray[customerIndex].CONTACT_NUMBER+'</td></tr>';
-				supplierInfo +='<tr><th>Email</th><td >'+suppliersArray[customerIndex].EMAIL+'</td></tr>';
+				supplierInfo +='<tr><th class="py-1">VAT #</th><td class="py-1">'+suppliersArray[customerIndex].VAT_NUMBER+'</td></tr>';
+				supplierInfo +='<tr><th class="py-1">Contact #</th><td class="py-1">'+suppliersArray[customerIndex].CONTACT_NUMBER+'</td></tr>';
+				supplierInfo +='<tr><th class="py-1">Email</th><td class="py-1">'+suppliersArray[customerIndex].EMAIL+'</td></tr>';
 				supplierCard.html(supplierInfo);
 
 				INVOICE_SUPPLIER_NAME = suppliersArray[customerIndex].NAME;
@@ -341,16 +341,7 @@ $("button#confirmPlaceOrder").on('click', event => {
 	        beforeSend: function(){
 	            $('.loadingModal').modal('show');
 	            //console.log("Longitude => "+orderCollectionLongitude+", Latitude => "+orderCollectionLatitude);
-
-	        },
-	        complete: function(){
-	            $('.loadingModal').modal('hide');
-	        },
-		    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-		        console.log("Status: " + textStatus); 
-		        console.log("Error: " + errorThrown); 
-		        $('.loadingModal').modal('hide');
-		    } 
+	        }
 	    })
 	    .done(response => {
 	    	$('.loadingModal').modal('hide');
@@ -546,7 +537,7 @@ function filter(word)
 
   	for (let i = 0; i < length; i++) 
 	{
-	    if (items[i].value.toLowerCase().startsWith(word)) 
+	    if (items[i].value.toLowerCase().includes(word)) 
 	    {
 	        $(items[i]).show()
 	    }
@@ -576,7 +567,7 @@ function filterCustomers(word)
 
   	for (let i = 0; i < length; i++) 
 	{
-	    if (items[i].value.toLowerCase().startsWith(word)) 
+	    if (items[i].value.toLowerCase().includes(word)) 
 	    {
 	        $(items[i]).show()
 	    }

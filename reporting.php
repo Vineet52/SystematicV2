@@ -183,19 +183,21 @@
               <h5 class="modal-title" id="exampleModalLabel">Enter Date!</h5>
             </div>
             <div class="modal-body">
-                <form action="pages/reports/employeeAttendance.php" method="POST">
+                <form action="pages/reports/employeeAttendance.php" method="POST" id="SubAttForm">
                 <div class="form-group col">
                   <label for="exampleInputPassword1">Please enter date:</label>
                   <input type="date" class="form-control" id="DATE" name="DATE" placeholder="Enter Delivery From">
+                
+                </div>
+                <div class="form-group col">
+                  <input type="button" id ="SubAttButt"  value="Generate Report" class="btn btn-success" ></input>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
                 
               </form>
             </div>
             <div class="modal-footer"> 
-            <div class="form-group col">
-                  <input type="submit" class="btn btn-success" ></input>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                </div>
+           
               
               
             </div>
@@ -387,21 +389,12 @@
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Enter Timeframe!</h5>
             </div>
-           <div class="modal-body">
-              <p>Please enter the timeframe for which the report should be generated?</p>
-                <form action="pages/reports/product-trends-report.php" method="POST" class="d-inline">
-                <div class="form-group col-6">
-                  <label for="exampleInputPassword1">Date From</label>
-                  <input type="date" class="form-control" id="DATEFROM" name="DATEFROM" placeholder="Enter Date of Sale From">
-                </div>
-                <div class="form-group col-6">
-                  <label for="exampleInputPassword1">Date To</label>
-                  <input type="date" class="form-control" id="DATETO" name="DATETO" placeholder="Enter Date of Sale To">
-                </div>
-                <input type="submit" class="btn btn-success" id="ReportError" value="Generate Report"></input>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-              </form>
+           <div class="modal-body" id="SubmitReport">
+            
+               
             </div>
+
+
             <!--div class="modal-footer">  
               <a href="pages/reports/product-trends-report.php"class="btn btn-success" >Generate Report</a>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -409,6 +402,39 @@
           </div>
         </div>
       </div>
+
+
+      <div class="col-md-2 errorModal successModal text-center">
+                            <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true" id="displayModal">
+                              <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                  <div class="modal-content">
+                                    
+                                      <div class="modal-header" id="modalHeader">
+
+                                          <h6 class="modal-title" id="modal-title-default2" ></h6>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">×</span>
+                                          </button>
+                                      </div>
+                                      
+                                      <div class="modal-body">
+                                          <p id="MMessage"></p>
+                                            <div id="animation" style="text-align:center;">
+
+                                            </div>
+                                          
+                                      </div>
+                                      
+                                      <div class="modal-footer">
+                                          
+                                          <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="btnClose">Close</button>
+                                      </div>
+                                      
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
 
 
@@ -464,6 +490,15 @@
       </div>
       <?php include_once("footer.php");?>
     </div>
+  </div>
+
+
+  <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content px-auto" style="">
+              <img class="loading" src="./assets/img/loading/loading.gif">
+          </div>
+      </div>
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->

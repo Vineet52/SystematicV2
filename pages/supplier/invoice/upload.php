@@ -1,5 +1,6 @@
 <?php
-	if(!empty($_POST['data'])){ 
+	echo var_dump($_POST);
+	if(!empty($_GET['data'])){ 
 		$data = base64_decode($_POST['data']);
 		//$data = $_POST['data'];
 		//echo(var_dump($data));

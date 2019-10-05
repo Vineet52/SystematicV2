@@ -158,7 +158,7 @@
                         <input type="hidden" name="SUBURB" id="SUBURB">
                         <input type="hidden" name="CITY" id="CITY">
                         <!-- <input type="hidden" name="ZIP" value=<?php echo json_encode($suburbInfo);?>> -->
-                        <button class="btn btn-icon btn-2 btn-primary btn-sm px-5" type="submit" style="width: 9rem">
+                        <button class="btn btn-icon btn-2 btn-primary btn-sm px-5" type="submit" style="width: 10rem">
                           <span class="btn-inner--icon"><i class="fas fa-wrench"></i>
                           </span>
                           <span class="btn-inner--text">Edit</span>
@@ -168,7 +168,7 @@
                     <div class="col d-inline mx-0 px-0">
                       <form id="formDelete" type='POST' class="d-inline">
                         <input type="hidden" name="ID" value=<?php echo $cusID;?>>
-                        <button class="btn btn-icon btn-2 btn-danger btn-sm" type="submit" style="width: 9rem">
+                        <button class="btn btn-icon btn-2 btn-danger btn-sm" type="submit" style="width: 10rem">
                           <span class="btn-inner--icon"><i class="fas fa-trash"></i>
                           </span>
                           <span class="btn-inner--text">Delete</span>
@@ -204,30 +204,36 @@
         </div>
           </div>
 
-        <div class="modal fade" id="modal-succ-del" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-          <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-              <div class="modal-content">
-                
-                  <div class="modal-header">
-                      <h6 class="modal-title" id="modal-title-default">Success!</h6>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                      </button>
+                    <div class="form-group col-md-2 errorModal successModal text-center">
+                      <div class="modal fade" id="successfullyAdded" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header" id="modalHeader">
+                                <h6 class="modal-title" id="modal-title-default2">Success</h6>
+                            </div>
+                            <div class="modal-body">
+                              <p id="modalText">Successfully Added</p>
+                              
+                              <div id="animation" style="text-align:center;">
+
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="btnClose">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
+                      <div class="modal-dialog modal-sm">
+                          <div class="modal-content px-auto" style="">
+                              <img class="loading" src="../../assets/img/loading/loading.gif">
+                          </div>
+                      </div>
                   </div>
-                  
-                  <div class="modal-body text-left">
-                    <p>Customer has been deactivated/deleted</p>
-                      
-                  </div>
-                  
-                  <div class="modal-footer">
-                      
-                      <a  href="../../customer.php" class="btn btn-link  ml-auto" data-dismiss="modal">Close</a> 
-                  </div>
-                  
-              </div>
-          </div>
-        </div>
+
         
 
   

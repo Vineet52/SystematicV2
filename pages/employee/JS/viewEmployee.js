@@ -3,12 +3,21 @@ $(()=>{
 	let changedAddress=eAddr.replace(" ","/");
 	let changedSuburb=$("#eSuburb").text().replace(" ","/");
     let changedCity=$("#eCity").text().replace(" ","/");
-	$("#ADDR").val(changedAddress);
+	/*$("#ADDR").val(changedAddress);
     $("#SUBURB").val(changedSuburb);
-    $("#CITY").val(changedCity);
+    $("#CITY").val(changedCity);*/
     $("#EMPLOYEE_TYPE_NAME").val($("#eEmployeeTypeName").text().replace(" ","/"));
 
-
+    let wageEarning=$("#wager").val();
+    console.log(wageEarning);
+    if(wageEarning)
+    {
+        $("#ShowDiv").attr("hidden",false);
+    }
+    else
+    {
+        $("#ShowDiv").attr("hidden",true);
+    }
 
 	$("#btnClick").click(function(e)
     {//use ID of the form
@@ -60,13 +69,13 @@ $(()=>{
                 $("#modalHeader").css("background-color", "#1ab394");
                 $("#displayModal").modal("show");
 
+                setTimeout(function(){
+                    $('#displayModal').modal("hide");
+                    callTwo(employeeID);
+                }, 2000);
 
-                   $("#btnClose").click(function(e) {
+                  
 
-                                    e.preventDefault();
-                                    
-                                    window.location=`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`;
-                                });
                 
                // window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
             }
@@ -128,7 +137,7 @@ $(()=>{
                 $("#modalText").text("Employee Successfully checked-in");
                 $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
                 $("#modalHeader").css("background-color", "#1ab394");
-                $("#btnClose").attr("onclick","window.location='../../employee.php'");
+               //$("#btnClose").attr("onclick","window.location='../../employee.php'");
                 $("#displayModal").modal("show");
             }
             else if(confirmation.includes("Over checkout time"))
@@ -180,19 +189,27 @@ $(()=>{
             $('.loadingModal').modal('hide');
             console.log(data);
             let confirmation = data.trim();
-            if(confirmation.includes("success"))
+            if(confirmation.includes("success") && !confirmation.includes("Already CheckedOut!"))
             {
                 $("#modal-title-default").text("Success!");
                 $("#modalText").text("Employee Successfully checked out");
                 $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
                 $("#modalHeader").css("background-color", "#1ab394");
-                $("#btnClose").attr("onclick","window.location='../../employee.php'");
+                //$("#btnClose").attr("onclick","window.location='../../employee.php'");
                 $("#displayModal").modal("show");
             }
             else if(confirmation.includes("Too early to checkout"))
             {
               $('#modal-title-default').text("Error!");
               $('#modalText').text("Check in first");
+              $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+              $("#modalHeader").css("background-color", "red");
+              $('#displayModal').modal("show");
+            }
+            else if(confirmation.includes("Already CheckedOut!"))
+            {
+              $('#modal-title-default').text("Error!");
+              $('#modalText').text("Employee Has Already Checked Out , Check-In First");
               $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
               $("#modalHeader").css("background-color", "red");
               $('#displayModal').modal("show");
@@ -259,4 +276,21 @@ $(()=>{
 
 
 
+
+function callTwo(EMPLOYEE_ID){
+    
+        //var URL = "invoice/invoice.php";
+        //window.open(URL, '_blank');
+        var form="<form target='_blank' action='PHPcode/showGeneratedQRCode.php' id='sendTagInfo' method='GET'><input type='hidden' name='employeeID' value='"+EMPLOYEE_ID+"'>"+"</form>";
+    
+        $("body").append(form);
+        $( "#sendTagInfo" ).submit();
+        location.reload();
+
+      
+    }
+
+
 });
+
+

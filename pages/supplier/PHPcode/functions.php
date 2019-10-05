@@ -1,4 +1,5 @@
 <?php
+	
 	function getSupplierAddressIDs($con,$supID)
 	{
 		$get_query="SELECT ADDRESS_ID FROM SUPPLIER_ADDRESS WHERE SUPPLIER_ID='$supID'";
@@ -217,24 +218,8 @@
 	{
 		$add_query="INSERT INTO SUPPLIER (NAME,VAT_NUMBER,CONTACT_NUMBER,EMAIL) VALUES ('$name','$vat','$contact','$email')";
 		$add_result=mysqli_query($con,$add_query);
-		$last_id = mysqli_insert_id($con);
 		if($add_result)
 		{
-			$DateAudit = date('Y-m-d H:i:s');
-		    $Functionality_ID='5.1';
-		    $userID = $_SESSION['userID'];
-		    $changes="ID : ".$last_id;
-	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
-	        $audit_result=mysqli_query($con,$audit_query);
-	        if($audit_result)
-	        {
-	          
-	        }
-	        else
-	        {
-	          
-	        }
-
 			return true;
 		}
 		else
@@ -289,10 +274,43 @@
 	/////////////////////////////////////////////////////////
 	function updateSupplier($con,$id,$name,$vat,$contact,$email)
 	{
+		$changes="";
+		$customer_query="SELECT * FROM SUPPLIER WHERE SUPPLIER_ID='$id'";
+		$customer_result=mysqli_query($con,$customer_query);
+		if(mysqli_num_rows($customer_result)>0)
+		{
+			$row=$customer_result->fetch_assoc();
+			$changes="ID :".$row['SUPPLIER_ID'];
+			if($name != $row['NAME']){
+				$changes=$changes." | Name :".$row['NAME'];
+			}
+			if($vat != $row['VAT_NUMBER']){
+				$changes=$changes." | VAT no. :".$row['VAT_NUMBER'];
+			}
+			if($contact != $row['CONTACT_NUMBER']){
+				$changes=$changes." | Contact number :".$row['CONTACT_NUMBER'];
+			}
+			if($email != $row['EMAIL']){
+				$changes=$changes." | Email :".$row['EMAIL'];
+			}
+
+		}
+		else
+		{
+			return false;
+		}
+
+
+
 		$update_query="UPDATE SUPPLIER SET NAME='$name',VAT_NUMBER='$vat',CONTACT_NUMBER='$contact',EMAIL='$email' WHERE SUPPLIER_ID='$id'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='5.2';
+		    $userID = $_SESSION['userID'];
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
 			return true;
 		}
 		else
@@ -335,6 +353,12 @@
 		$delete_result=mysqli_query($con,$delete_query);
 		if($delete_result)
 		{
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='5.7';
+		    $userID = $_SESSION['userID'];
+		    $changes="ID :".$id;
+	        $audit_query="INSERT INT AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
 			return true;
 		}
 		else

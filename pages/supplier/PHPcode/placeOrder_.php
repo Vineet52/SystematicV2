@@ -1,4 +1,26 @@
 <?php
+	
+	include_once("../../sessionCheckPages.php");
+
+	function getOrderAmount($con,$orderid)
+	{
+		$get_query="SELECT SUM(A.PRICE) AS TOTAL_AMOUNT,B.ORDER_ID
+			FROM ORDER_PRODUCT A
+			JOIN ORDER_ B ON A.ORDER_ID=B.ORDER_ID
+			WHERE B.ORDER_ID='$orderid'";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			$row=$get_result->fetch_assoc();
+			$cityID=$row["TOTAL_AMOUNT"];
+		}
+		else
+		{
+			$cityID=false;
+		}
+		return $cityID;
+	}
+
 
 	$supplierID = "";
 	$userID = "";
@@ -61,6 +83,17 @@
 		$lastIDQuery = "SELECT LAST_INSERT_ID();";        
 		$lastIDQueryResult = mysqli_query($DBConnect, $lastIDQuery);
 		$lastID = mysqli_fetch_array($lastIDQueryResult)[0];
+
+		//Audit step
+
+		$DateAudit = date('Y-m-d H:i:s');
+		$Functionality_ID='5.4';
+	    $userID = $_SESSION['userID'];
+	    $changes="ID : ".$lastID;
+        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+        $audit_result=mysqli_query($DBConnect,$audit_query);
+
+	    ///////////
 
 		$arraySize = sizeof($orderProducts);
 		for ($i=0; $i < $arraySize; $i++) 

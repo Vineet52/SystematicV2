@@ -66,16 +66,21 @@ $(document).ready(function()
                     $.ajax({
                         url:"PHPcode/addUser-SQL.php",
                         type:'POST',
-                        data:{choice:1 , accessLevel:accessLevelID , email:username , pass:password , userStatusID :userStatus , employee_ID :employeeID}
+                        data:{choice:1 , accessLevel:accessLevelID , email:username , pass:password , userStatusID :userStatus , employee_ID :employeeID},
+                        beforeSend: function(){
+                            $('.loadingModal').modal('show');
+                        }
                     })
                     .done(data=>{
-
+                        $('.loadingModal').modal('hide');
                         console.log(data);
                         let confirmation = data.trim();
                         if(confirmation== "success")
                         {
                             $("#modal-title-default").text("Success!");
                             $("#modalText").text("User added successfully");
+                            $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "#1ab394");
                             $("#btnClose").attr("onclick","window.location='../../user.php'");
                             $("#displayModal").modal("show");
                         }
@@ -83,6 +88,8 @@ $(document).ready(function()
                         {
                             $("#modal-title-default").text("Error!");
                             $("#modalText").text("User exists! , press close and try again");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
                             $("#displayModal").modal("show");
                             $("#btnClose").attr("onclick","window.location='../../user.php'");
 
@@ -91,7 +98,8 @@ $(document).ready(function()
                         {
                             $("#modal-title-default").text("Error!");
                             $("#modalText").text("Database error");
-                           
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
                             $("#displayModal").modal("show");
                         }
                     });

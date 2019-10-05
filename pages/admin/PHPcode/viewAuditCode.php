@@ -20,7 +20,11 @@
     {
 
 
-		$sql_query ="SELECT * FROM AUDIT_LOG";
+		$sql_query ="SELECT AUDIT_LOG.AUDIT_DATE, USER.USERNAME ,SUB_FUNCTIONALITY.NAME, AUDIT_LOG.CHANGES 
+			FROM AUDIT_LOG 
+			INNER JOIN USER ON AUDIT_LOG.USER_ID = USER.USER_ID 
+			INNER JOIN SUB_FUNCTIONALITY ON AUDIT_LOG.SUB_FUNCTIONALITY_ID = SUB_FUNCTIONALITY.SUB_FUNCTIONALITY_ID
+			ORDER BY AUDIT_LOG.AUDIT_DATE DESC";
 	    $result = mysqli_query($con,$sql_query);
 	    //$row = mysqli_fetch_array($result);
 
@@ -39,7 +43,7 @@
 	        
 	    }
 	    else{
-	         echo "Error: " . $sql_query. "<br>" . mysqli_error($con);
+	         echo "Error";
 	    }
 
 	  }

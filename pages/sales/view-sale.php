@@ -406,7 +406,7 @@
                           </tfoot>
                         </table>
                       </div>
-                      <p class="ml-2">Sale payment successful. Printing payment invoice...</p>   
+                      <p class="ml-2">Sale payment successful.</p>   
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" onclick="window.location='../../sales.php'">Close</button> 
@@ -437,7 +437,7 @@
                     </div>
                     <div class="modal-footer">
                           
-                      <button type="button" class="btn btn-success  ml-auto" data-dismiss="modal" id="calculateChangeButton" data-toggle="modal" data-target="#modal-succ">Calculate Change</button> 
+                      <button type="button" class="btn btn-success  ml-auto" data-dismiss="modal" id="calculateChangeButton" data-toggle="modal">Calculate Change</button> 
                     </div>   
                   </div>
                 </div>
@@ -506,6 +506,27 @@
                 </div>
             </div>
           </div>
+          <div class="form-group col-md-2 errorModal successModal text-center">
+                          <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header" id="modalHeader">
+                                    <h6 class="modal-title" id="MHeader">Success</h6>
+                                </div>
+                                <div class="modal-body">
+                                  <p id="MMessage">Successfully Added</p>
+                                  
+                                  <div id="animation" style="text-align:center;">
+
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="btnClose">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
         </div>
         <?php include_once("../footer.php");?>
       </div>

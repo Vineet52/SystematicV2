@@ -1,5 +1,5 @@
 <?php
-
+	include_once("../../sessionCheckPages.php");
 	$customerID = "";
 	$userID = "";
 	$addSaleDelivery;
@@ -44,6 +44,20 @@
 		$queryReturn = "INSERT INTO RETURN_ (REASON, RETURN_DATE) VALUES( '$reasonForReturn', '$dateTimeNow')";
 		mysqli_query($DBConnect, $queryReturn);
 		//echo($queryReturn);
+		//Audit step
+
+		$DateAudit = date('Y-m-d H:i:s');
+		$Functionality_ID='7.2';
+	    $userID = $_SESSION['userID'];
+	    $changes="ID : ".$saleID;
+        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+        $audit_result=mysqli_query($DBConnect,$audit_query);
+
+	    ///////////
+
+
+
+
 
 		$lastIDQuery = "SELECT LAST_INSERT_ID();";        
 		$lastIDQueryResult = mysqli_query($DBConnect, $lastIDQuery);

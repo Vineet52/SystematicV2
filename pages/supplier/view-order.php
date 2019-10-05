@@ -24,7 +24,7 @@
   else
   {
     $orderID = $_POST['ORDER_ID'];
-    $sql_query = "SELECT A.ORDER_ID, A.SUPPLIER_ID, B.NAME AS SUPPLIER_NAME, B.CONTACT_NUMBER AS SUPPLIER_PHONE, B.EMAIL AS SUPPLIER_EMAIL, B.VAT_NUMBER AS SUPPLIER_VAT_NUMBER, A.ORDER_DATE, A.DATE_RECEIVED, C.STATUS_NAME AS ORDER_STATUS, C.ORDER_STATUS_ID, D.NAME AS EMPLOYEE_NAME, D.SURNAME AS EMPLOYEE_SURNAME
+    $sql_query = "SELECT A.ORDER_ID,A.ORDER_PAID, A.SUPPLIER_ID, B.NAME AS SUPPLIER_NAME, B.CONTACT_NUMBER AS SUPPLIER_PHONE, B.EMAIL AS SUPPLIER_EMAIL, B.VAT_NUMBER AS SUPPLIER_VAT_NUMBER, A.ORDER_DATE, A.DATE_RECEIVED, C.STATUS_NAME AS ORDER_STATUS, C.ORDER_STATUS_ID, D.NAME AS EMPLOYEE_NAME, D.SURNAME AS EMPLOYEE_SURNAME
       FROM ORDER_ A
       JOIN SUPPLIER B ON A.SUPPLIER_ID = B.SUPPLIER_ID
       JOIN ORDER_STATUS C ON A.ORDER_STATUS_ID = C.ORDER_STATUS_ID
@@ -41,6 +41,7 @@
 ?>
 <script type="text/javascript">
   var ORDER_ID = eval('(<?php echo json_encode($orderDetails["ORDER_ID"])?>)');
+  var ORDER_PAID = eval('(<?php echo json_encode($orderDetails["ORDER_PAID"])?>)');
   var ORDER_STATUS_ID = eval('(<?php echo json_encode($orderDetails["ORDER_STATUS_ID"])?>)');
 </script>
 <!DOCTYPE html>
@@ -305,6 +306,10 @@
                   <span class="btn-inner--text" >Add Collection</span>
                 </button>
               </form>
+              <button class="btn btn-icon btn-2 btn-success mt-0 float-right mr-2" type="button" id="makePaymentButton" data-toggle="modal" data-target="#modal-payment">
+                  <span><i class="fas fa-money-bill-wave-alt"></i></span>
+                  <span class="btn-inner--text">Make Payment</span>
+              </button>
               </div>
               <div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -323,31 +328,27 @@
                 </div>
               </div>
             </div>
-            <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-              <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                  <div class="modal-content">
-                    
-                      <div class="modal-header">
-                          <h6 class="modal-title" id="MHeader">Success!</h6>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                          </button>
-                      </div>
-                      
-                      <div class="modal-body">
-                          <p>Order successfully cancelled. The supplier has been sent an email. </p>
-                          <p>Printing cancellation slip...</p>
-                          
-                      </div>
-                      
-                      <div class="modal-footer">
-                          
-                          <button type="button" class="btn btn-link  ml-auto" onclick="window.location='../../supplier.html'">Close</button> 
-                      </div>
-                      
-                  </div>
-              </div>
-            </div>
+            <div class="form-group col-md-2 errorModal successModal text-center">
+                          <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header" id="modalHeader">
+                                    <h6 class="modal-title" id="MHeader">Success</h6>
+                                </div>
+                                <div class="modal-body">
+                                  <p id="MMessage">Successfully Added</p>
+                                  
+                                  <div id="animation" style="text-align:center;">
+
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="btnClose">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
           </div>
           
           </div>
@@ -356,6 +357,13 @@
         <?php include_once("../footer.php");?>
       </div>
     </div>
+    <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content px-auto" style="">
+              <img class="loading" src="../../assets/img/loading/loading.gif">
+          </div>
+      </div>
+  </div>
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>

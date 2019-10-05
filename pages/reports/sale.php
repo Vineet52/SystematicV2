@@ -5,8 +5,8 @@
     <title> Sales Report - Stock Path</title>
     <link rel="stylesheet" href="sale_CSS/style.css" media="all" />
     <link href="sale_CSS/favicon.png" rel="icon" type="image/png">
-    <script type="text/javascript" src="sale_CSS/Chart.bundle.js"></script>
-     <script type="text/javascript" src="sale_CSS/Chart.min.js"></script>
+    <!--script type="text/javascript" src="sale_CSS/Chart.bundle.js"></script>
+     <script type="text/javascript" src="sale_CSS/Chart.min.js"></script-->
   </head>
   <body>
     <header class="clearfix">

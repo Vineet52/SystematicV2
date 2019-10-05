@@ -1,5 +1,5 @@
 <?php
-
+	include_once("../../sessionCheckPages.php");
   	$productName = "";
 	$productDescription = "";
 	$productType = "";
@@ -92,6 +92,15 @@
 	      	$queryPallet = "INSERT INTO PRODUCT(NAME, PRODUCT_DESCR, QTY_ON_HAND, CASES_PER_PALLET, UNITS_PER_CASE, COST_PRICE, GUIDE_DISCOUNT, SELLING_PRICE, QUANTITY_AVAILABLE, PRODUCT_TYPE_ID, PRODUCT_SIZE_TYPE, PRODUCT_MEASUREMENT, PRODUCT_MEASUREMENT_UNIT, PRODUCT_GROUP_ID) 
 	                  VALUES( '$productName', '$productDescription',0 , '$casesInPallet', '$unitsInCase', '$costPricePallet', '$guideDiscountPallet', '$sellingPricePallet', 0, '$productType', 3, '$measurement', '$measurementUnit', $nextProductID)";
 	      	mysqli_query($DBConnect, $queryPallet);
+
+	      	$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='8.1';
+		   $userID = $_SESSION['userID'];
+		    $changes="Product ID : ".$nextProductID."| Product Name : ".$productName;
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($DBConnect,$audit_query);
+
+
 
 	      	//Close database connection
 			mysqli_close($DBConnect);

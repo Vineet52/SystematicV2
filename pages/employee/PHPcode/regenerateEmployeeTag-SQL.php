@@ -1,4 +1,5 @@
 <?php
+include_once("../../sessionCheckPages.php");
 include "meRaviQr/qrlib.php";
   $url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
  ///////////////////////////////////
@@ -37,8 +38,15 @@ include "meRaviQr/qrlib.php";
                         {
                             if($row["WAGE_EARNING"] == 1)
                             {
-                                $hash = sha1($employeeID);
-                                
+
+
+                                    $changes="";
+                                    $changes="ID :".$employeeID;
+                                    $changes=$changes." | Employee Tag Regenerated";
+                             
+
+
+                                    $hash = sha1($employeeID);
                                     $qrImgName = $employeeID;
                                 
                                 
@@ -56,6 +64,16 @@ include "meRaviQr/qrlib.php";
                                     $query_QR = mysqli_query($DBConnect , $sql);
                                     if($query_QR)
                                     {
+
+
+
+                                       
+                                            $DateAudit = date('Y-m-d H:i:s');
+                                            $Functionality_ID='2.7';
+                                            $userID = $_SESSION['userID'];
+                                            $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+                                            $audit_result=mysqli_query($DBConnect,$audit_query);
+                                        
                                         echo $employeeID . ",success";
                                     }
                                     else

@@ -1,4 +1,5 @@
 <?php
+include_once("../../sessionCheckPages.php");
 include "meRaviQr/qrlib.php";
   $url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
  include_once("functions.php");
@@ -23,9 +24,10 @@ include "meRaviQr/qrlib.php";
 	$Esurname = $_POST["surname"];//5
 	$Econtact = $_POST["contact"];//8
 	$fileTo= $_FILES["file"];
+
 	$check=false;
 
-	if(checkEmployee($DBConnect,$_POST["name"],$_POST["surname"],$_POST["contact"]))
+	if(checkEmployee($DBConnect,$_POST["name"],$_POST["surname"],$_POST["contact"] ,$_POST["email"]))
 	{
 		echo "Employee Exists";
 	}
@@ -223,12 +225,12 @@ include "meRaviQr/qrlib.php";
 								if($query_QR)
 								{
 									$verifyQrCode = "verified employee QR.";
-									echo $verifyQrCode;
+									//echo $verifyQrCode;
 								}
 								else
 								{
 									$verifyQrCode = "Employee QR code could not be generated";
-									echo $verifyQrCode;
+									//echo $verifyQrCode;
 								}
                         }
                         else

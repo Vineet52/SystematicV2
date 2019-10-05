@@ -149,6 +149,32 @@ $(document).ready(function()
 
     });
     ///////////////////////////////////////////////////////
+    var imageLoader = document.getElementById('fileUpload');
+    imageLoader.addEventListener('change', handleImage, false);
+
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            
+            $('.uploader img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    /*$(document).ready(function() {
+        $.uploadPreview({
+          input_field: "#fileUpload",   // Default: .image-upload
+          preview_box: "#UploadsPic",  // Default: .image-preview
+          label_field: "#ImageUploadLabel",    // Default: .image-label
+          label_default: "Choose File",   // Default: Choose File
+          label_selected: "Change File",  // Default: Change File
+          no_label: false,                // Default: false
+          success_callback: null          // Default: null
+        });
+      });*/
+
+
+
     $("#picToUpload").on("submit",function(e)
     {//use ID of the form
         e.preventDefault();
@@ -213,12 +239,14 @@ $(document).ready(function()
                         $("#displayModal").modal("show");
 
 
-                         $("#btnClose").click(function(e) {
+                        setTimeout(function(){
+                            $('#displayModal').modal("hide");
+                             window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
+                        }, 2000);
 
-                                    e.preventDefault();
+                        
                                    
-                                    window.location=`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`;
-                                });
+                                
                     }
                     else if(confirmation.includes("success") && confirmation.includes("Employee does not earn wage"))
                     {
@@ -237,8 +265,12 @@ $(document).ready(function()
 
                                     e.preventDefault();
                                    
-                                    window.location=`../../employee.php`;
+                                    window.location=`view.php?employeeID=${employeeID}`;
                                 });
+                                setTimeout(function(){
+                                    $('#displayModal').modal("hide");
+                                     window.open(`view.php?employeeID=${employeeID}`, '_blank');
+                                }, 2000);
                     }
                     else if(confirmation.includes("Employee Exists"))
                     {

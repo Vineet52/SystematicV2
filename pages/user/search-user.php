@@ -49,7 +49,7 @@
             <div class="card-header border-0">
                <div class="input-group input-group-rounded input-group-merge">
                  
-                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by employee name" title="Type in a name" class="form-control form-control-rounded form-control-prepended" aria-label="Search">
+                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by employee name or surname or access level" title="Type in a name" class="form-control form-control-rounded form-control-prepended" aria-label="Search">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <span class="fa fa-search"></span>
@@ -89,19 +89,27 @@
             <script>
               function myFunction() 
               {
-                var input, filter, table, tr, td, i, txtValue;
+                var input, filter, table, tr, td,td3,td4, i, txtValue,txtValue3,txtValue4;
                 input = document.getElementById("myInput");
                 filter = input.value.toUpperCase();
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 var showCount = 0;
+                //console.log(tr.length);
                 for (i = 0; i < tr.length; i++) 
                 {
                   td = tr[i].getElementsByTagName("td")[2];
-                  if (td) 
+                 
+                  td4 = tr[i].getElementsByTagName("td")[4];
+                  td3 = tr[i].getElementsByTagName("td")[3];
+
+                  if (td || td3 || td4) 
                   {
                     txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter)> -1) 
+                    
+                    txtValue4 = td4.textContent || td4.innerText;
+                    txtValue3 = td3.textContent || td3.innerText;
+                    if ((txtValue.toUpperCase().indexOf(filter)> -1) ||(txtValue4.toUpperCase().indexOf(filter)> -1) || (txtValue3.toUpperCase().indexOf(filter)> -1)) 
                     {
                       tr[i].style.display = "";
                       showCount += 1;
@@ -132,6 +140,14 @@
       <!-- Footer -->
       <?php include_once("../footer.php");?>
     </div>
+  </div>
+
+  <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content px-auto" style="">
+              <img class="loading" src="../../assets/img/loading/loading.gif">
+          </div>
+      </div>
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->

@@ -1,6 +1,6 @@
 <?php
 	// include_once("connection.php");
-	include_once("../../sessionCheckPages.php");
+	
 	// echo $userID;
 	function getSupplierAddressIDs($con,$supID)
 	{
@@ -400,15 +400,7 @@
 		    $changes="ID : ".$last_id."| Name : ".$name." ".$surname;
 	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
 	        $audit_result=mysqli_query($con,$audit_query);
-	        if($audit_result)
-	        {
-	          
-	        }
-	        else
-	        {
-	          
-	        }
-
+	
 
 			return true;
 		}
@@ -526,10 +518,46 @@
 	///////////////////////////////////////////////////////////
 	function updateIndCustomer($con,$id,$name,$surname,$contact,$email,$title,$customerType,$customerStatus)
 	{
+		$changes="";
+		$customer_query="SELECT * FROM CUSTOMER WHERE CUSTOMER_ID='$id'";
+		$customer_result=mysqli_query($con,$customer_query);
+		if(mysqli_num_rows($customer_result)>0)
+		{
+			$row=$customer_result->fetch_assoc();
+			$changes="ID :".$row['CUSTOMER_ID'];
+			if($name != $row['NAME']){
+				$changes=$changes." | Name :".$row['NAME'];
+			}
+			if($surname != $row['SURNAME']){
+				$changes=$changes." | Surname :".$row['SURNAME'];
+			}
+			if($contact != $row['CONTACT_NUMBER']){
+				$changes=$changes." | Contact number :".$row['CONTACT_NUMBER'];
+			}
+			if($email != $row['EMAIL']){
+				$changes=$changes." | Email :".$row['EMAIL'];
+			}
+
+			// $changes="ID :".$row['CUSTOMER_ID']."Name :".$row['NAME']." | ".$row['SURNAME']." | ".$row['EMAIL']." | ".$row['CONTACT_NUMBER'];
+		}
+		else
+		{
+			return false;
+		}
+
+
+
+
 		$update_query="UPDATE CUSTOMER SET NAME='$name',SURNAME='$surname',CONTACT_NUMBER='$contact',EMAIL='$email',TITLE_ID='$title',CUSTOMER_TYPE_ID='$customerType',STATUS_ID='$customerStatus' WHERE CUSTOMER_ID='$id'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='1.2';
+		    $userID = $_SESSION['userID'];
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
+
 			return true;
 		}
 		else
@@ -540,10 +568,43 @@
 	//////////////////////////////////////////////////////
 	function updateOrgCustomer($con,$id,$name,$vat,$contact,$email,$customerType,$customerStatus)
 	{
+
+		$changes="";
+		$customer_query="SELECT * FROM CUSTOMER WHERE CUSTOMER_ID='$id'";
+		$customer_result=mysqli_query($con,$customer_query);
+		if(mysqli_num_rows($customer_result)>0)
+		{
+			$row=$customer_result->fetch_assoc();
+			$changes="ID :".$row['CUSTOMER_ID'];
+			if($name != $row['NAME']){
+				$changes=$changes." | Name :".$row['NAME'];
+			}
+			if($vat != $row['VAT_NUMBER']){
+				$changes=$changes." | VAT no. :".$row['VAT_NUMBER'];
+			}
+			if($contact != $row['CONTACT_NUMBER']){
+				$changes=$changes." | Contact number :".$row['CONTACT_NUMBER'];
+			}
+			if($email != $row['EMAIL']){
+				$changes=$changes." | Email :".$row['EMAIL'];
+			}
+
+		}
+		else
+		{
+			return false;
+		}
+
 		$update_query="UPDATE CUSTOMER SET NAME='$name',VAT_NUMBER='$vat',CONTACT_NUMBER='$contact',EMAIL='$email',CUSTOMER_TYPE_ID='$customerType',STATUS_ID='$customerStatus' WHERE CUSTOMER_ID='$id'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='1.2';
+		    $userID = $_SESSION['userID'];
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
+
 			return true;
 		}
 		else

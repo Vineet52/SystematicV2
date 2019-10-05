@@ -203,6 +203,12 @@
                   </table>
                 </div>
               </div>
+              <div class="card shadow mt-4 bg-secondary" style="width: 30rem;" id="divSign">
+                <div class="card-body">
+                  <h5 class="card-title">Signature</h5>
+                  <img id="imgSignature" alt="image" style="width: 100%; height: 100%;">
+                </div>
+              </div>
             </div>
             <br>
             <div class="col mt-4">

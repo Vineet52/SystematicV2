@@ -299,72 +299,86 @@ $("button#updateSaleStatus").on('click', event => {
 	});	
 });  
 
-$("button#calculateChangeButton").on('click', event => {
+$("button#calculateChangeButton").on('click', function(event){
+	event.preventDefault();
 	let amountReceived = $("#amountReceived").val();
 	let saleID = $("#SALE_ID").val();
-
-	amountReceived = parseFloat(amountReceived).toFixed(2);
 	console.log(amountReceived);
-
-	let change =  parseFloat(amountReceived).toFixed(2) - parseFloat(saleTotal).toFixed(2);
-	console.log(change);
-
-	amountReceived = numberWithSpaces(amountReceived);
-	amountReceived = "R"+amountReceived;
-	console.log(amountReceived);
-	$("#saleAmountReceived").text(amountReceived);
-
-	var paymentSaleTotal = "R"+saleTotal;
-	$("#saleTotalOutstanding").text(paymentSaleTotal);
-	$("#saleAmountReceived").text(amountReceived);
-
-	change = parseFloat(change).toFixed(2);
-	change = numberWithSpaces(change);
-	change = "R"+change;
-	console.log(change);
 	
-	$("#saleChange").text(change);
 
-
-	$.ajax({
-		url: 'PHPcode/makeCashPayment_.php',
-		type: 'POST',
-		data: { 
-			saleID : saleID,AMOUNT:THESALETOTAL
-		},
-        beforeSend: function(){
-            $('.loadingModal').modal('show');
-        },
-        complete: function(){
-            $('.loadingModal').modal('hide');
-        }
-	})
-	.done(response => {
-		console.log(response);
-		if (response == "success")
-		{
-			$('#modal-title-default2').text("Success!");
-			$('#modalText').text("Sale payment successful");
-			$("#modalCloseButton").attr("onclick","window.location='../../sales.php'");
-			$('#successfullyAdded').modal("show");
-		}
-		else if(response == "failed")
-		{
-			$('#modal-title-default2').text("Error!");
-			$('#modalText').text("Sale payment unsuccessful");
-			$("#modalCloseButton").attr("onclick","");
-			$('#successfullyAdded').modal("show");
-		}
-		else if(response == "Database error")
-		{
-			$('#modal-title-default2').text("Database Error!");
-			$('#modalText').text("Database error whilst verifying password");
-			$("#modalCloseButton").attr("onclick","");
-			$('#successfullyAdded').modal("show");
-		}
+	if(parseFloat(amountReceived)<parseFloat(THESALETOTAL))
+	{
+		console.log("Here");
+		$('#MHeader').text("Error!");
+		$("#MMessage").text("The amount received is smaller than the Sale Total, Please Enter a Larger Amount");
+		$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+		$("#modalHeader").css("background-color", "red");
+		$("#btnClose").attr("data-target","#modal-creditlimit");
+		$("#displayModal").modal("show");
+	}
+	else
+	{
+		amountReceived = parseFloat(amountReceived).toFixed(2);
 		
-		ajaxDone = true;
-	});	
+		let change =  parseFloat(amountReceived).toFixed(2) - parseFloat(THESALETOTAL).toFixed(2);
+		console.log(change);
+
+		amountReceived = numberWithSpaces(amountReceived);
+		amountReceived = "R"+amountReceived;
+		console.log(amountReceived);
+		$("#saleAmountReceived").text(amountReceived);
+
+		var paymentSaleTotal = "R"+saleTotal;
+		$("#saleTotalOutstanding").text(paymentSaleTotal);
+		$("#saleAmountReceived").text(amountReceived);
+
+		change = parseFloat(change).toFixed(2);
+		change = numberWithSpaces(change);
+		change = "R"+change;
+		console.log(change);
+		
+		$("#saleChange").text(change);
+		$.ajax({
+			url: 'PHPcode/makeCashPayment_.php',
+			type: 'POST',
+			data: { 
+				saleID : saleID,AMOUNT:THESALETOTAL
+			},
+	        beforeSend: function(){
+	            $('.loadingModal').modal('show');
+	        }
+		})
+		.done(response => {
+			$('.loadingModal').modal('hide');
+
+			console.log(response);
+			if (response == "success")
+			{
+				$("#modal-succ").modal("show");
+				// $('#modal-title-default2').text("Success!");
+				// $('#modalText').text("Sale payment successful");
+				// $("#modalCloseButton").attr("onclick","window.location='../../sales.php'");
+				// $('#successfullyAdded').modal("show");
+			}
+			else if(response == "failed")
+			{
+				$('#modal-title-default2').text("Error!");
+				$('#modalText').text("Sale payment unsuccessful");
+				$("#modalCloseButton").attr("onclick","");
+				$('#successfullyAdded').modal("show");
+			}
+			else if(response == "Database error")
+			{
+				$('#modal-title-default2').text("Database Error!");
+				$('#modalText').text("Database error whilst verifying password");
+				$("#modalCloseButton").attr("onclick","");
+				$('#successfullyAdded').modal("show");
+			}
+			
+			ajaxDone = true;
+		});	
+	}
+
 });  
 
 $("button#makeAccountPaymentButton").on('click', event => {

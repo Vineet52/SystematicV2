@@ -1,5 +1,5 @@
 <?php 
-
+include_once("../../sessionCheckPages.php");
 
 $url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
 
@@ -70,7 +70,24 @@ else
                            
                            $checkoutTime = new DateTime($realCheckout);
                            $checkoutTime = $checkoutTime->format("Y-m-d H:i:s");
-                      
+
+                           $checkIfTime = "SELECT * FROM EMPLOYEE_HOUR  WHERE `EMPLOYEE_ID` ='$employeeID' and `DATE`= '$day'";
+                           $subCheckTime = mysqli_query($DBConnect,$checkIfTime);
+
+                           $arraySub= mysqli_fetch_assoc($subCheckTime);
+                           if($arraySub["CHECK_OUT_TIME"] != "NULL")
+                           {
+                            
+                               $nameQuery = "SELECT NAME, SURNAME FROM EMPLOYEE
+                               WHERE EMPLOYEE_ID = '$employeeID'";
+                   
+                               $employeNameQueryResult = mysqli_query($DBConnect,$nameQuery);
+                               $employee= mysqli_fetch_assoc($employeNameQueryResult);
+                   
+                               $nameSurname = $employee["NAME"]." ".$employee["SURNAME"];
+                               echo "Already CheckedOut!";
+                           }
+                            
                           if($query_QR)
                           {
                               if(($currentTime < $checkoutTime) && ($currentTime > $setCheckinTime))
@@ -116,15 +133,28 @@ else
                           {
                               echo "Employee does not exist on system";
                           }
-                          $verifyID = sha1($employeeID);
+                            $verifyID = sha1($employeeID);
+
+                            //Audit Log Check-In Changes
+                            $changes="ID : ".$employeeID."| Employee Checked-Out | Employee CheckOut Date and Time :".$currentTime;
+
+
+
                           //var_dump($verifyID);
                           while($correctHash = mysqli_fetch_assoc($query_QR))
                           {
                               if($correctHash["HASH"]== $verifyID && $addedTime == "Time SQL works" )
                               {
-                                 $success = "success";
-                                  echo $success;
-                                  break;
+                                $DateAudit = date('Y-m-d H:i:s');
+                                $Functionality_ID='2.5';
+                                $userID = $_SESSION['userID'];
+                                $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+                                $audit_result=mysqli_query($DBConnect,$audit_query);    
+
+
+                                $success = "success";
+                                echo $success;
+                                break;
                               }
                           }
                       

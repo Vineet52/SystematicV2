@@ -84,37 +84,36 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Email" type="email" name="email" id="email">
+                    <input class="form-control" placeholder="Email" type="email" name="email" id="email" required>
                   </div>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-customGreen mt-4 mb-3" >Send Link
                   </button>
                 </div>
-                <div class="modal fade" id="successfullyChanged" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                        <div class="modal-content">
-                          
-                            <div class="modal-header">
-                                <h6 class="modal-title" id="modal-title-default">Success!</h6>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
+                <div class="modal fade errorModal successModal text-center" id="successfullyChanged" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                              <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header" id="modalHeader">
+                                          <h6 class="modal-title" id="modal-title-default">Success!</h6>
+                                          
+                                      </div>      
+                                      <div class="modal-body text-left">
+                                          <p id="modalText"></p>
+                                            <div id="animation" style="text-align:center;">
+
+                                            </div>                             
+                                      </div>
+                                      <div class="modal-footer">  
+                                          <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal"id="closeModal" onclick="">Close</button> 
+                                      </div>
+                                  </div>
+                              </div>
                             </div>
-                            
-                            <div class="modal-body">
-                                <p id="modalText"></p>
-                                
-                            </div>
-                            
-                            <div class="modal-footer">
-                                
-                                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="closeModal" >Close</button> 
-                            </div>
-                            
+                          </div>
                         </div>
-                    </div>
-                  </div>
+
+                 
               </form>
             </div>
           </div>
@@ -134,6 +133,14 @@
   <!-- Core -->
   <!-- Argon Scripts -->
   <!-- Core -->
+
+  <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+          <div class="modal-content px-auto" style="">
+              <img class="loading" src="../../assets/img/loading/loading.gif">
+          </div>
+      </div>
+  </div>
   <script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Optional JS -->

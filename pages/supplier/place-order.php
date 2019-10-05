@@ -52,134 +52,166 @@
     <!-- Page content -->
     <div class="container-fluid mt--8">
       <!-- Table -->
-      <div class="row">
-        <div class="col col-sm-12 col-md-12 col-xl-8 px-0">
-          <div class="card card-stats shadow">
-              <div class="card-header border-0 bg-secondary">
-                <div class="input-group input-group-rounded input-group-merge">
-                  <input type="search" class="form-control form-control-rounded form-control-prepended" id="searchProduct" placeholder="Enter Product Name" autofocus="true">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <span class="fa fa-search"></span>
+        <div class="col col-sm-12 col-md-12 col-xl-12 px-0">
+          <div class="row">
+            <div class="col col-sm-12 col-md-12 col-xl-12 px-0">
+              <div class="card card-stats shadow bg-secondary">
+                <div class="card-body">
+                  <div class="row"> 
+                    <div class="col-5 py-auto vertical-center pl-6">
+                      <div class="input-group input-group-rounded input-group-merge align-middle mt-5">
+                        <input type="search" id="supplierSearchInput" placeholder="Enter Supplier Name" title="Type in a name" class="form-control form-control-rounded form-control-prepended">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text bg-customGreen" id="searchCustomerButton">
+                          <span class="fa fa-search" style="color: white"></span>
+                          </div>
+                        </div>
+                        <input type="hidden" id="supplierDropdownToggle" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div id="menuCust" class="dropdown-menu col px-2 mb-2" aria-labelledby="supplierDropdownToggle">
+                          <div id="menuOfCustomers"></div>
+                          <div id="empty2" class="dropdown-header table-danger" style="color: black">
+                            No Supplier found
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <input type="hidden" id="productsDropdownToggle" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <div id="menu" class="dropdown-menu col px-4 mb-3" aria-labelledby="productsDropdownToggle">
-                    <div id="menuItems"></div>
-                    <div id="empty" class="dropdown-header table-danger" style="color: black">
-                      No product found
+                    <div class="col-7 ">
+                      <div class="row px-0">
+                        <div class="card shadow col-10 table ml-5"  style="width: 100%;">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-3 d-inline px-2">
+                                <div class="mt-3 mb-3">
+                                  <a>
+                                    <img src="../../images/user.png" class="rounded-circle" style="height:103px; width: 103px">
+                                  </a>
+                                </div>
+                              </div>
+                              <div class="px-0 col-9 d-inline">
+                                <style type="text/css">
+                                  table#customerCard tr
+                                  {
+                                    padding: 3px;
+                                    height:10px !important;
+                                  }
+                                </style>
+                                <table class="table align-items-center table-flush table-borderless table-responsive bg-white mr-0 pr-0" id= "supplierCard">
+                                  <tbody class="list">
+                                    <tr><td class="mt-6"></td></tr>
+                                    <tr class="pt-4">
+                                      <th class="py-0"> No Supplier Added</th>
+                                      <td >
+                                          
+                                      </td>
+                                    </tr>                  
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-            </div>
-          <div class="card-body">
-            <div class="table-responsive col-12 pl-0">
-
-              <table id="productsTable" class="table align-items-center table-flush">
-                 <thead class="thead-light">
-                <tr class="header">
-                  <th class="col-3" style="width: 2rem"> Quantity</th>
-                  <th class="pl-0" style="width: 20rem"> Item Name</th>
-                  <th class="text-right pr-1"> Cost Price</th>
-                  <th class="text-right pr-1" style="width: 8rem"> Total </th>
-                  <th class="text-centre px-0" style="width: 0.5rem"></th>
-                  
-                </tr>
-              </thead>
-              <tbody id="tBody">
-                </tbody>
-                <tfoot class="tfoot-light">
-                <tr class="footer">
-                  <td></td>
-                  <td></td>
-                  <th class="text-right pr-1"><b>TOTAL</b></th>
-                  <td class="text-right pr-1" id="totalOfSale"><b></b></td>
-                  <td></td>
-                </tr>
-                 <tr class="footer">
-                  <td></td>
-                  <td></td>
-                  <th class="text-right pr-1"><b>VAT (15%)</b></th>
-                  <td class="text-right pr-1" id="vatOfSale"><b></b></td>
-                  <td></td>
-                </tr>
-                </tfoot>
-              </table>
+              </div>
             </div>
           </div>
-        </div>
-        </div>
 
-        <div class="col-4 col-sm-12 col-md-12  col-md-4 col-xl-4 bg-transparent float-lg-top">
-          <div class="card card-stats table" id="myTabContent" >
-            <div class="card-header bg-secondary">
-              <div class="row"> 
-                <div class="col">
+          <div class="row mt-3">
+            <div class="col col-sm-12 col-md-12 col-xl-12 px-0">
+              <div class="card card-stats shadow">
+                <div class="card-header border-0 bg-secondary">
                   <div class="input-group input-group-rounded input-group-merge">
-                    <input type="search" id="supplierSearchInput" placeholder="Enter Supplier Name" title="Type in a name" class="form-control form-control-rounded form-control-prepended">
+                    <input type="search" class="form-control form-control-rounded form-control-prepended" id="searchProduct" placeholder="Enter Product Name" autofocus="true">
                     <div class="input-group-prepend">
-                      <div class="input-group-text bg-customGreen" id="searchCustomerButton">
-                      <span class="fa fa-search" style="color: white"></span>
+                      <div class="input-group-text">
+                        <span class="fa fa-search"></span>
                       </div>
                     </div>
-                    <input type="hidden" id="supplierDropdownToggle" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div id="menuCust" class="dropdown-menu col px-2 mb-2" aria-labelledby="supplierDropdownToggle">
-                      <div id="menuOfCustomers"></div>
-                      <div id="empty2" class="dropdown-header table-danger" style="color: black">
-                        No Supplier found
+                    <input type="hidden" id="productsDropdownToggle" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div id="menu" class="dropdown-menu col px-4 mb-3" aria-labelledby="productsDropdownToggle">
+                      <div id="menuItems"></div>
+                      <div id="empty" class="dropdown-header table-danger" style="color: black">
+                        No product found
                       </div>
                     </div>
                   </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive col pl-0">
+                  <table id="productsTable" class="table align-items-center table-flush">
+                     <thead class="thead-light">
+                    <tr class="header">
+                      <th class="col-3" style="width: 2rem"> Quantity</th>
+                      <th class="pl-0" style="width: 20rem"> Item Name</th>
+                      <th class="text-right pr-1"> Cost Price</th>
+                      <th class="text-right pr-1" style="width: 8rem"> Total </th>
+                      <th class="text-centre px-0" style="width: 0.5rem"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tBody">
+                    </tbody>
+                    <tfoot class="tfoot-light">
+                    <tr class="footer">
+                      <td></td>
+                      <td></td>
+                      <th class="text-right pr-1"><b>TOTAL</b></th>
+                      <td class="text-right pr-1" id="totalOfSale"><b></b></td>
+                      <td></td>
+                    </tr>
+                     <tr class="footer">
+                      <td></td>
+                      <td></td>
+                      <th class="text-right pr-1"><b>VAT (15%)</b></th>
+                      <td class="text-right pr-1" id="vatOfSale"><b></b></td>
+                      <td></td>
+                    </tr>
+                    </tfoot>
+                  </table>
                 </div>
               </div>
-            </div>
-            <div class="card-body px-3" style="height: 18rem">
-
-              <table class="table align-items-center table-flush table-borderless table-responsive" id= "supplierCard">
-                <tbody class="list">    
-                    <tr>
-                      
-                  </tr>
-                  <tr>
-                      <th> No Supplier Added</th>
-                      <td >
-                          
-                      </td>
-                    </tr>                  
-                </tbody>
-              </table>
-
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                   <div class="custom-control custom-checkbox mb-3">
-                    <input class="custom-control-input" id="addSaleDeliveryCheckbox" type="checkbox" data-toggle="collapse" data-target="#customerAddresses" aria-expanded="false" aria-controls="customerAddresses">
-                    <label class="custom-control-label" for="addSaleDeliveryCheckbox">Add Order Collection</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col collapse pl-5" id="customerAddresses">
-
-                </div>
-              </div>
-            </div>
-            <div class="card-body pl-2 pb-4" >
-              <span class="col">
-                  <button class="btn btn-success" id="placeOrderButton" data-toggle="modal" data-target="#modal-placeOrderConfirmation">
-                    <span class="btn-inner--icon  mr-2">
-                      <i class="fas fa-check"></i>
-                    </span>
-                    <span class="btn-inner--text">
-                      Place Order
-                    </span>
-                  </button>
-
-                </span>
             </div>
           </div>
         </div>
+        <div class="row mt-3">
+          <div class="col col-sm-12 col-md-12 col-xl-12 px-0">
+            <div class="card card-stats shadow">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="row">
+                        <div class="col">
+                           <div class="custom-control custom-checkbox mb-3">
+                            <input class="custom-control-input" id="addSaleDeliveryCheckbox" type="checkbox" data-toggle="collapse" data-target="#customerAddresses" aria-expanded="false" aria-controls="customerAddresses">
+                            <label class="custom-control-label" for="addSaleDeliveryCheckbox">Add Order Collection</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col collapse pl-5" id="customerAddresses">
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <span class="float-right">
+                        <button class="btn btn-success" id="placeOrderButton" data-toggle="modal" data-target="#modal-placeOrderConfirmation">
+                          <span class="btn-inner--icon  mr-2">
+                            <i class="fas fa-check"></i>
+                          </span>
+                          <span class="btn-inner--text">
+                            Place Order
+                          </span>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
 
         <div class="modal fade" id="modal-placeOrderConfirmation" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
           <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
@@ -219,7 +251,6 @@
             </div>
           </div>
         </div>
-      </div>
       <?php include_once("../footer.php");?>
     </div>
 

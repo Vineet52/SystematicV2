@@ -42,7 +42,7 @@ $(()=>{
 					$("#MMessage").text(doneData[1]);
 					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
 					$("#modalHeader").css("background-color", "#1ab394");
-					$("#btnClose").attr("onclick","window.location='../../warehouse.php'");
+					$("#btnClose").attr("onclick","window.location='search.php'");
 					$("#displayModal").modal("show");
 				}
 				else

@@ -53,7 +53,10 @@ $(()=>{
 	$.ajax({
 		url: 'PHPcode/customerAccount.php',
 		type: 'POST',
-		data: {customerID:CUSTOMER_ID} 
+		data: {customerID:CUSTOMER_ID},
+		beforeSend:function(){
+			$('.loadingModal').modal('show');
+		} 
 	})
 	.done(data=>{
 		if(data!="False")
@@ -69,6 +72,7 @@ $(()=>{
 				data: {customerID:CUSTOMER_ID}
 			})
 			.done(data=>{
+				$('.loadingModal').modal('hide');
 				let transactions=JSON.parse(data);
 				console.log(transactions);
 				for(let k=0;k<transactions.length;k++)
@@ -90,7 +94,57 @@ $(()=>{
 	$("#btnPayOff").on('click',function(e){
 		e.preventDefault();
 		let payAmount=$("#amount").val();
-		console.log(payAmount);
+		let change=0;
+		$("#modal-pay").modal("hide");
+		if(payAmount>amountDue)
+		{
+			change=payAmount-amountDue;
+			payAmount=amountDue;
+		}
+		$.ajax({
+			url: 'PHPcode/payCustomerAccount.php',
+			type: 'POST',
+			data: {customerID:CUSTOMER_ID,amount:payAmount},
+			beforeSend:function(){
+				$('.loadingModal').modal('show');
+			}
+		})
+		.done(data=>{
+			$('.loadingModal').modal('hide');
+			console.log(data);
+			console.log(change);
+			if(data=="T")
+			{
+				if(change==0)
+				{
+					$('#modal-title-default2').text("Success!");
+					$('#modalText').text("Account Payment Recorded Successfully.");
+					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+					$("#modalHeader").css("background-color", "#1ab394");
+					$("#btnClose").attr("onclick",location.reload());
+					$('#successfullyAdded').modal("show");	
+				}
+				else
+				{
+					$('#modal-title-default2').text("Success!");
+					$('#modalText').text("Account Payment Recorded Successfully. Change is "+change);
+					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+					$("#modalHeader").css("background-color", "#1ab394");
+					$("#btnClose").attr("onclick",location.reload());
+					$('#successfullyAdded').modal("show");
+				}
+				
+			}
+			else
+			{
+				$('#modal-title-default2').text("Error!");
+				$('#modalText').text("Record Payment Failed");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$('#successfullyAdded').modal("show");
+			}
+		});
 	});
     $("#limit-form").on('submit',(function(e) {
         e.preventDefault();

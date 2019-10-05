@@ -63,10 +63,38 @@
 	//////////////////////////////////////////
 	function maintainWarehouse($con,$id,$name,$des,$max)
 	{
+		$changes="";
+		$customer_query="SELECT * FROM WAREHOUSE WHERE WAREHOUSE_ID='$id'";
+		$customer_result=mysqli_query($con,$customer_query);
+		if(mysqli_num_rows($customer_result)>0)
+		{
+			$row=$customer_result->fetch_assoc();
+			$changes="ID :".$row['WAREHOUSE_ID'];
+			if($name != $row['NAME']){
+				$changes=$changes." | Name :".$row['NAME'];
+			}
+			if($des != $row['DESCRIPTION']){
+				$changes=$changes." | Description :".$row['DESCRIPTION'];
+			}
+			if($max != $row['MAX_PALLETS']){
+				$changes=$changes." | Max pallets :".$row['MAX_PALLETS'];
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+
 		$update_query="UPDATE WAREHOUSE SET NAME='$name',DESCRIPTION='$des',MAX_PALLETS='$max' WHERE WAREHOUSE_ID='$id'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='6.2';
+		    $userID = $_SESSION['userID'];
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
 			return true;
 		}
 		else
@@ -77,10 +105,24 @@
 	///////////////////////////////////////////////////
 	function deleteWarehouse($con,$id)
 	{
+		$customer_query="SELECT * FROM WAREHOUSE WHERE WAREHOUSE_ID='$id'";
+		$customer_result=mysqli_query($con,$customer_query);
+		if(mysqli_num_rows($customer_result)>0)
+		{
+			$row=$customer_result->fetch_assoc();
+		}
+		$changes="ID :".$row['WAREHOUSE_ID']." | Name : ".$row["NAME"];
+
 		$delete_query="DELETE FROM WAREHOUSE WHERE WAREHOUSE_ID='$id'";
 		$delete_result=mysqli_query($con,$delete_query);
 		if($delete_result)
-		{
+		{	
+			$DateAudit = date('Y-m-d H:i:s');
+		    $Functionality_ID='6.4';
+		    $userID = $_SESSION['userID'];
+	        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	        $audit_result=mysqli_query($con,$audit_query);
+
 			return true;
 		}
 		else

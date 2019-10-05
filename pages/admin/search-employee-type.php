@@ -65,8 +65,8 @@
                <thead class="thead-light">
               <tr class="header">
                 <th> Position Name</th>
-                <th> Wage Earning?</th>
                 <th> User Access Level</th>
+                <th> Wage Earning?</th>
                 <th style="width:auto;"></th>
               </tr>
             </thead>

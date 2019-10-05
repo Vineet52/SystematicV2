@@ -22,6 +22,10 @@ $(()=>{
         }
     })
     .done(data=>{
+        
+           
+       
+
         if(data!="False")
         {
             let arr=JSON.parse(data);
@@ -115,17 +119,19 @@ $("#addUserRole").on("click",function(event)
                 userRoleID:userRoleID,
                 oldRoleName:oldRoleName
             },
-            success:function(data)
-            {
-               
+            beforeSend: function(){
+                $('.loadingModal').modal('show');
             }
         })
         .done(response =>{
+            $('.loadingModal').modal('hide');
             console.log(response);
             if(response == "success")
             {
                 $("#modal-title-default").text("Success!");
                 $("#modalText").text("User role updated successfully");
+                $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                $("#modalHeader").css("background-color", "#1ab394");
                 $("#btnClose").attr("onclick","window.location='../../user.php'");
                 $("#displayModal").modal("show");
             }
@@ -134,12 +140,16 @@ $("#addUserRole").on("click",function(event)
                 console.log(response);
                 $("#modal-title-default").text("Error!");
                 $("#modalText").text("A user role with the changed name exists! , press close and try again");
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                $("#modalHeader").css("background-color", "red");
                 $("#displayModal").modal("show");
             }
             else
             {
                 $("#modal-title-default").text("Error!");
                 $("#modalText").text("Database error");
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                $("#modalHeader").css("background-color", "red");
                 $("#btnClose").attr("onclick","");
                 $("#displayModal").modal("show");
             }

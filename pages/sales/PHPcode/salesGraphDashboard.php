@@ -38,15 +38,25 @@
         if($salePeriod=="Daily")
         {
 
-            $alles_query ="SELECT SALE_ID ,SALE_AMOUNT,SALE_DATE
-            FROM SALE
-            WHERE SALE_DATE  LIKE '%.$currentDate.%'";
+            $alles_query ="SELECT CAST(SALE_DATE AS DATE) AS SALE_DATE ,SUM(SALE_AMOUNT) as SALE_AMOUNT,COUNT(SALE_ID) as TOTAL_SALES
+                                FROM SALE
+                                WHERE SALE_DATE LIKE '%$currentDate%'
+                                GROUP BY CAST(SALE_DATE AS DATE)";
     
             $submit = mysqli_query($con,$alles_query);
             //var_dump($alles_query);
         }
         else if($salePeriod=="Weekly")
         {
+            $today = mktime(
+                date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y")
+                );
+                $TodaysDate = date("Y-m-d H:i:s",$today);
+                $newDate = new DateTime($TodaysDate);
+                $newDate =  $newDate->format("Y-m-d");
+
+
+
             $endDate=mktime(
                 date("H"), date("i"), date("s"), date("m") ,date("d")-8, date("Y")
                 );
@@ -54,27 +64,38 @@
                 $usedDate = new DateTime($previousDate);
                 $usedDate =  $usedDate->format("Y-m-d");
 
-                $alles_query ="SELECT SALE_ID ,SALE_AMOUNT,SALE_DATE
-                               FROM SALE
-                               WHERE SALE_DATE BETWEEN '$usedDate' AND  '$currentDate'";
+                $alles_query ="SELECT CAST(SALE_DATE AS DATE) AS SALE_DATE ,SUM(SALE_AMOUNT) as SALE_AMOUNT,COUNT(SALE_ID) as TOTAL_SALES
+                                FROM SALE
+                                WHERE SALE_DATE BETWEEN '$usedDate' AND  '$newDate'
+                                GROUP BY CAST(SALE_DATE AS DATE)";
 
-                //var_dump($alles_query);
+               // var_dump($alles_query);
         
                 $submit = mysqli_query($con,$alles_query);
         }
         else
         {
+
+
+            $today = mktime(
+                date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y")
+                );
+                $TodaysDate = date("Y-m-d H:i:s",$today);
+                $newDate = new DateTime($TodaysDate);
+                $newDate =  $newDate->format("Y-m-d");
+
             $endDate=mktime(
-                date("H"), date("i"), date("s"), date("m") ,date("d")-30, date("Y")
+                date("H"), date("i"), date("s"), date("m") ,date("d")-31, date("Y")
                 );
                 $previousDate = date("Y-m-d",$endDate);
 
                 $usedDate = new DateTime($previousDate);
                 $usedDate =  $usedDate->format("Y-m-d");
 
-                $alles_query ="SELECT SALE_ID,SALE_AMOUNT ,SALE_DATE
-                               FROM SALE
-                               WHERE SALE_DATE BETWEEN '$usedDate' AND  '$currentDate'";
+                $alles_query ="SELECT CAST(SALE_DATE AS DATE) AS SALE_DATE ,SUM(SALE_AMOUNT) as SALE_AMOUNT,COUNT(SALE_ID) as TOTAL_SALES
+                                FROM SALE
+                                WHERE SALE_DATE BETWEEN '$usedDate' AND  '$newDate'
+                                GROUP BY CAST(SALE_DATE AS DATE)";
         
                 $submit = mysqli_query($con,$alles_query);
         }

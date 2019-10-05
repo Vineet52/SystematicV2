@@ -1,5 +1,5 @@
 <?php
-
+	include_once("../../sessionCheckPages.php");
 	$saleID = "";
 
 	$url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
@@ -30,6 +30,18 @@
 		//UPDATE AVAILABLE QUANTITY
 		$queryUpdateSaleStatus = "UPDATE SALE SET SALE_STATUS_ID = 3 WHERE SALE_ID = $saleID";
 		mysqli_query($DBConnect, $queryUpdateSaleStatus);
+
+		//Audit step
+
+		$DateAudit = date('Y-m-d H:i:s');
+		$Functionality_ID='7.4';
+	    $userID = $_SESSION['userID'];
+	    $changes="ID : ".$saleID;
+        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+        $audit_result=mysqli_query($DBConnect,$audit_query);
+
+	    ///////////
+
 
 		$arraySize = sizeof($saleProducts);
 		for ($i=0; $i < $arraySize; $i++) 

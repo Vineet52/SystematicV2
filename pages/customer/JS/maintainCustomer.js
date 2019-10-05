@@ -382,25 +382,13 @@ $(()=>{
 				console.log(doneData);
 				if(doneData[0]=="T")
 				{
-																let changes="Customer Name: "+arr["name"]+" "+arr["surname"];
-						let Sub_Functionality_ID=1.1;
-						$.ajax({
-						url:'../admin/PHPcode/audit_log.php',
-						type:'POST',
-						data:{Sub_Functionality_ID:Sub_Functionality_ID,changes:changes} //functionality id needs to be included
-						})
-						.done(data=>{
-							
-							$('#modal-title-default2').text("Success!");
-							$('#modalText').text("Customer successfully updated");
-							$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
-							$("#modalHeader").css("background-color", "#1ab394");
-							$('#successfullyAdded').modal("show");
-							$("#btnClose").attr("onclick","window.location='../../customer.php'");
-							$("#displayModal").modal("show");
-						
-					
-
+					$('#modal-title-default2').text("Success!");
+					$('#modalText').text("Customer successfully updated");
+					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+					$("#modalHeader").css("background-color", "#1ab394");
+					$('#successfullyAdded').modal("show");
+					$("#btnClose").attr("onclick","window.location='search.php'");
+					$("#displayModal").modal("show");
 				}
 				else
 				{
@@ -412,6 +400,7 @@ $(()=>{
 						$("#btnClose").attr("data-dismiss","modal");
 						$("#displayModal").modal("show");
 				}
+			
 			});
 		}
 		

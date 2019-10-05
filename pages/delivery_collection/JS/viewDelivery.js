@@ -68,6 +68,16 @@ $(()=>{
 		}
 	});
 	$("#vEmployeeName").text(employee["NAME"]);
+	if(dctData==5)
+	{
+		let sigPath="../deliveryImages/"+saleData["SALE_ID"]+".png";
+		console.log(sigPath);
+		$("#imgSignature").attr("src",sigPath);
+	}
+	else
+	{
+		$("#divSign").attr("hidden",true);
+	}
 	if(dctData==6)
 	{
 		dctData=2;

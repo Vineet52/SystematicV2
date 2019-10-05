@@ -25,7 +25,7 @@ $(()=>{
                     status ="No";
                 }
 				formView="<form action='maintain-employee-type.php' method='POST'><input type='hidden' name='EMPLOYEE_TYPE_ID' value='"+arr[k]["EMPLOYEE_TYPE_ID"]+"'>"+"<input type='hidden' name='NAME' value='"+arr[k]["NAME"]+"'>"+"<input type='hidden' name='WAGE_EARNING' value='"+arr[k]["WAGE_EARNING"]+"'>"+"<input type='hidden' name='ROLE_NAME' value='"+arr[k]["ROLE_NAME"]+"'>"+"<button class='btn btn-icon btn-2 btn-success btn-sm' type='submit'><span class='btn-inner--icon'><i class='fas fa-user'></i></span><span class='btn-inner--text'>Edit</span></button>"+"</form>";
-				tableEntries+="<tr><td>"+arr[k]["NAME"]+"</td><td>"+ arr[k]["ROLE_NAME"] +"</td><td>" + status +"</td><td>"+formView+"</td></tr>";
+				tableEntries+="<tr><td>"+arr[k]["NAME"]+"</td><td>"+status+"</td><td>" + arr[k]["ROLE_NAME"]+"</td><td>"+formView+"</td></tr>";
 			}
 			$("#tBody").append(tableEntries);
 			

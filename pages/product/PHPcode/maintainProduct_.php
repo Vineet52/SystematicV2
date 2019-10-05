@@ -1,5 +1,5 @@
 <?php
-	
+	include_once("../../sessionCheckPages.php");
 	$productName = "";
 	$productDescription = "";
 	$productTypeID = "";
@@ -71,13 +71,14 @@
 
 
 
+		$changes="";
 		$changesMade = 0;
 		$query = "UPDATE PRODUCT SET ";
 
 		if($productName != $prevProductName) 
 		{	
 			$query .= "NAME = '$productName'";
-
+			$changes=$changes." | Name :  ".$prevProductName;
 			$queryCheck = "SELECT * FROM PRODUCT WHERE NAME = '$productName' AND PRODUCT_MEASUREMENT = '$measurement' AND PRODUCT_MEASUREMENT_UNIT = '$measurementUnit'";
 		    $result = mysqli_query( $DBConnect, $queryCheck);
 		    if (mysqli_num_rows($result)) 
@@ -89,6 +90,7 @@
 		}
 		if ($productDescription != $prevProductDescription) 
 		{	
+			$changes=$changes." | Description :".$prevProductDescription;
 			if ($changesMade > 0) 
 			{
 				$query .= ", ";
@@ -98,6 +100,7 @@
 		}
 		if ($productTypeID != $prevProductType) 
 		{	
+			$changes=$changes." | Product Type: ".$productTypeID;
 			if ($changesMade > 0) 
 			{
 				$query .= ", ";
@@ -107,6 +110,7 @@
 		}
 		if ($unitsInCase != $prevUnitsInCase) 
 		{	
+			$changes=$changes." | Units in case: ".$prevUnitsInCase;
 			if ($changesMade > 0) 
 			{
 				$query .= ", ";
@@ -116,6 +120,7 @@
 		}
 		if ($casesInPallet != $prevCasesInPallet) 
 		{	
+			$changes=$changes." | Units in pallets: ".$prevCasesInPallet;
 			if ($changesMade > 0) 
 			{
 				$query .= ", ";
@@ -125,6 +130,8 @@
 		}
 		if ($measurement != $prevMeasurement) 
 		{	
+			$changes=$changes." | Measurement: ".$prevMeasurement;
+
 			if ($changesMade > 0) 
 			{
 				$query .= ", ";
@@ -134,6 +141,8 @@
 		}
 		if ($measurementUnit != $prevMeasurementUnit) 
 		{	
+
+			$changes=$changes." | Measurement unit: ".$prevMeasurementUnit;
 			if ($changesMade > 0) 
 			{
 				$query .= ", ";
@@ -148,9 +157,10 @@
 		$pricesCasesQuery = "UPDATE PRODUCT SET ";
 		$pricesPalletQuery = "UPDATE PRODUCT SET ";
 
-
+		//price changes
 		if ($costPrice != $prevCostPrice) 
 		{
+			$changes=$changes." | Cost Price: ".$prevCostPrice;
 			$costPriceCase = $_POST['costPrice_'] * $_POST['unitsInCase_'];
 			$costPriceCase = mysqli_real_escape_string($DBConnect, $costPriceCase);
 
@@ -164,6 +174,7 @@
 		}
 		if ($discountPrice != $prevDiscountPrice) 
 		{	
+			$changes=$changes." | Discount Price: ".$prevDiscountPrice;
 			if ($priceChangesMade > 0) 
 			{
 				$pricesIndividualQuery .= ", ";
@@ -182,6 +193,7 @@
 		}
 		if ($sellingPrice != $prevSellingPrice) 
 		{	
+			$changes=$changes." | Selling Price: ".$prevSellingPrice;
 			if ($priceChangesMade > 0) 
 			{
 				$pricesIndividualQuery .= ", ";
@@ -200,9 +212,10 @@
 			$priceChangesMade++;
 		}
 
-
+		//if there were changes
 		if ($changesMade > 0 && $priceChangesMade > 0) 
 		{
+
 			$query .= " WHERE PRODUCT_GROUP_ID = '$productGroupID'";
 			$pricesIndividualQuery .= " WHERE PRODUCT_GROUP_ID = '$productGroupID' AND PRODUCT_SIZE_TYPE = 1";
 			$pricesCasesQuery .= " WHERE PRODUCT_GROUP_ID = '$productGroupID' AND PRODUCT_SIZE_TYPE = 2";
@@ -278,6 +291,20 @@
 			$response = "no changes made";
 		   	echo $response;
 		}
+
+
+
+		//audit step 
+
+		if($changes!=""){
+			 $changes = $productGroupID."  ".$changes;
+			 $DateAudit = date('Y-m-d H:i:s');
+		     $Functionality_ID='8.2';
+		     $userID = $_SESSION['userID'];
+	         $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+	         mysqli_query($DBConnect,$audit_query);
+		}
+
 
 	    //Close database connection
 		mysqli_close($DBConnect);

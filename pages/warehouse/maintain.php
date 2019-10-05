@@ -67,7 +67,7 @@
                       <div class="form-group col-lg-12 col-md-12 col-sm-12">
                         <label for="des">Description</label>
                         <label id="des" hidden="true"><?php echo $_POST["DESCRIPTION"];?></label>
-                         <input type="text" class="form-control" maxlength="30" id="wDes" name="wDes" required>
+                         <input type="text" class="form-control" maxlength="100" id="wDes" name="wDes" required>
                       </div>
                       <br>
                        <div class="form-group col-lg-2 col-md-6 col-sm-12">

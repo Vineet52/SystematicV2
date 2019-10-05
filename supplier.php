@@ -153,6 +153,23 @@
                   }
                 ?>
 
+                <?php 
+                  if (in_array("5.8", $subFunctionality)) {
+                ?>
+                <div class="col-lg-4 col-md-6">
+                  <button type="button" class="btn-icon-clipboard"  href="#">
+                    <a href="pages/supplier/search-order.php">
+                      <div>
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <span>Capture Supplier Order Payment</span>
+                      </div>
+                    </a>
+                  </button>
+                </div>
+                <?php
+                  }
+                ?>
+
               </div>
             </div>
           </div>

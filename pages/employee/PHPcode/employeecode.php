@@ -1,11 +1,12 @@
 <?php
+	include_once("../../sessionCheckPages.php");
 	include_once("connection.php");
 	include_once("functions.php");
 	//////////////////////////////////////////////////////////
 	$Ename;  // = $_POST["name"]; //mysqli_real_escape_string($DBConnect,$_POST["employeeName"]);
 	$Esurname;// = $_POST["surname"];//5
 	$Econtact; //= $_POST["contact"];//8
-	$fileTo;//= $_FILES["file"];
+	$fileTo = "Empty";//= $_FILES["file"];
 
 	if(isset($_POST["name"]))
 	{
@@ -35,9 +36,17 @@
 	{
 		if(addressCheck($con,$_POST["address"]))
 		{
-			if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"]))
+			if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 			{
 				echo "T,Employee Maintained";
+			}
+			else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
+			{
+				echo "F,Error in saving employee pic";
+			}
+			else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
+			{
+				echo "F,There was an error within the picture upload";
 			}
 			else
 			{
@@ -50,9 +59,17 @@
 			{
 				if(addAddress($con,$_POST["address"],getSuburbID($con,$_POST["suburb"])))
 				{
-					if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"]))
+					if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 					{
 						echo "T,Employee Maintained";
+					}
+					else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
+					{
+						echo "F,Error in saving employee pic";
+					}
+					else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
+					{
+						echo "F,There was an error within the picture upload";
 					}
 					else
 					{
@@ -72,9 +89,17 @@
 					{
 						if(addAddress($con,$_POST["address"],getSuburbID($con,$_POST["suburb"])))
 						{
-							if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"]))
+							if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 							{
 								echo "T, Employee Maintained";
+							}
+							else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
+							{
+								echo "F,Error in saving employee pic";
+							}
+							else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
+							{
+								echo "F,There was an error within the picture upload";
 							}
 							else
 							{
@@ -100,9 +125,17 @@
 						{
 							if(addAddress($con,$_POST["address"],getSuburbID($con,$_POST["suburb"])))
 							{
-								if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"]))
+								if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 								{
 									echo "T,Employee Maintained";
+								}
+								else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
+								{
+									echo "F,Error in saving employee pic";
+								}
+								else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
+								{
+									echo "F,There was an error within the picture upload";
 								}
 								else
 								{
@@ -123,7 +156,7 @@
 			}
 		}
 
-			if(isset($fileTo))
+			/*if(isset($fileTo))
 			{
 				$query = "SELECT `EMPLOYEE_ID` FROM `EMPLOYEE` WHERE (NAME='$Ename' and SURNAME ='$Esurname' and CONTACT_NUMBER ='$Econtact')";
 				$submitQuery = mysqli_query($con,$query);
@@ -197,7 +230,7 @@
 														
 														$sql = "INSERT INTO EMPLOYEE_QR(HASH,DATE_GENERATED,EMPLOYEE_ID) VALUES('$hash','$date','$employeeID')";
 														//var_dump($sql);
-														$query_QR = mysqli_query($DBConnect , $sql);*/
+														$query_QR = mysqli_query($DBConnect , $sql);
 														
 														//var_dump($query_QR);
 																//return $query;
@@ -234,7 +267,7 @@
 					echo "F,Couldnt get ID of employee details";
 				}
 
-			}
+			}*/
 
 	}
 	elseif($_POST["choice"]==2)

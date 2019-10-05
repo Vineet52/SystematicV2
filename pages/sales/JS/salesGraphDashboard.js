@@ -1,30 +1,14 @@
 $(()=>{
     
-        var salePeriod = $('#salePeriod').text().trim();
+        var salePeriod = "Weekly";
         //var dateTo = $('#dateTo').text().trim();
         let tableHeader;
-        console.log(salePeriod);
-        if(salePeriod=="Weekly")
-        {
-            $("#PeriodAttr").text("DAYS OF THE WEEK");
-                tableHeader = "SALES FOR A WEEK";
-        }   
-        if(salePeriod=="Monthly")
-        {
-            $("#PeriodAttr").text("DAYS OF THE MONTH");
-            tableHeader = "SALES FOR A MONTH";
+        //console.log(salePeriod);
         
-        }   
-        if(salePeriod=="Daily")
-        {
-            $("#PeriodAttr").text("DAY");
-            tableHeader = "SALES FOR A DAY";
-    
-        }  
         //console.log(dateTo);
     
         $.ajax({
-            url: 'PHPcode/salesGraphDashboard.php',
+            url: 'pages/sales/PHPcode/salesGraphDashboard.php',
             type: 'POST',
             data: {SALEPERIOD:salePeriod} 
         })
@@ -32,13 +16,14 @@ $(()=>{
             
             if(data!="False")
             {
-                console.log(data);
+                //console.log(data);
                 let arr=JSON.parse(data);
-                console.log(arr);
+                //console.log(arr);
+                let dateSaleFrom;
+                let dateSaleTo;
 
-
-                console.log(arr[0]["SALE_DATE"]);
-                console.log( moment(arr[0]["SALE_DATE"]).format('dddd'));
+                //console.log(arr[0]["SALE_DATE"]);
+                //console.log( moment(arr[0]["SALE_DATE"]).format('dddd'));
                 let tableEntries="";
                 let formView="";
                 let totalSales = 0;
@@ -48,161 +33,279 @@ $(()=>{
                 let previousDay;
                 let staticTotalSales = 0;
                 let futureDay;
-                let arrLength = arr.length;
-                console.log(arrLength);
+                //let arrLength = arr.length;
+                //console.log(arrLength);
 
                 let saleGraphDays = [];
 
-
+             
+                var formattedTime;
+                let saleDates = [];
+               
                if(arr != "Empty")
                {
-                for(let k=0;k<arr.length;k++)
-                {
-                    let day = toString(arr[k]["SALE_DATE"]);
-                    daysOfTheWeek = arr[k]["SALE_DATE"].split(" ");
-                    if(k < arrLength-1)
+                    for(let k=0;k<arr.length;k++)
                     {
-                        futureDay = arr[k+1]["SALE_DATE"].split(" ");
-                        console.log(futureDay[0]);
-                    }
-                    
-                    var formattedTime = moment(daysOfTheWeek[0]).format('dddd');
-                    ++totalSales;
-                    
-                    
-                        staticTotalSales += parseFloat(arr[k]["SALE_AMOUNT"]);
-                        saleTotalArray.push(parseFloat(arr[k]["SALE_AMOUNT"]).toFixed(2));
-                       
-
-                        if(previousDay == futureDay[0])
+                        if(salePeriod=="Weekly"  || salePeriod == "Daily")
                         {
-                            if(salePeriod=="Weekly")
-                            {
-                                //saleTotalArray.push(arr[k]["SALE_AMOUNT"]);
-                                previousDay = daysOfTheWeek[0];
-                                console.log("1");
-                            }
-                            else if(salePeriod=="Monthly")
-                            {
-                                //saleTotalArray.push(arr[k]["SALE_AMOUNT"]);
-                                previousDay = daysOfTheWeek[0];
-                            }
-                            else
-                            {
-                               
-                                previousDay = daysOfTheWeek[0];
-                            }
+                            daysOfTheWeek= arr[k]["SALE_DATE"];
+                            saleDates.push(daysOfTheWeek);
+                         
+                             
+                              
+                             totalSales = arr[k]["TOTAL_SALES"];
+                             //console.log(totalSales);
+                             formattedTime = daysOfTheWeek;
+                             staticTotalSales =  parseFloat(arr[k]["SALE_AMOUNT"]);
+                             saleTotalArray.push(parseFloat(arr[k]["SALE_AMOUNT"]).toFixed(2));
+                             if(salePeriod=="Weekly"  || salePeriod == "Daily")
+                             {
+                                 formattedTime = moment(daysOfTheWeek).format('dddd');
+                             }
+                             saleGraphDays.push(formattedTime);
+                             
+                                 tableEntries+="<tr><td class='no'>"+formattedTime+"</td><td class='desc' id='TotalSales'>"+totalSales +"</td><td class='unit-right' id='SaleTotal'>"+staticTotalSales.toFixed(2)+"</td></tr>";
+                                 
                         }
-                        else if(daysOfTheWeek[0] == previousDay)
+                        else if(salePeriod=="Monthly")
                         {
-                            
-                            
-                            if(salePeriod=="Weekly")
-                            {
-                                //saleTotalArray.push(arr[k]["SALE_AMOUNT"]);
-                                previousDay = daysOfTheWeek[0];
-                                console.log("1");
-                            }
-                            else if(salePeriod=="Monthly")
-                            {
-                                //saleTotalArray.push(arr[k]["SALE_AMOUNT"]);
-                                previousDay = daysOfTheWeek[0];
-                            }
-                            else
-                            {
-                                
-                                previousDay = daysOfTheWeek[0];
-                            }
-                            
-    
-                          
-                            
+                            daysOfTheWeek= arr[k]["SALE_DATE"];
+                            saleDates.push(daysOfTheWeek);
+                         
+                             
+                              
+                             totalSales = arr[k]["TOTAL_SALES"];
+                             //console.log(totalSales);
+                             formattedTime = daysOfTheWeek;
+                             staticTotalSales =  parseFloat(arr[k]["SALE_AMOUNT"]);
+                             saleTotalArray.push(parseFloat(arr[k]["SALE_AMOUNT"]).toFixed(2));
+                             if(salePeriod=="Weekly"  || salePeriod == "Daily")
+                             {
+                                 formattedTime = moment(daysOfTheWeek).format('dddd');
+                             }
+                             saleGraphDays.push(formattedTime);
+                             
+                                 tableEntries+="<tr><td class='no'>"+formattedTime+"</td><td class='desc' id='TotalSales'>"+totalSales +"</td><td class='unit-right' id='SaleTotal'>"+staticTotalSales.toFixed(2)+"</td></tr>";
+                                 
                         }
-                        if(previousDay != futureDay[0] && daysOfTheWeek[0] != futureDay[0])
-                        {
-                      
-
-                               
-                                
-                                    //saleTotalArray.push(arr[k]["SALE_AMOUNT"]);
-                                    //formView="<form action='view-order.php' method='POST'><input type='hidden' name='ORDER_ID' value='"+ordersArray[k]["ORDER_ID"]+"'>"+"<button class='btn btn-icon btn-2 btn-success btn-sm' type='submit'><span class='btn-inner--icon'><i class='fas fa-eye'></i></span><span class='btn-inner--text'>View</span></button>"+"</form>";
-                                    tableEntries+="<tr><td class='no'>"+formattedTime+"</td><td class='desc' id='TotalSales'>"+totalSales +"</td><td class='unit-right' id='SaleTotal'>"+staticTotalSales.toFixed(2)+"</td></tr>";
-                                    previousDay = daysOfTheWeek[0];
-
-                                    saleTotalArray.push("date");
-                                    saleGraphDays.push(daysOfTheWeek[0]);
-                                    //console.log("1");
-                                    //console.log(totalSales);
-                                    totalSales = 0;
-                                    staticTotalSales = 0;
-
-                                    
-                        }
-                    if(k == arrLength-1 && previousDay==daysOfTheWeek[0])
-                    {
-                       
-                        tableEntries+="<tr><td class='no'>"+formattedTime+"</td><td class='desc' id='TotalSales'>"+totalSales +"</td><td class='unit-right' id='SaleTotal'>"+staticTotalSales.toFixed(2)+"</td></tr>";
-                        previousDay = daysOfTheWeek[0];
-                        saleTotalArray.push("date");
-                        saleGraphDays.push(daysOfTheWeek[0]);
-
-                    }
-                    else
-                    {
                         
-                        previousDay = daysOfTheWeek[0];
-                    }
 
+
+                        
                     
-                   
-                }
-               
+                    }
+                
 
             
                 
-                $("#tBody").append(tableEntries);
-                /*if(salePeriod == "Daily")
-                {
-                    $("#TotalSales").text(totalSales);
-                    console.log(saleTotalArray);
-                    let sumOfTotals = saleTotalArray.reduce((a, b) => parseInt(a) + parseInt(b), 0);
-                    $("#SaleTotal").text(sumOfTotals);
-                }*/
-
+               // $("#tBody").append(tableEntries);
+             
 
 
                //Display Graph
-                console.log(saleGraphDays);
+                //console.log(saleGraphDays);
                 saleTotalArray.reverse();
-                console.log(saleTotalArray);
-                /*for(int i = 0;i<saleGraphDays.length;i++)
+                //console.log(saleTotalArray);
+                saleDates.reverse();
+                //console.log(saleDates);
+                var day = new Date();
+
+               
+                var prevDay = new Date(day);
+                dateSaleTo = moment(prevDay).format("Do MMMM YYYY");
+                console.log(dateSaleTo);
+                prevDay.setDate(day.getDate());
+                let comDate;
+                comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+(prevDay.getDate());
+                console.log(saleDates);
+                console.log(comDate);
+                let newWeek = [];
+                let count = 0;
+                day = prevDay;
+                let tempSaleArray = [];
+                let arraComparer;
+                   // console.log(saleTotalArray);
+                let noOfWeeks = 0;
+                let weeklySales = [];
+                let newDatesArray = [];
+                let tempVal;
+                let weekArray = [];
+                if(comDate == arraComparer)
+                {
+                    console.log("Compare Works!");
+                }
+                let countArr = 0;
+                let acc = 0;
+                if(salePeriod=="Weekly" || salePeriod=="Daily")
                 {
 
-                }*/
-                //have while loop that starts from the back to put the specefic values of a specefic day onto the graph.
-                let tempSaleArray = [];
-                for(let i=0;i<saleGraphDays.length;i++)
-                {
-                    for(let a=saleTotalArray.length-1;a>=0;a--)
+                    if(salePeriod=="Weekly")
                     {
-                        if(saleTotalArray[a] != "date" )
+                        while(count <7)
                         {
-                            tempSaleArray.push(saleTotalArray[a]);
-                         
-                        }
-                        else
-                        {
+
+                            arraComparer = new Date(saleDates[countArr]);
+                            arraComparer = arraComparer.getFullYear()+'-'+(arraComparer.getMonth()+1)+'-'+(arraComparer.getDate());
                            
+                           if(comDate==arraComparer)
+                           {
+                                //formattedTime = moment(saleDates[count]).format('dddd');
+                                newWeek.push(arraComparer);
+                                tempSaleArray.push(saleTotalArray[countArr]);
+                                console.log("Works: " + countArr);
+                                //count++;
+                                countArr +=1;
+
+                           }
+                           else
+                           {
+                                //formattedTime = moment(comDate).format('dddd');
+                                newWeek.push(comDate);
+                               
+                                tempSaleArray.push(0);
+                                
+
+                           }
+                           count +=1;
+                          
+                           
+                           day = new Date(prevDay);
+                           //prevDay = prevDay.getFullYear()+'-'+(prevDay.getMonth())+'-'+(prevDay.getDate()-1);
+                           prevDay.setDate(day.getDate()-1);
+                           comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+prevDay.getDate();
+                          // console.log(comDate);
+                           //console.log(moment(comDate).format('dddd'));
+
                         }
                     }
+                   
 
+                    if(salePeriod=="Daily")
+                    {
+                        newDatesArray.push(saleGraphDays[0]);
+                        tempSaleArray.push(saleTotalArray[0]);
+                    }
+                }
+                else if(salePeriod=="Monthly")
+                {
+                    let weekCounter = 0;
+                   while(saleDates.length-1 != weekCounter )
+                   {
+                            count=0;
+                            while(count <7)
+                            {
+
+                                if(saleDates.length-1 != countArr)
+                                {
+                                    arraComparer = new Date(saleDates[countArr]);
+                                    arraComparer = arraComparer.getFullYear()+'-'+(arraComparer.getMonth()+1)+'-'+(arraComparer.getDate());
+                                   
+                                if(comDate==arraComparer)
+                                {
+                                        //formattedTime = moment(saleDates[count]).format('dddd');
+                                        newWeek.push(arraComparer);
+                                        tempSaleArray.push(parseFloat(saleTotalArray[countArr]).toFixed(2));
+                                       
+                                        //count++;
+                                        countArr +=1;
+            
+                                }
+                                else
+                                {
+                                        //formattedTime = moment(comDate).format('dddd');
+                                        newWeek.push(comDate);
+                                    
+                                        tempSaleArray.push(parseFloat(0).toFixed(2));
+                                        
+            
+                                }
+                                count +=1;
+                                
+                                
+                                day = new Date(prevDay);
+                                //prevDay = prevDay.getFullYear()+'-'+(prevDay.getMonth())+'-'+(prevDay.getDate()-1);
+                                prevDay.setDate(day.getDate()-1);
+                                comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+prevDay.getDate();
+                                console.log(comDate);
+                                //console.log(moment(comDate).format('dddd'));
+            
+                                }
+                            
+                            }
+                            weekCounter = countArr;
+                            noOfWeeks += 1; 
+                            
+                            tempVal = sumAdd(acc,tempSaleArray);
+                            acc = tempSaleArray.length;
+                            
+                            weeklySales.push(tempVal);
+                           
+                            weekArray.push("Week: " + noOfWeeks + ".");
+                   } 
                    
                 }
+               
+               
+              function sumAdd(index,array)
+              {
+                let sum =0;
+                while(index < array.length)
+                {
+                    sum += parseFloat(array[index]);
+                    index+= 1;
+                }
+                return parseFloat(sum).toFixed(2);
+              }
+               
+                for(let i =0;i<newWeek.length;i++)
+                {
+                    day = new Date(newWeek[i]);
+                    formattedTime = moment(day).format('dddd');
+                    newDatesArray.push(formattedTime);
+
+                }
+               
+                if(salePeriod=="Daily" || salePeriod=="Weekly")
+                {
+                    newDatesArray.reverse();
+                    tempSaleArray.reverse();
+                }
+                else if(salePeriod=="Monthly")
+                {
+                    weeklySales.reverse();//monthly sales
+                    tempSaleArray = weeklySales;
+                    newDatesArray = weekArray;
+                }
+                console.log(formattedTime);
                 console.log(tempSaleArray);
+                console.log(newDatesArray);
+
+                let endDay = new Date(newWeek[newWeek.length-1]);
+                dateSaleFrom = moment(endDay).format("Do MMMM YYYY");
+                console.log(dateSaleFrom);
+
+                if(salePeriod=="Monthly")
+                {
+                    $("#PeriodAttr").html("Monthly Sales<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleFrom+ " : " + dateSaleTo +"</h3>");
+                    tableHeader = "SALES FOR A MONTH";
+                
+                }
+                if(salePeriod=="Weekly")
+                {
+                    $("#PeriodAttr").html("Weekly Sales<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleFrom+ " : " + dateSaleTo +"</h3>");
+                        tableHeader = "SALES FOR THE WEEK";
+                }   
+                if(salePeriod=="Daily")
+                {
+                    $("#PeriodAttr").html("Daily Sale<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleTo +"</h3>");
+                    tableHeader = "SALES FOR A DAY";
+            
+                }  
+               
                 new Chart(document.getElementById("line-chart"), {
                     type: 'line',
                     data: {
-                      labels: saleGraphDays,
+                      labels: newDatesArray,
                       datasets: [{ 
                           data: tempSaleArray,
                           label: "Sales",
@@ -214,7 +317,7 @@ $(()=>{
                     options: {
                       title: {
                         display: true,
-                        text: tableHeader
+                        text: ''
                       }
                     }
                   });
@@ -222,17 +325,7 @@ $(()=>{
 
 
 
-                /*, { 
-                    data: [454,786,675,786,635,809,655],
-                    label: "2018",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                  }, { 
-                    data: [678,787,745,876,956,1046,986],
-                    label: "2019",
-                    borderColor: "#7cbf56",
-                    fill: false
-                  }*/
+               
                }
                else
                {

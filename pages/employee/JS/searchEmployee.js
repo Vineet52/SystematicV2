@@ -3,12 +3,10 @@ $(()=>{
 		url: 'PHPcode/employeecode.php',
 		type: 'POST',
 		data: {choice:2},
-		beforeSend: function(){
-			$('.loadingModal').modal('show');
-		} 
+
 	})
 	.done(data=>{
-		$('.loadingModal').modal('hide');
+		
 		if(data!="False")
 		{
 			let arr=JSON.parse(data);

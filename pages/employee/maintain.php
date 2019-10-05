@@ -8,19 +8,23 @@
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
   <title>Maintain Employee - Stock Path</title>
-  <!-- Favicon -->
-  <link href="../../assets/img/brand/favicon.png" rel="icon" type="image/png">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <!-- Icons -->
-  <link href="../../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
-  <link href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <!-- Argon CSS -->
-  <link type="text/css" href="../../assets/css/argon.css?v=1.0.0" rel="stylesheet">
-  <link href="../../assets/jqueryui/jquery-ui.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+   <!-- Favicon -->
+   <link href="../../assets/img/brand/favicon.png" rel="icon" type="image/png">
+   <!-- Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+   <!-- Icons -->
+   <link href="../../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+   <link href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+   <!-- Image Uploader CSS -->
+  <!--link type="text/css" href="ImageUploader_CSS/imageUploader.css" rel="stylesheet"-->
+
+   <!-- Argon CSS -->
+   <link type="text/css" href="../../assets/css/argon.css?v=1.0.0" rel="stylesheet">
+   <link href="../../assets/jqueryui/jquery-ui.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 </head>
 
 <body>
@@ -102,8 +106,9 @@
                         <div class="form-group">
                           <label for="inputAddress">Address line 1</label>
                           <label hidden="true" id="eAddress"><?php echo $_POST["ADDR"];?></label>
-                          <input type="text" name="inputAddress" class="form-control" id="inputAddress" required>
+                          <input type="text" name="inputAddress" class="form-control" id="inputAddress" value=<?php echo $_POST["ADDR"];?> required>
                         </div>
+                        
                         <div class="form-row">
                           <div class="form-group col-lg-12 col-md-12 col-sm-12">
                             <label for="inputCity">Suburb</label>
@@ -126,12 +131,17 @@
                             </select>
                           </div>
 
-                          <div class='form-group col-12'>
-                                <label for="UploadsPic">Upload Employee Picture</label>
-                                <input type='hidden' class='form-control' name='set' id="UploadsPic" class="form-control"/>
-                                <input type='file' class='form-control' id="fileUpload" name='UploadsPic'  class="form-control"/><br/>
+                          <div class='form-group col-12 uploader' id="ImageUpload"  onclick="$('#fileUpload').click()">
+                                
+                              <!--div class=""-->
+                              <img id="uplaodImage" src=""/>
+                                  <label for="fileUpload" id="ImageUploadLabel">Upload Employee Picture</label>
+                                  
+                                  <input type='hidden' class='form-control' name='set' id="UploadsPic" class="form-control"/>
+                                  <input type='file' class='form-control' id="fileUpload" name='UploadsPic'  class="form-control" /><br/>
+                              </div>
                                    
-                          </div>
+                         
                         </div> 
 
                         <button type="submit" class="btn btn-primary mb-3">Save</button>
