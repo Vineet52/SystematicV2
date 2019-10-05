@@ -1,4 +1,5 @@
 <?php
+include_once("../../sessionCheckPages.php");
 $url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
 
   $dbparts = parse_url($url);
@@ -59,19 +60,22 @@ $url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.u
                 
                     if(isset($user_ID))
                     {
-                        $sql ="UPDATE `USER`
-                        SET `USER_STATUS_ID` = '2'
-                        WHERE `USER_ID` = '$user_ID'";
+                        
+                        $sql ="DELETE FROM USER WHERE USER_ID = '$user_ID'";
                         $submitQuery = mysqli_query($DBConnect,$sql);
-
-                    
                             if($submitQuery)
                             {
+                                $changes="Deleted user ID : ".$user_ID;
+                                $DateAudit = date('Y-m-d H:i:s');
+                                $Functionality_ID='4.7';
+                                $userID = $_SESSION['userID'];
+                                $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$user_ID','$Functionality_ID','$changes')";
+                                $audit_result=mysqli_query($DBConnect,$audit_query);
                                 echo "success";
                             }
                             else
                             {
-                                echo "Could not change user status";
+                                echo "error";
                             }
                     
                     }

@@ -63,13 +63,13 @@
                         </div>
                         <div class="form-group">
                           <label for="inputOldPassword">Password</label>
-                          <input type="password" class="form-control" id="inputOldPassword" placeholder="****">
+                          <input type="password" class="form-control" id="inputOldPassword" placeholder="****" required>
                         </div>
                           <div class="form-group">
                             <label for="inputPassword2">Confirm Password</label>
-                            <input type="password" class="form-control" id="inputPassword2" placeholder="****">
+                            <input type="password" class="form-control" id="inputPassword2" placeholder="****" required>
                           </div>
-                        </div>
+                      
                         <div class="form-group col">
                           <label for="bane">Access Level</label>
                           <select class="form-control" id="aLevel">
@@ -103,7 +103,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                      
 
                     </form>
                   </div>
