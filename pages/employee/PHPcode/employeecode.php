@@ -40,14 +40,6 @@
 			{
 				echo "T,Employee Maintained";
 			}
-			else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
-			{
-				echo "F,Error in saving employee pic";
-			}
-			else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
-			{
-				echo "F,There was an error within the picture upload";
-			}
 			else
 			{
 				echo "F,Address found but Employee not Maintained";
@@ -62,14 +54,6 @@
 					if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 					{
 						echo "T,Employee Maintained";
-					}
-					else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
-					{
-						echo "F,Error in saving employee pic";
-					}
-					else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
-					{
-						echo "F,There was an error within the picture upload";
 					}
 					else
 					{
@@ -92,14 +76,6 @@
 							if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 							{
 								echo "T, Employee Maintained";
-							}
-							else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
-							{
-								echo "F,Error in saving employee pic";
-							}
-							else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
-							{
-								echo "F,There was an error within the picture upload";
 							}
 							else
 							{
@@ -128,14 +104,6 @@
 								if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo))
 								{
 									echo "T,Employee Maintained";
-								}
-								else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,Error in saving employee pic")
-								{
-									echo "F,Error in saving employee pic";
-								}
-								else if(maintainEmployee($con,$_POST["employeeID"],$_POST["name"],$_POST["surname"],$_POST["contact"],$_POST["email"],$_POST["IDPASS"],getAddressID($con,$_POST["address"]),$_POST["title"],$_POST["employeeType"],$_POST["status"],$fileTo) == "F,There was an error within the picture upload")
-								{
-									echo "F,There was an error within the picture upload";
 								}
 								else
 								{
