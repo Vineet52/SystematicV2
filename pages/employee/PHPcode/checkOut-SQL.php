@@ -74,19 +74,19 @@ else
                            $checkIfTime = "SELECT * FROM EMPLOYEE_HOUR  WHERE `EMPLOYEE_ID` ='$employeeID' and `DATE`= '$day'";
                            $subCheckTime = mysqli_query($DBConnect,$checkIfTime);
 
-                           $arraySub= mysqli_fetch_assoc($subCheckTime);
-                           if($arraySub["CHECK_OUT_TIME"] != "NULL")
-                           {
+                        //    $arraySub= mysqli_fetch_assoc($subCheckTime);
+                        //    if($arraySub["CHECK_OUT_TIME"] != "NULL")
+                        //    {
                             
-                               $nameQuery = "SELECT NAME, SURNAME FROM EMPLOYEE
-                               WHERE EMPLOYEE_ID = '$employeeID'";
+                        //        $nameQuery = "SELECT NAME, SURNAME FROM EMPLOYEE
+                        //        WHERE EMPLOYEE_ID = '$employeeID'";
                    
-                               $employeNameQueryResult = mysqli_query($DBConnect,$nameQuery);
-                               $employee= mysqli_fetch_assoc($employeNameQueryResult);
+                        //        $employeNameQueryResult = mysqli_query($DBConnect,$nameQuery);
+                        //        $employee= mysqli_fetch_assoc($employeNameQueryResult);
                    
-                               $nameSurname = $employee["NAME"]." ".$employee["SURNAME"];
-                               echo "Already CheckedOut!";
-                           }
+                        //        $nameSurname = $employee["NAME"]." ".$employee["SURNAME"];
+                        //        echo "Already CheckedOut!";
+                        //    }
                             
                           if($query_QR)
                           {

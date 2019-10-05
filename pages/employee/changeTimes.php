@@ -60,12 +60,12 @@
 
                     <div class=" col-sm-12 col-lg-6 col-md-6">
                         <label for="bane">Checkin Time:</label>
-                        <input type="time" class="form-control" id="checkin" value="" aria-describedby="emailHelp" placeholder="Enter Position Name">
+                        <input type="time" class="form-control" id="checkin" value="" min="00:00" max="12:00" aria-describedby="emailHelp" placeholder="Enter Position Name">
                       </div>
                       
                       <div class=" col-sm-12 col-lg-6 col-md-6">
                         <label for="bane">Checkout Time:</label>
-                        <input type="time" class="form-control" id="checkout" value= "" aria-describedby="emailHelp" placeholder="Enter Position Name">
+                        <input type="time" class="form-control" id="checkout" value= "" min="12:00" max="22:00" aria-describedby="emailHelp" placeholder="Enter Position Name">
                         <input type="hidden" class="form-control" id="user_id" value=<?php echo $_SESSION["userID"]?>>
                       </div>
                     </div>
