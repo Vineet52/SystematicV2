@@ -366,4 +366,99 @@
 			return false;
 		}
 	}
+
+	function getSupplierAccountID($con,$supid)
+	{
+		$get_query="SELECT * FROM SUPPLIER_ACCOUNT WHERE SUPPLIER_ID='$supid'";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			$row=$get_result->fetch_assoc();
+			$cityID=$row["SUPPLIER_ACCOUNT_ID"];
+		}
+		else
+		{
+			$cityID=false;
+		}
+		return $cityID;
+	}
+
+	function getSupplierAccountDetails($con,$supid)
+	{
+		$get_query="SELECT * FROM SUPPLIER_ACCOUNT WHERE SUPPLIER_ID='$supid'";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			$row=$get_result->fetch_assoc();
+			$cityInfo=$row;
+		}
+		else
+		{
+			$cityInfo="Address does not exist";
+		}
+		return $cityInfo;
+	}
+
+	function countSupplierOrders($con,$supid)
+	{
+		$get_query="SELECT COUNT(A.ORDER_ID) AS NUM_ORDERS,
+		SUM(case when A.ORDER_PAID=1 then 1 ELSE 0 END) AS ORDERS_PAID,
+		SUM(case when A.ORDER_STATUS_ID=2 then 1 ELSE 0 END) AS ORDERS_RECEIVED
+		FROM ORDER_ A
+		WHERE A.SUPPLIER_ID='$supid'";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			$row=$get_result->fetch_assoc();
+			$cityInfo=$row;
+		}
+		else
+		{
+			$cityInfo="Address does not exist";
+		}
+		return $cityInfo;
+	}
+
+	function getOrderAmountTransactions($con,$supid)
+	{
+		$get_query="SELECT SUM(A.PRICE) AS ORDER_AMOUNT,A.ORDER_ID, CAST(B.ORDER_DATE AS DATE) AS ORDER_DATE
+			FROM ORDER_PRODUCT A
+			JOIN ORDER_ B ON A.ORDER_ID=B.ORDER_ID
+			WHERE B.SUPPLIER_ID='$supid'
+			GROUP BY(ORDER_ID)";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			while($get_row=$get_result->fetch_assoc())
+			{
+				$get_vals[]=$get_row;
+			}
+			return $get_vals;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	function getOrderPayments($con,$supid)
+	{
+		$get_query="SELECT A.* 
+		FROM SUPPLIER_ACCOUNT_PAYMENT A
+		JOIN ORDER_ B ON A.ORDER_ID=B.ORDER_ID
+		WHERE B.SUPPLIER_ID='$supid'";
+		$get_result=mysqli_query($con,$get_query);
+		if(mysqli_num_rows($get_result)>0)
+		{
+			while($get_row=$get_result->fetch_assoc())
+			{
+				$get_vals[]=$get_row;
+			}
+			return $get_vals;
+		}
+		else
+		{
+			return false;
+		}
+	}
 ?>

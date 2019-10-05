@@ -44,35 +44,7 @@
 		}
 	}
 
-	function getSupplierAccountID($con,$supid)
-	{
-		$get_query="SELECT * FROM SUPPLIER_ACCOUNT WHERE SUPPLIER_ID='$supid'";
-		$get_result=mysqli_query($con,$get_query);
-		if(mysqli_num_rows($get_result)>0)
-		{
-			$row=$get_result->fetch_assoc();
-			$cityID=$row["SUPPLIER_ACCOUNT_ID"];
-		}
-		else
-		{
-			$cityID=false;
-		}
-		return $cityID;
-	}
-
-	function insertSupplierAccount($con,$supid,$amount)
-	{
-		$add_query="INSERT INTO SUPPLIER_ACCOUNT (AMOUNT_OWED,SUPPLIER_ID) VALUES ('$amount','$supid')";
-		$add_result=mysqli_query($con,$add_query);
-		if($add_result)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	
 
 	$dte=Date('Y-m-d');
 	if(recordPayment($con,$_POST["amount"],$_POST["orderID"],$dte))
