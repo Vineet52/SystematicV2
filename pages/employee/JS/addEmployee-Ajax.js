@@ -239,9 +239,19 @@ $(document).ready(function()
                         $("#displayModal").modal("show");
 
 
+                        $("#btnClose").click(function(e) {
+
+                                    e.preventDefault();
+                                   
+                                    window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
+                                    window.location='../../employee.php';
+                                });
+
                         setTimeout(function(){
                             $('#displayModal').modal("hide");
                              window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
+                             window.location='../../employee.php';
+                             
                         }, 2000);
 
                         
@@ -251,8 +261,8 @@ $(document).ready(function()
                     else if(confirmation.includes("success") && confirmation.includes("Employee does not earn wage"))
                     {
                         let id = confirmation.split(",");
-                        let employeeID = parseInt(id[0]);
-                        console.log(id[0]);
+                        let employeeID = parseInt(id[1]);
+                        console.log(id[1]);
                         $("#modal-title-default").text("Success!");
                         $("#MMessage").text("Employee added successfully but employee does not earn wage ,thus employee tag not generated.");
                         $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
@@ -269,7 +279,8 @@ $(document).ready(function()
                                 });
                                 setTimeout(function(){
                                     $('#displayModal').modal("hide");
-                                     window.open(`view.php?employeeID=${employeeID}`, '_blank');
+                                     window.open(`view.php?employeeID=${employeeID}`);
+                                    
                                 }, 2000);
                     }
                     else if(confirmation.includes("Employee Exists"))
