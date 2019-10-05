@@ -261,7 +261,7 @@
               <img class="loading" src="../../assets/img/loading/loading.gif">
           </div>
       </div>
-  </div>
+    </div>
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>
