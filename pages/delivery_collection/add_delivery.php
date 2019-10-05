@@ -26,6 +26,10 @@ include_once("../sessionCheckPages.php");
   <link href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
   <!-- Argon CSS -->
   <link type="text/css" href="../../assets/css/argon.css?v=1.0.0" rel="stylesheet">
+  <!-- Calander -->
+  <link href='../../assets/fullcalender/packages/core/main.css' rel='stylesheet' />
+  <link href='../../assets/fullcalender/packages/daygrid/main.css' rel='stylesheet' />
+  <link href='../../assets/fullcalender/packages/bootstrap/main.css' rel='stylesheet' />
 </head>
 
 <body>
@@ -89,7 +93,34 @@ include_once("../sessionCheckPages.php");
                         </div>
                         </div>
 
-                      </div> 
+                      </div>
+                      <form id="delView" method="POST" action="assign-truck-view-delivery.php">
+                        <input type="hidden" name="SALE_ID" id="delID">
+                        <input type="hidden" name="DEL_INFO" id="delInfo">
+                        <input type="hidden" name="choice" value="2">
+                        </form>
+                      <button type="button" class="btn btn-info float-right d-inline" data-toggle="modal" data-target="#exampleModal">
+                      <i class="far fa-calendar-alt"></i>
+                      Show Calander
+                      </button>
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header bg-info">
+                              <h5 class="modal-title" id="exampleModalLabel">Calander</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div id="calender"></div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div class="form-group col-md-2">
                           <button type="button" class="btn btn-block btn-primary mb-3" id="btnSave">Save</button>
                           <div class="form-group col-md-2 errorModal successModal text-center">
@@ -144,6 +175,13 @@ include_once("../sessionCheckPages.php");
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/addDelivery.js"></script>
+
+  <script src='../../assets/fullcalender/packages/core/main.js'></script>
+  <script src='../../assets/fullcalender/packages/daygrid/main.js'></script>
+  <script src='../../assets/fullcalender/packages/timegrid/main.js'></script>
+  <script src='../../assets/fullcalender/packages/list/main.js'></script>
+  <script src='../../assets/fullcalender/packages/bootstrap/main.js'></script>
+  <script type="text/javascript" src="JS/calendarForAdd.js"></script>
 </body>
 
 </html>
