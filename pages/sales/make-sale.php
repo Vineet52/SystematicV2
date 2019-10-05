@@ -22,6 +22,10 @@
   <link href="../../assets/jqueryui/jquery-ui.css" rel="stylesheet">
   <!-- Validation Stylesheet -->
   <link rel="stylesheet" href="../../assets/css/site-demos.css">
+  <!-- calander -->
+  <link href='../../assets/fullcalender/packages/core/main.css' rel='stylesheet' />
+  <link href='../../assets/fullcalender/packages/daygrid/main.css' rel='stylesheet' />
+  <link href='../../assets/fullcalender/packages/bootstrap/main.css' rel='stylesheet' />
 </head>
 
 <style type="text/css">
@@ -253,6 +257,12 @@
         <div class="row mt-0">
           <div class="col col-sm-12 col-md-12 col-xl-12 px-0">
             <div class="card card-stats shadow">
+              <div class="card-header">
+                         <button type="button" class="btn btn-info  " data-toggle="modal" data-target="#exampleModal">
+                        <i class="far fa-calendar-alt"></i>
+                        Show Calander
+                        </button>
+              </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col-6">
@@ -272,7 +282,32 @@
                     </div>
                     <div class="col-6">
                       <span class="float-right">
-                        <button class="btn btn-success" id="finaliseSale" data-toggle="modal" data-target="#modal-salesManagerPassword">
+               
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header bg-info">
+                                <h5 class="modal-title" id="exampleModalLabel">Calander</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="calender"></div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-success float-right" id="finaliseSale" data-toggle="modal" data-target="#modal-salesManagerPassword">
                           <span class="btn-inner--icon  mr-2">
                             <i class="fas fa-check"></i>
                           </span>
@@ -280,9 +315,6 @@
                             Finalise Sale
                           </span>
                         </button>
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -500,6 +532,12 @@
   <script type="text/javascript">
     var SESSION = eval('(<?php echo json_encode($_SESSION)?>)');
   </script>
+  <script src='../../assets/fullcalender/packages/core/main.js'></script>
+  <script src='../../assets/fullcalender/packages/daygrid/main.js'></script>
+  <script src='../../assets/fullcalender/packages/timegrid/main.js'></script>
+  <script src='../../assets/fullcalender/packages/list/main.js'></script>
+  <script src='../../assets/fullcalender/packages/bootstrap/main.js'></script>
+  <script type="text/javascript" src="JS/calendarForAdd.js"></script>
 </body>
 
 </html>

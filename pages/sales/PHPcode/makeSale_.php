@@ -85,11 +85,13 @@
 			mysqli_query($DBConnect, $queryUpdateQuantity);
 		}
 
-		if($addSaleDelivery === true) 
+		if($addSaleDelivery =="YES") 
 		{
+			
 			$dateFiveFromNow = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 3, date('Y')));
+			$delDate=$_POST["addDeliveryDate"];
 
-			$querySaleDelivery = "INSERT INTO DELIVERY(SALE_ID, EXPECTED_DATE, ADDRESS_ID, LONGITUDE, LATITUDE, DCT_STATUS_ID) VALUES( '$lastID', '$dateFiveFromNow', '$saleDeliveryAddressID', $deliveryLongitude,$deliveryLatitude, 1)";
+			$querySaleDelivery = "INSERT INTO DELIVERY(SALE_ID, EXPECTED_DATE, ADDRESS_ID, LONGITUDE, LATITUDE, DCT_STATUS_ID) VALUES( '$lastID', '$delDate', '$saleDeliveryAddressID', $deliveryLongitude,$deliveryLatitude, 1)";
 			mysqli_query($DBConnect, $querySaleDelivery);
 
 			//echo($querySaleDelivery);
