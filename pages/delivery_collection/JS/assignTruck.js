@@ -674,7 +674,7 @@ let suggestTruck=function()
   );
   console.log(uTrucks);
   console.log(aTrucks);
-  let found=true;
+  let found=false;
   let suggestion="";
   for(let k=0;k<aTrucks.length;k++)
   {
@@ -747,7 +747,7 @@ let suggestTruckAssign=function(proArr)
   );
   console.log(uTrucks);
   console.log(aTrucks);
-  let found=true;
+  let found=false;
   let suggestion="";
   for(let k=0;k<aTrucks.length;k++)
   {

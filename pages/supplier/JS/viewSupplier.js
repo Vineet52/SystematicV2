@@ -1,6 +1,7 @@
 var addressInfo;
 var suburbInfo;
 var cityInfo;
+var accountCheck;
 let createListItem=function(val)
 {
 	let listItem=$("<li></li>").addClass("nav-item");
@@ -60,6 +61,17 @@ $(()=>{
 	let changedAddressInfo=addressInfo;
 	let chnagedSuburbInfo=suburbInfo;
 	let changedCityInfo=cityInfo;
+	accountCheck=$("#accCheck").val();
+	console.log(accountCheck);
+	$("#accName").val(supplierName);
+	if(accountCheck=="")
+	{
+		$("#btnViewAccount").attr("disabled",true);
+	}
+	else
+	{
+		$("#btnViewAccount").attr("disabled",false);
+	}
 	for(let k=0;k<addressInfo.length;k++)
 	{
 		changedAddressInfo[k]["ADDRESS_LINE_1"]=changedAddressInfo[k]["ADDRESS_LINE_1"].replace(" ","/");
