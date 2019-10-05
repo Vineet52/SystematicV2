@@ -100,7 +100,7 @@ $(()=>{
 			    height: divHeight,
 			    width: divWidth,
 			    onrendered: function(canvas) {
-					var image = canvas.toDataURL("image/png",1.0);
+					var image = canvas.toDataURL("image/png",0.5);
 					var pdf = new jsPDF('p','pt','a4'); // using defaults: orientation=portrait, unit=mm, size=A4
 					var width = pdf.internal.pageSize.getWidth();    
 					var height = pdf.internal.pageSize.getHeight();
