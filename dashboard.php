@@ -214,7 +214,9 @@
     console.log(session);
   </script>
     <!-- Moment JS -->
-  <script src="assets/js/moment.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <!--script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script-->
   <script src="pages/employee/JS/noOfWorkers.js"> </script>
   <script src="pages/customer/JS/noOfCustomer.js"> </script>
   <script src="pages/sales/JS/salesGraphDashboard.js"> </script>

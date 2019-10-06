@@ -205,18 +205,19 @@ $(()=>{
                 else if(salePeriod=="Monthly")
                 {
                     let weekCounter = 0;
-                  while(saleDates.length-1 != weekCounter )
+                  while(saleDates.length-1 >= weekCounter )
                    {
+                      
                             count=0;
                             while(count <7)
                             {
 
-                                if(saleDates.length-1 != countArr)
+                                if(saleDates.length-1 >= countArr)
                                 {
                                     arraComparer = new Date(saleDates[countArr]);
                                     arraComparer = arraComparer.getFullYear()+'-'+(arraComparer.getMonth()+1)+'-'+(arraComparer.getDate());
-                                    console.log(arraComparer);
-                                    console.log(comDate);
+                                    //console.log(arraComparer);
+                                    //console.log(comDate);
                                 
                                         if(comDate==arraComparer)
                                         {
@@ -246,6 +247,10 @@ $(()=>{
                                         comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+prevDay.getDate();
                                
             
+                                }
+                                else
+                                {
+                                    break;
                                 }
                             
                             }
@@ -318,12 +323,33 @@ $(()=>{
                     tableHeader = "SALES FOR A DAY";
             
                 }  
-                new Chart(document.getElementById("line-chart"), {
+                // new Chart(document.getElementById("line-chart"), {
+                //     type: 'line',
+                //     data: {
+                //         labels: newDatesArray,
+                //         datasets: [{ 
+                //             data: tempSaleArray,
+                //           label: "Sales",
+                //           borderColor: "#3e95cd",
+                //           fill: false
+                //         }
+                //       ]
+                //     },
+                //     options: {
+                //       title: {
+                //         display: true,
+                //         text: tableHeader
+                //       }
+                //     }
+                //   });
+
+
+                let chart =new Chart(document.getElementById("line-chart"), {
                     type: 'line',
                     data: {
-                        labels: newDatesArray,
-                        datasets: [{ 
-                            data: tempSaleArray,
+                      labels: newDatesArray,
+                      datasets: [{ 
+                          data: tempSaleArray,
                           label: "Sales",
                           borderColor: "#3e95cd",
                           fill: false
@@ -331,13 +357,31 @@ $(()=>{
                       ]
                     },
                     options: {
-                      title: {
-                        display: true,
-                        text: tableHeader
-                      }
+                        responsive: true,
+                        scales: {
+                          xAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: tableHeader
+                            },
+                            ticks: {
+                              major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                              }
+                            }
+                          } ],
+                          yAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Revene (Rands)'
+                            }
+                          } ]
+                        }
                     }
-                  });
-
+                });
 
 
 
