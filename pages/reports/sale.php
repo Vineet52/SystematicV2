@@ -52,7 +52,11 @@
       </table>
       <table>
         <tfoot>   
-
+          <tr id="total">
+            <td colspan="2"></td>
+            <td colspan="2"><b>TOTAL SALES AMOUNT</b></td>
+            
+          </tr>
         </tfoot>
       </table>
       <div id="notices">
