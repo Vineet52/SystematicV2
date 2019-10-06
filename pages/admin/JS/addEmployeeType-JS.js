@@ -94,5 +94,9 @@ $(document).ready(function()
                 });
 
             });
+                                $("#modal-title-default").text("Success!");
+                        $("#modalText").text("Employee Type added successfully");
+                        $("#btnClose").attr("onclick","window.location='../../admin.php'");
+                        $("#displayModal").modal("show");
 
 });

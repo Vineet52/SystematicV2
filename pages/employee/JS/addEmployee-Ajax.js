@@ -154,7 +154,7 @@ $(document).ready(function()
     ///////////////////////////////////////////////////////
     
     
-
+      
 
     ///////////////////////////////////////////////////////
     let size = 0;
@@ -212,8 +212,7 @@ $(document).ready(function()
           success_callback: null          // Default: null
         });
       });*/
-
-
+   
 
     $("#picToUpload").on("submit",function(e)
     {//use ID of the form
@@ -429,7 +428,7 @@ $(document).ready(function()
                     $('#modal-title-default').text("Error!");
                     $('#MMessage').text("Only JPEG images can be uploaded. Please check file uploads highlighted in red");
                     $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                   
+
                     $("#modalHeader").css("background-color", "red");
                     $('#displayModal').modal("show");   
                 }
