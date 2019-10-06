@@ -1,5 +1,6 @@
-
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/AddWarehouse.html";
+?>
 <!DOCTYPE html>
 <html>
 

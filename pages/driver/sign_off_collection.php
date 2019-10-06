@@ -1,5 +1,6 @@
 <?php
   include_once("../sessionCheckPages.php");
+  $help="../../help/MakeCollection-SupplierFinaliseC.html";
 ?>
 <!DOCTYPE html>
 <html>

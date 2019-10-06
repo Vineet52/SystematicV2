@@ -4,6 +4,7 @@
   include_once("PHPcode/functions.php");
   $warehouseProduct=getWriteOffProductDetails($con,$_POST["PRODUCT_ID"]);
   mysqli_close($con);
+  $help="../../help/WriteoffStock.html";
 ?>
 <!DOCTYPE html>
 <html>
