@@ -4,7 +4,6 @@ var returnsArray;
 var orderTotal = 0.00;
 
 $(()=>{
-
 	var orderProductsJSON = $("#oProducts").text();
 	orderProductsArray = JSON.parse(orderProductsJSON);
 	//console.log(orderProductsArray);
@@ -183,7 +182,7 @@ $("button#confirmSalesManagerPassword").on('click', event => {
 					$('#modal-title-default2').text("Success!");
 					$('#modalText').text("Correct Password. Sale return successful");
 					$("#modalCloseButton").attr("onclick","window.location='../../stock.php'");
-					
+					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
 					$('#successfullyAdded').modal("show");
 				}
 				else if(response == "failed")
