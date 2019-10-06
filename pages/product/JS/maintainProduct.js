@@ -114,31 +114,39 @@ $("button#maintainProduct").on('click', event => {
 			console.log(response);
 			if (response == "success")
 			{
-				$('#modal-title-default').text("Success!");
-				$('#modalText').text("Product maintained sucessfully");
-				$("#modalCloseButton").attr("onclick","window.location='../../product.php'");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Success!");
+				$("#MMessage").text("Product maintained sucessfully");
+				$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+				$("#modalHeader").css("background-color", "#1ab394");
+				$("#btnClose").attr("onclick","window.location='../../product.php'");
+				$("#displayModal").modal("show");
 			}
 			else if(response == "product exists")
 			{
-				$('#modal-title-default').text("Error!");
-				$('#modalText').text("A product with the changed name already exists");
-				$("#modalCloseButton").attr("onclick","");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Error!");
+				$("#MMessage").text("A product with the changed name already exists");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$("#displayModal").modal("show");
 			}
 			else if(response == "no changes made")
 			{
-				$('#modal-title-default').text("Error!");
-				$('#modalText').text("You have not made any changes to the product");
-				$("#modalCloseButton").attr("onclick","");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Error!");
+				$("#MMessage").text("You have not made any changes to the product");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$("#displayModal").modal("show");
 			}
 			else if(response == "database error")
 			{
-				$('#modal-title-default').text("Error!");
-				$('#modalText').text("Database error adding product");
-				$("#modalCloseButton").attr("onclick","");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Error!");
+				$("#MMessage").text("Database error");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$("#displayModal").modal("show");
 			}
 			
 			ajaxDone = true;
