@@ -174,7 +174,14 @@ $(()=>{
                tempOrderArray.reverse();
                 
                let maxValue = Math.max(...tempOrderArray);
-               //console.log(maxValue);
+               let chartMax = maxValue;
+               if((chartMax % 10 )>0)
+               {
+                    chartMax=chartMax + 10;
+               }
+              
+              
+               console.log(maxValue);
                 new Chart(document.getElementById("bar-chart"), {
                     type: 'bar',
                     data: {
@@ -188,17 +195,38 @@ $(()=>{
                       ]
                     },
                     options: {
+                        responsive: true,
                         scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    stepSize :2,
-                                    max: maxValue
-                                }
-                            }]
+                          xAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: "DAYS OF THE WEEK"
+                            },
+                            ticks: {
+                              major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                              }
+                            }
+                          } ],
+                          yAxes: [ {
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                step:4,
+                                stepValue:2,
+                                max: chartMax 
+                            },
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'NUMBER OF ORDERS',
+                              
+                            }
+                          } ]
                         }
                     }
-                  });
+                });
 
 
 
