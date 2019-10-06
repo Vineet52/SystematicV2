@@ -25,13 +25,9 @@ $(document).ready(function(){
       $.ajax({
         type: 'POST',
         url: 'PHPcode/verifyQRcode.php',
-        data: {qrCode : content},
-        beforeSend: function(){
-            $('.loadingModal').modal('show');
-        }
+        data: {qrCode : content}
       })
       .done(response => {
-        $('.loadingModal').modal('hide');
       // do something with data
         console.log(response);
         var reponseArray = response.split(',');
@@ -72,14 +68,69 @@ $(document).ready(function(){
             '</div>'
           });
         }
-        else if(responseText.includes("Over checkout time"))
+        else if(responseText.includes("not wage earning"))
         {
-          $('#modal-title-default').text("Error!");
-          $('#modalText').text("Cannot check-in , checkout time has passed");
-          $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-          $("#modalHeader").css("background-color", "red");
-          
-          $('#checkedIn').modal("show");
+          checkinErrorSound.play();
+
+          var nameSurname = reponseArray[2];
+          var employeeID = reponseArray[1];
+
+          $.notify({
+            icon: '../employee/images/ProfilePic/'+ employeeID +'.jpg',
+            title: nameSurname,
+            message: ' you are not wage earning!',
+            
+          },{
+            //settings
+            placement: {
+              from: "bottom",
+              align: "right"
+            },
+            animate: {
+              enter: 'animated fadeInUp',
+              exit: 'animated fadeOutDown'
+            },
+            type: 'minimalist2',
+            delay: 20000,
+            icon_type: 'image',
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+              '<img data-notify="icon" class="rounded-circle pull-left d-inline" onerror="imgError(this)">'+
+              '<span data-notify="title" class="d-inline">{1}</span>' +
+              '<span data-notify="message" class="d-inline">{2}</span>' +
+            '</div>'
+          });
+        }
+        else if(responseText.includes("Over checkin time"))
+        {
+          checkinErrorSound.play();
+
+          var nameSurname = reponseArray[2];
+          var employeeID = reponseArray[1];
+
+          $.notify({
+            icon: '../employee/images/ProfilePic/'+ employeeID +'.jpg',
+            title: nameSurname,
+            message: ' you cannot check-in at this time!',
+            
+          },{
+            //settings
+            placement: {
+              from: "bottom",
+              align: "right"
+            },
+            animate: {
+              enter: 'animated fadeInUp',
+              exit: 'animated fadeOutDown'
+            },
+            type: 'minimalist2',
+            delay: 20000,
+            icon_type: 'image',
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+              '<img data-notify="icon" class="rounded-circle pull-left d-inline" onerror="imgError(this)">'+
+              '<span data-notify="title" class="d-inline">{1}</span>' +
+              '<span data-notify="message" class="d-inline">{2}</span>' +
+            '</div>'
+          });
         }
         else if(responseText.includes("Already Checked-in!"))
         {
@@ -112,25 +163,9 @@ $(document).ready(function(){
               '<span data-notify="message" class="d-inline">{2}</span>' +
             '</div>'
           });
-          // $.notify({
-          //   title: '<strong>'+nameSurname+'</strong>',
-          //   message: ' already checked-in!'
-          // },{
-          //   type: 'danger',
-          //   //settings
-          //   placement: {
-          //     from: "bottom",
-          //     align: "right"
-          //   },
-          //   animate: {
-          //     enter: 'animated fadeInUp',
-          //     exit: 'animated fadeOutDown'
-          //   },
-          //   delay: 20000,
-          //   allow_dismiss: false
-          // });
+
         }
-        else
+        else if(responseText.includes("DATABASE ERROR"))
         {
           $('#modal-title-default').text("Error!");
           $('#modalText').text("Database Error!");

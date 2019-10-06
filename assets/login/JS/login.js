@@ -32,6 +32,10 @@ $(document).ready(function(){
                 {
                     $('#alert-login').append("<div class='alert alert-danger py-2' role='alert'><span class='alert-inner--text'>Password incorrect!</span></div>");    
                 }
+                else if(response == "no access")
+                {
+                    $('#alert-login').append("<div class='alert alert-danger py-2' role='alert'><span class='alert-inner--text'>You have been suspended. Please contact the Admin Manager!</span></div>");    
+                }
                 else
                 {
                     $('#alert-login').append("<div class='alert alert-danger py-2' role='alert'><span class='alert-inner--text'>Login failed! </span></div>");    

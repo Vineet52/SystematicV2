@@ -20,7 +20,25 @@
   <link type="text/css" href="../../assets/bootstrap-notify-master/animate.css" rel="stylesheet">
 
   <!-- Link scanning library -->
-  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>	
+  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>
+  <style>
+    #qrscan {
+      margin: 0px auto;
+      width: 400px;
+      height: 400px;
+      background-image:url("../../assets/img/brand/qr.png");
+      background-size: 400px;
+      display:inline-block;
+      overflow: hidden;
+    }
+    #videoElement {
+      width: 378px;
+      height: 378px;
+      object-fit: cover;
+      margin: 11px;
+      
+    }
+  </style>	
 </head>
 
 <body>
@@ -55,33 +73,11 @@
               <h3 class="mb-0">Check-in</h3>
             </div>
             <div class="card-body ">
-
               <div class="row d-flex justify-content-center">
-                
-                  <style>
-                  #qrscan {
-                    margin: 0px auto;
-                    width: 400px;
-                    height: 400px;
-                    background-image:url("../../assets/img/brand/qr.png");
-                    background-size: 400px;
-                    display:inline-block;
-                    overflow: hidden;
-                  }
-                  #videoElement {
-                    width: 378px;
-                    height: 378px;
-                    object-fit: cover;
-                    margin: 11px;
-                    
-                  }
-                  </style>
-              
                   <div id="qrscan"  class="embed-responsive embed-responsive-16by9">
                     <video autoplay="true" id="videoElement" class="">
                     </video>
                   </div>
-                
               </div>
               <div class="row icon-examples d-flex justify-content-center">
                 <div class="col-lg-4 col-md-6 errorModal successModal text-center">
@@ -131,15 +127,6 @@
 
       <?php include_once("../footer.php");?>
     </div>
-  </div>
-
-
-  <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
-      <div class="modal-dialog modal-sm">
-          <div class="modal-content px-auto" style="">
-              <img class="loading" src="../../assets/img/loading/loading.gif">
-          </div>
-      </div>
   </div>
   <!-- <embed src="../../assets/sounds/checkin-sound.mp3" autostart="false" width="0" height="0" id="successfulCheckinSound"
     enablejavascript="true"> -->

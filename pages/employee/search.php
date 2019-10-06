@@ -20,6 +20,24 @@
 
   <!-- Link scanning library -->
  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>
+ <style>
+  #qrscan {
+    margin: 0px auto;
+    width: 400px;
+    height: 400px;
+    background-image:url("../../assets/img/brand/qr.png");
+    background-size: 400px;
+    display:inline-block;
+    overflow: hidden;
+  }
+  #videoElement {
+    width: 378px;
+    height: 378px;
+    object-fit: cover;
+    margin: 11px;
+    
+  }
+  </style>
 </head>
 
 <body>
@@ -74,123 +92,15 @@
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <div class="modal-body">
-                          <!--img class="img-fluid" src="../../assets/img/brand/qr.png"-->
-
-                          <div id="qrscan"  class="embed-responsive embed-responsive-16by9">
-                                            <video autoplay="true" id="videoElement" class="embed-responsive-item">
-
-                                            
-                                            </video>
-                                          </div>
-                                          <script>
-                                            /* var video = document.querySelector("#videoElement");
-
-                                              if (navigator.mediaDevices.getUserMedia) {
-                                                navigator.mediaDevices.getUserMedia({ video: true })
-                                                  .then(function (stream) {
-                                                    video.srcObject = stream;
-                                                  })
-                                                  .catch(function (err0r) {
-                                                    console.log("Something went wrong!");
-                                                  });
-                                              }*/
-
-
-
-                                          let scanner = new Instascan.Scanner(
-                                              {
-                                                video: document.getElementById('videoElement')
-                                              }
-                                          );
-
-                                          scanner.addListener('scan', function(content) {
-
-                                            $("#scanQr").click(function(e) {
-
-                                              e.preventDefault();
-                                              console.log(content);
-                                          let savedID = content;
-                                          $.ajax({
-                                          type: 'POST',
-                                          url: 'PHPcode/searchScanner-SQL.php',
-                                          data: {qrCode : content},
-                                          beforeSend: function(){
-                                            $('.loadingModal').modal('show');
-                                            }
-                                          })
-                                          .done(data => {
-                                          // do something with data
-                                          $('.loadingModal').modal('hide');
-                                                  console.log(data);
-                                                  let confirmation = data.trim();
-                                                
-                                                  if(confirmation == "success")
-                                                  {
-                                                      //Add this when fully done.
-                                                      
-                                                    
-                                                        /*$('#modal-title-default').text("Success!");
-                                                        $('#modalText').text("Employee found ,you will shortly be redirected to the view screen");
-                                                        $('#scannerSearch').modal("show");
-
-                                                        $("#successSearch").click(function(e) {
-
-                                                            e.preventDefault();*/
-                                                            window.location=`view.php?employeeID='${savedID}'`;
-                                                           // window.location=`wage_calc.php?employeeID='${savedID}'`;
-                                                        //});
-                                                      /* setTimeout(function(){redirect()},10000);
-                                                      
-                                                      function redirect()
-                                                      {
-                                                        // go do that thing
-                                                          
-                                                      
-                                                      }*/
-
-
-                                                      // alert('The scanned content is: ' + content);
-                                                    // window.open(content, "_blank");
-
-                                                  }
-                                                  else if(confirmation != "success")
-                                                  {
-                                                    $('#modal-title-default').text("Error!");
-                                                    $('#modalText').text("Employee not found , please try again or search employee");
-                                                    $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-						                                        $("#modalHeader").css("background-color", "red");
-                                                    $('#scannerSearch').modal("show");
-                                                  }
-                                              })
-                                              .fail(()=>
-                                                  {
-                                                      console.log("ajax failed");
-                                                  });
-
-                                                  
-                                      });
-                                            });
-                                        
-
-
-                                      Instascan.Camera.getCameras().then(cameras => 
-                                      {
-                                          if(cameras.length > 0){
-                                              scanner.start(cameras[0]);
-                                          } else {
-                                              console.error("No Camera Device");
-                                          }
-                                      });
-
-
-                  </script>							 
+                        <div class="modal-body text-center">
+                          <div id="qrscan"  class="embed-responsive embed-responsive-16by9 mx-auto">
+                            <video autoplay="true" id="videoElement" class="">
+                            </video>
+                          </div>						 
 				
                         </div>
                         <div class="modal-footer">
-                          <p>Place Employee QR inside the QR scanner box</p>
-                          <button type="button" class="btn btn-primary" id="scanQr" onclick="">Scan QR</button>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button-default" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           
                           </div>
                         </div>
@@ -283,47 +193,6 @@
             </div>
 
 
-           
-
-            <script>
-              function myFunction() 
-            {
-              var input, filter, table, tr, td, i, txtValue;
-              input = document.getElementById("myInput");
-              filter = input.value.toUpperCase();
-              table = document.getElementById("myTable");
-              tr = table.getElementsByTagName("tr");
-              var showCount = 0;
-              for (i = 0; i < tr.length; i++) 
-              {
-                td = tr[i].getElementsByTagName("td")[1];
-                td2 = tr[i].getElementsByTagName("td")[3];
-                if (td || td2) 
-                {
-                  txtValue = td.textContent || td.innerText;
-                  txtValue2 = td2.textContent || td2.innerText;
-                  if ((txtValue.toUpperCase().indexOf(filter)> -1)|| txtValue2.replace(/\s/g, '').toUpperCase().indexOf(filter)> -1) 
-                  {
-                    tr[i].style.display = "";
-                    showCount += 1;
-                  } 
-                  else 
-                  {
-                    tr[i].style.display = "none";
-                  }
-                }       
-              }
-
-              if (showCount === 0)
-              {
-                $("#emptySearch").show();
-              } 
-              else
-              {
-                $("#emptySearch").hide();
-              }
-            }
-            </script>
           </div>
         </div>
       </div>
