@@ -242,6 +242,7 @@
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <script src="../../assets/jqueryui/jquery-ui.js"></script>
   <script src="JS/maintainSupplier.js" type="text/javascript"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

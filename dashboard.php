@@ -226,6 +226,7 @@
   <script src='assets/fullcalender/packages/list/main.js'></script>
   <script src='assets/fullcalender/packages/bootstrap/main.js'></script>
   <script type="text/javascript" src="pages/delivery_collection/JS/calendar.js"></script>
+  <script src="InactivityLogoutLanding/autologout.js"></script>
 </body>
 
 </html>

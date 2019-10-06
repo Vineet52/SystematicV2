@@ -334,6 +334,7 @@
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <!-- View Order JS -->
   <script src="JS/returnOrder.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

@@ -538,6 +538,7 @@
   <script src='../../assets/fullcalender/packages/list/main.js'></script>
   <script src='../../assets/fullcalender/packages/bootstrap/main.js'></script>
   <script type="text/javascript" src="JS/calendarForAdd.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

@@ -32,7 +32,7 @@
 
 	function updateOrderPaid($con,$orderid)
 	{
-		$update_query="UPDATE ORDER_ SET ORDER_PAID=1 WHERE ORDER_ID='$id'";
+		$update_query="UPDATE ORDER_ SET ORDER_PAID=1 WHERE ORDER_ID='$orderid'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
