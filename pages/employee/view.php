@@ -432,11 +432,9 @@ if(mysqli_num_rows($Wagequery_QR)>0)
                         <div class="modal-content">
                             <div class="modal-header" id="modalHeader">
                                 <h6 class="modal-title" id="modal-title-default">Success!</h6>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
+                               
                             </div>      
-                            <div class="modal-body text-left">
+                            <div class="modal-body text-center">
                                 <p id="modalText"></p>
                                   <div id="animation" style="text-align:center;">
 
@@ -503,11 +501,11 @@ if(mysqli_num_rows($Wagequery_QR)>0)
                           <span aria-hidden="true">×</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
                       <p id="modalTextDismiss"></p>
-                      <div id="animation" style="text-align:center;">
+                        <div id="animation" style="text-align:center;">
 
-                                            </div>
+                        </div>
                         
                     </div>
                     <div class="modal-footer">                       
@@ -547,6 +545,7 @@ if(mysqli_num_rows($Wagequery_QR)>0)
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/viewEmployee.js"></script>
   <script type="text/javascript" src= "JS/dismissEmployee.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

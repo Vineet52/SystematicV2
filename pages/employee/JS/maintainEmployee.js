@@ -167,17 +167,49 @@ $(()=>{
 
     });
     ////////////////////////////////////////////////////
-    var imageLoader = document.getElementById('fileUpload');
-    imageLoader.addEventListener('change', handleImage, false);
+    let size = 0;
+    $(document).on('change', '.custom-file-input', function (event) {
+        $(this).next('.custom-file-label').html(event.target.files[0].name);
+        console.log(event.target.files[0].name);
+    
+        myfile= $(this).val();
+       
+        console.log(this);
+        var ext = myfile.split('.').pop();
+        size = event.target.files[0].size;
+        console.log(size);
+       
+        console.log(ext);
+        if((ext!="jpg") && (ext!="jpeg"))
+        {
+            event.preventDefault();
+            //console.log("NOT PDF");
+            $(this).next().attr("style","border-color: red;");
+            $('#modal-title-default').text("Error!");
+            $('#MMessage').text("Only JPEG images can be uploaded. Please check file uploads highlighted in red");
+            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+            $("#btnClose").attr("onclick",'$("#modal-salesManagerPassword").modal("show");');
+            $("#modalHeader").css("background-color", "red");
+            $('#displayModal').modal("show");
+        } 
+        else if(size > 20971520)
+        {
 
-    function handleImage(e) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            
-            $('.uploader img').attr('src',event.target.result);
+            $(this).next().attr("style","border-color: red;");
+            $('#modal-title-default').text("Error!");
+            $('#MMessage').text("Only Images Less than 20MB can be uploaded. Please check file uploads highlighted in red");
+            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+            $("#btnClose").attr("onclick",'$("#modal-salesManagerPassword").modal("show");');
+            $("#modalHeader").css("background-color", "red");
+            $('#displayModal').modal("show");
         }
-        reader.readAsDataURL(e.target.files[0]);
-    }
+        else
+        {
+           //console.log("PDF");
+           $(this).next().attr("style","border-color: #cad1d7;");
+    
+        }
+    });
 
 
     let emID= $("#employeeID").text();
@@ -199,71 +231,116 @@ $(()=>{
           }  
           else
           {
-            let form=new FormData();
-            let pics=$("#fileUpload").get(0).files[0];
-            //$("#fileUpload").prop('files')[0]
-            form.append("file",pics);
-            form.append("choice",1);
-            form.append("employeeID",arr["ID"]);
-            form.append("name",arr["name"]);
-            form.append("surname",arr["surname"]);
-            form.append("title",arr["title"]);
-            form.append("email",arr["email"]);
-            form.append("contact",arr["contact"]);
-            form.append("employeeType",arr["employeeType"]);
-            form.append("IDPASS",arr["IDPASS"]);
-            form.append("address",arr["address"]);
-            form.append("suburb",arr["suburb"]);
-            form.append("city",arr["city"]);
-            form.append("zip",arr["zip"]);
-            form.append("status",arr["status"]);
-            $.ajax({
-                url:'PHPcode/employeecode.php',
-                type:'POST',
-                data: form,
-                processData: false,
-                contentType: false,
-                cache: false,
-                beforeSend: function(){
-                    $('.loadingModal').modal('show');
-                }
-            })
-            .done(data=>
+
+
+
+            var fdata = new FormData(this);
+            var fileErrors = 0;
+            var filSizeErrors= 0;
+            for (var file of fdata.values()) 
             {
-                $('.loadingModal').modal('hide');
-                console.log(data);
-                let doneData=data.split(",");
-                if(doneData[0]=="T")
-                {           
-                    
-                    console.log(emID);
-                    $("#MMessage").text(doneData[1]);
-                    $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
-                    $("#modalHeader").css("background-color", "#1ab394");
-                   // $("#btnClose").attr("onclick","window.location='../../view.php?employeeID = '");
-                    $("#displayModal").modal("show");
-
-
-                      $("#btnClose").click(function(e) {
-
-                                    e.preventDefault();
-                                   
-                                    window.location=`view.php?employeeID=${emID}`;
-                                });
-                                setTimeout(function(){
-                                    $('#displayModal').modal("hide");
-                                     window.open(`view.php?employeeID=${emID}`, '_blank');
-                                }, 2000);
-                }
-                else
+                if (myfile= file["name"] != undefined) 
                 {
-                    $("#MMessage").text(doneData[1]);
-                    $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                    $("#modalHeader").css("background-color", "red");
-                    $("#btnClose").attr("data-dismiss","modal");
-                    $("#displayModal").modal("show");
+                    myfile= file["name"];
+                    var ext = myfile.split('.').pop();
+                    if((ext!="jpg") && (ext!="jpeg"))
+                    {
+                       //console.log("NOT PDF");
+                       fileErrors++;
+                    }    
                 }
-                });
+               
+            }
+            if((fileErrors==0) && (size < 20971520))
+            {
+                let form=new FormData();
+                let pics=$("#fileUpload").get(0).files[0];
+                //$("#fileUpload").prop('files')[0]
+                form.append("file",pics);
+                form.append("choice",1);
+                form.append("employeeID",arr["ID"]);
+                form.append("name",arr["name"]);
+                form.append("surname",arr["surname"]);
+                form.append("title",arr["title"]);
+                form.append("email",arr["email"]);
+                form.append("contact",arr["contact"]);
+                form.append("employeeType",arr["employeeType"]);
+                form.append("IDPASS",arr["IDPASS"]);
+                form.append("address",arr["address"]);
+                form.append("suburb",arr["suburb"]);
+                form.append("city",arr["city"]);
+                form.append("zip",arr["zip"]);
+                form.append("status",arr["status"]);
+                $.ajax({
+                    url:'PHPcode/employeecode.php',
+                    type:'POST',
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    beforeSend: function(){
+                        $('.loadingModal').modal('show');
+                    }
+                })
+                .done(data=>
+                {
+                    $('.loadingModal').modal('hide');
+                    console.log(data);
+                    let doneData=data.split(",");
+                    if(doneData[0]=="T")
+                    {           
+                        
+                        console.log(emID);
+                        $('#modal-title-default').text("Success!");
+                        $("#MMessage").text(doneData[1]);
+                        $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                        $("#modalHeader").css("background-color", "#1ab394");
+                       // $("#btnClose").attr("onclick","window.location='../../view.php?employeeID = '");
+                        $("#displayModal").modal("show");
+    
+    
+                          $("#btnClose").click(function(e) {
+    
+                                        e.preventDefault();
+                                       
+                                        window.location=`view.php?employeeID=${emID}`;
+                                    });
+                                    setTimeout(function(){
+                                        $('#displayModal').modal("hide");
+                                         window.open(`view.php?employeeID=${emID}`, '_blank');
+                                    }, 2000);
+                    }
+                    else
+                    {
+                        $('#modal-title-default').text("Error!");
+                        $("#MMessage").text(doneData[1]);
+                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                        $("#modalHeader").css("background-color", "red");
+                        $("#btnClose").attr("data-dismiss","modal");
+                        $("#displayModal").modal("show");
+                    }
+                    });
+            }
+            else if(size >20971520)
+            {
+                
+                $('#modal-title-default').text("Error!");
+                $('#MMessage').text("Only Images Less than 20MB can be uploaded. Please check file uploads highlighted in red");
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+              
+                $("#modalHeader").css("background-color", "red");
+                $('#displayModal').modal("show");   
+            }
+            else if(fileErrors >0)
+            {
+                $('#modal-title-default').text("Error!");
+                $('#MMessage').text("Only JPEG images can be uploaded. Please check file uploads highlighted in red");
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+               
+                $("#modalHeader").css("background-color", "red");
+                $('#displayModal').modal("show"); 
+            }
+          
         }
         
       
@@ -272,3 +349,10 @@ $(()=>{
     });
 
 });
+
+function PreviewPic() 
+{
+    pdffile=document.getElementById("fileUpload").files[0];
+    pdffile_url=URL.createObjectURL(pdffile);
+    $('#IDViewer').attr('src',pdffile_url);
+}

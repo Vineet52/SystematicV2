@@ -189,6 +189,7 @@
   <script src="../../assets/js/additional-methods.min.js"></script>
   <!-- Add Product JS -->
   <script src="JS/addProduct.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

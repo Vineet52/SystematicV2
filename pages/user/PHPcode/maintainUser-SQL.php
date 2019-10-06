@@ -1,5 +1,5 @@
 <?php
-
+include_once("../../sessionCheckPages.php");
 function rand_string($length)
 {
   $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -64,8 +64,10 @@ function rand_string($length)
         $saltedPassword;
         $hashedpassword;
         $maintainedChecker;
+     
           if(isset($_POST["pass"]))
           {
+
             $password = $_POST["pass"];
             $salt = rand_string(10);
             $saltedPassword = $password. $salt;
@@ -80,10 +82,36 @@ function rand_string($length)
             $accessLevelID = $_POST["accessLevel"];
           }
 
-           
-           
-           
-            //$userStatusID = $_POST["userStatusID"];
+       
+
+          $checkUser = "SELECT USER.USERNAME, USER.USER_PASSWORD, ACCESS_LEVEL.ROLE_NAME, ACCESS_LEVEL.ACCESS_LEVEL_ID FROM USER INNER JOIN ACCESS_LEVEL ON USER.ACCESS_LEVEL_ID = ACCESS_LEVEL.ACCESS_LEVEL_ID WHERE USER.USER_ID= '$user_ID' ";
+
+           $submit = mysqli_query($DBConnect,$checkUser);
+              if($submit)
+              {
+                if (mysqli_num_rows($submit)>0)
+                {
+        
+                    $vals=mysqli_fetch_assoc($submit);
+                    
+                    $changes=$vals["USERNAME"];
+                    if($hashedpassword!=$vals["USER_PASSWORD"]){
+                      $changes=$changes." | Password Changed ";
+                    }
+                    if($accessLevelID!=$vals["ACCESS_LEVEL_ID"]){
+                      $changes=$changes." | ".$vals["ACCESS_LEVEL_ID"];
+                    }
+                   
+                    $last_id=$user_ID;
+                    $DateAudit = date('Y-m-d H:i:s');
+                    $Functionality_ID='3.2';
+                    $userID = $_SESSION['userID'];
+                    $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+                    $audit_result=mysqli_query($DBConnect,$audit_query);
+                  
+                
+                }
+              }  
            
 
             

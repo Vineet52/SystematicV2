@@ -3,6 +3,7 @@
   include_once("PHPcode/connection.php");
   include_once("PHPcode/functions.php");
   $supID=$_POST["ID"];
+  $account=getSupplierAccountID($con,$supID);
   $addressIDs=getSupplierAddressIDs($con,$supID);
   $addressInfo=[];
   $suburbInfo=[];
@@ -133,6 +134,20 @@
                         </span>
                         <span class="btn-inner--text">Delete Supplier</span>
                       </button>
+                    </div>
+                    <div class="col d-inline mx-0 px-0">
+                      <form id="formViewAccount" action="view-credit-account.php">
+                        <input type="hidden" name="ID" value=<?php echo $supID;?>>
+                        <input type="hidden" name="NAME" id="accName"value=<?php echo $_POST["NAME"];?>>
+                        <input type="hidden" name="EMAIL" id="accEmail" value=<?php echo $_POST["EMAIL"];?>>
+                        <input type="hidden" name="PHONE" id="accContact" value=<?php echo $_POST["PHONE"];?>>
+                        <input type="hidden" name="account" id="accCheck" value=<?php echo $account;?>>
+                        <button class="btn btn-icon btn-2 btn-default btn-sm px-3" id="btnViewAccount" type="submit>
+                          <span class="btn-inner--icon"><i class="fas fa-eye"></i>
+                          </span>
+                          <span class="btn-inner--text">View Supplier Account</span>
+                        </button>
+                      </form>
                     </div>       
                   </div>
                 </hr>
@@ -200,6 +215,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/viewSupplier.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

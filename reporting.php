@@ -510,6 +510,7 @@
   <!-- Argon JS -->
   <script src="./assets/js/argon.js?v=1.0.0"></script>
   <script src="pages/reports/JS/reportingErrors.js"></script>
+  <script src="InactivityLogoutLanding/autologout.js"></script>
 
 </body>
 

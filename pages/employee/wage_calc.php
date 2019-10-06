@@ -29,7 +29,23 @@ if(isset($employee_ID))//check if session has userID too when you get userID
 {
 
 
-   
+  $today = mktime(
+    date("H"), date("i"), date("s"), date("m") ,date("d"), date("Y")
+    );
+    $TodaysDate = date("Y-m-d H:i:s",$today);
+    $newDate = new DateTime($TodaysDate);
+    $newDate =  $newDate->format("Y-m-d");
+
+
+
+$endDate=mktime(
+    date("H"), date("i"), date("s"), date("m") ,date("d")-6, date("Y")
+    );
+    $previousDate = date("Y-m-d H:i:s",$endDate);
+    $usedDate = new DateTime($previousDate);
+    $usedDate =  $usedDate->format("Y-m-d");
+
+
            
   $sql = "SELECT * FROM EMPLOYEE WHERE (EMPLOYEE_ID=$employee_ID)";
   $query_QR = mysqli_query($DBConnect , $sql);
@@ -220,8 +236,9 @@ if(isset($employee_ID))//check if session has userID too when you get userID
                   </form>
                   </div>
                   <?php
-                  $getTimes = "SELECT * FROM EMPLOYEE_HOUR WHERE (EMPLOYEE_ID=$employee_ID)";
+                  $getTimes = "SELECT * FROM EMPLOYEE_HOUR WHERE (EMPLOYEE_ID=$employee_ID && DATE BETWEEN '$usedDate' AND  '$newDate')";
                   $executeTimes =mysqli_query($DBConnect , $getTimes);
+                  //var_dump($getTimes);
                   $count= 0;
                    
                   ?>
@@ -238,9 +255,9 @@ if(isset($employee_ID))//check if session has userID too when you get userID
                       <th class="text-right"> Total Pay </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id='wagesBody'>
                   <?php  
-
+                  $count=0;
                   while($wageArray = mysqli_fetch_assoc($executeTimes))
                     {
 
@@ -262,13 +279,14 @@ if(isset($employee_ID))//check if session has userID too when you get userID
                       
                       
 
-                    echo "<tr>
+                    echo "<tr id='rows'>
                         <td>".$justdate ."</td>
-                        <td>". $checkInTime ."</td>
-                        <td>". $checkOutTime ."</td>
-                        <td>".$interval->h."</td>
-                        <td class='text-right' charges='".$interval->h."'>...</td>
+                        <td id='checkInTime'>". $checkInTime ." </td>
+                        <td id='cehckOutTime'>". $checkOutTime ." </td>
+                        <td id='EHourWorked".$count."'></td>
+                        <td class='text-right' id='RateMoney".$count."'>...</td>
                       </tr>";
+                      $count =$count +1;
 
                     }
                    ?>
@@ -375,6 +393,7 @@ if(isset($employee_ID))//check if session has userID too when you get userID
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script src="JS/calculateWage.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

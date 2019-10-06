@@ -261,7 +261,7 @@
               <img class="loading" src="../../assets/img/loading/loading.gif">
           </div>
       </div>
-  </div>
+    </div>
   <!-- Argon Scripts -->
   <!-- Core -->
   <script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -276,6 +276,7 @@
   <script type="text/javascript">
     var SESSION = eval('(<?php echo json_encode($_SESSION)?>)');
   </script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

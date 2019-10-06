@@ -235,17 +235,17 @@ include "meRaviQr/qrlib.php";
                         }
                         else
                         {
-                            echo "Employee does not earn wage";
+                            echo "Employee does not earn wage,";
                         }
                     }
                     else
                     {
-                        echo "Fetch array has errors";
+                        echo "Fetch array has errors,";
                     }
                 }
                 else
                 {
-                        echo "This employee does not earn wage";
+                        echo "This employee does not earn wage,";
                 }
 
 
@@ -253,27 +253,17 @@ include "meRaviQr/qrlib.php";
 
 						$dir= "../images/ProfilePic/";		
 						//$counter = count($fileTo["name"]);
-					if(($fileTo["type"] == "image/jpeg")&& ($fileTo["size"] < 12500000))
-					{
+					
 						
 								if($fileTo["error"] > 0)
 								{
 										echo "Error: " . $fileTo["error"]  . "<br/>";
 								}
-						else
-						{
+								else
+								{
 							
-								$faker = true;
-										if(file_exists($dir . $fileTo["name"] ))
-										{
-											echo $fileTo["name"] . " already exists.";
-										} 
-										else
-										{
+												$faker = true;
 												
-												
-											
-											
 												$temp = explode(".", $fileTo["name"]);
 											
 												$newfilename = $employeeID . '.' . end($temp);
@@ -284,19 +274,7 @@ include "meRaviQr/qrlib.php";
 												
 												$query = "INSERT INTO EMPLOYEE_PICTURE (FILENAME, EMPLOYEE_ID) VALUES ('$newfilename', '$employeeID')"; // insert the user_id for specific pictures
 												$res = mysqli_query($DBConnect, $query);
-												//var_dump($res);
-
-
-
-												  
-												  //var_dump($employeeID);
-												
-												 
-												  //var_dump($query_QR);
-														  //return $query;
-											  
-											  
-												  //$insQr = $meravi->insertQrCode($qrUname,$final,$qrimage,$qrlink);
+											
 													
 												if(($res== true) && ($query_QR==true))
 												{
@@ -308,16 +286,11 @@ include "meRaviQr/qrlib.php";
 													echo "Error in saving employee picture.";
 												}
 																
-										}
 										
-						}
+										
+								}	
 			
-					}
-					else
-					{
-							echo  'There was an error within the picture upload';
-							
-					}
+				
 
 			}
 			

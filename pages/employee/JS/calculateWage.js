@@ -7,20 +7,58 @@ $(document).ready(function(){
       console.log("works");
       rate = $(this).val();
       totalPay = 0;
-      let days = $("td.text-right").attr("charges" , function(i , currentVal)
-                {
-                  if(currentVal != null)
-                  {
-                      let ratePerHour = rate * currentVal;
+      let arrayOfCheckIns 
+      let today= "2019-08-11";
+    //   let arrayOfCheckIns =   $("tr#rows").find('#checkInTime').each(function(rowIndex,r){
+    //     console.log(r[rowIndex]);
 
-                      $(this).text(ratePerHour)
-                      console.log("This is the index of " + i + " and the value a that index is: " +currentVal + "and that rate will be: "+ ratePerHour  );
+    //   });
+    let hoursWorked = [];
+      $("#wagesBody").find('tr').each(function(rowIndex,r){
+		// if ($(this).find(">:nth-child(2)>:first-child>:first-child").val() != undefined) 
+		// {
+			let checkInTime = $(this).find(">:nth-child(2)").text();
+            //console.log($(this).find(">:nth-child(2)").text());
 
-                      totalPay +=  ratePerHour;
-                  }
-                });
-      
-                $("#totalAmountPayable").html(`<b> ${totalPay}</b>`);
+            let checkOutTime = $(this).find(">:nth-child(3)").text();
+            //console.log($(this).find(">:nth-child(3)").text());
+            
+            let timesIn = new Date(today + " " + checkInTime);
+          
+            let timesOut = new Date(today + " " + checkOutTime);
+
+            let diff = (timesIn.getHours() % 12) - (timesOut.getHours() % 12); 
+            
+            
+          
+            
+            hoursWorked.push(diff);
+           
+            console.log(diff);
+
+			// var chackoutTime = parseInt($(this).find(">:nth-child(2)>:first-child>:first-child").val());
+			// console.log($(this).find(">:nth-child(2)>:first-child>:first-child").attr("max"));
+		// }
+	});
+     
+     
+    for(let i=0;i<hoursWorked.length;i++)
+    {
+        $("#EHourWorked"+i).text(hoursWorked[i]);
+        let ratePerHour = rate * hoursWorked[i];
+        
+         $("#RateMoney"+i).text(`R${ratePerHour}`)
+         //console.log("This is the index of " + i + " and the value a that index is: " +currentVal + "and that rate will be: "+ ratePerHour  );
+        
+        totalPay +=  ratePerHour;
+        
+    }
+   
+   
+                console.log(hoursWorked);
+   
+     
+                $("#totalAmountPayable").html(`<b> R${totalPay}</b>`);
               
 
         });
@@ -58,6 +96,11 @@ $(document).ready(function(){
                                             e.preventDefault();
                                             window.location='../../employee.php';
                                         });
+
+                                        setTimeout(function(){
+                                            $('#finaliseWage').modal("hide");
+                                            window.location='../../employee.php';
+                                        }, 2000);
                                     }
                                     else
                                     {

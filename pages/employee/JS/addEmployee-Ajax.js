@@ -148,18 +148,58 @@ $(document).ready(function()
         });
 
     });
-    ///////////////////////////////////////////////////////
-    var imageLoader = document.getElementById('fileUpload');
-    imageLoader.addEventListener('change', handleImage, false);
 
-    function handleImage(e) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            
-            $('.uploader img').attr('src',event.target.result);
+
+    
+    ///////////////////////////////////////////////////////
+    
+    
+
+
+    ///////////////////////////////////////////////////////
+    let size = 0;
+    $(document).on('change', '.custom-file-input', function (event) {
+        $(this).next('.custom-file-label').html(event.target.files[0].name);
+        console.log(event.target.files[0].name);
+    
+        myfile= $(this).val();
+       
+        console.log(this);
+        var ext = myfile.split('.').pop();
+        size = event.target.files[0].size;
+        console.log(size);
+       
+        console.log(ext);
+        if((ext!="jpg") && (ext!="jpeg"))
+        {
+            event.preventDefault();
+            //console.log("NOT PDF");
+            $(this).next().attr("style","border-color: red;");
+            $('#modal-title-default').text("Error!");
+            $('#MMessage').text("Only JPEG images can be uploaded. Please check file uploads highlighted in red");
+            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+            $("#btnClose").attr("onclick",'$("#modal-salesManagerPassword").modal("show");');
+            $("#modalHeader").css("background-color", "red");
+            $('#displayModal').modal("show");
+        } 
+        else if(size > 20971520)
+        {
+
+            $(this).next().attr("style","border-color: red;");
+            $('#modal-title-default').text("Error!");
+            $('#MMessage').text("Only Images Less than 20MB can be uploaded. Please check file uploads highlighted in red");
+            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+            $("#btnClose").attr("onclick",'$("#modal-salesManagerPassword").modal("show");');
+            $("#modalHeader").css("background-color", "red");
+            $('#displayModal').modal("show");
         }
-        reader.readAsDataURL(e.target.files[0]);
-    }
+        else
+        {
+           //console.log("PDF");
+           $(this).next().attr("style","border-color: #cad1d7;");
+    
+        }
+    });
 
     /*$(document).ready(function() {
         $.uploadPreview({
@@ -178,6 +218,30 @@ $(document).ready(function()
     $("#picToUpload").on("submit",function(e)
     {//use ID of the form
         e.preventDefault();
+
+
+
+
+        var fdata = new FormData(this);
+        var fileErrors = 0;
+        var filSizeErrors= 0;
+        for (var file of fdata.values()) 
+        {
+            if (myfile= file["name"] != undefined) 
+            {
+                myfile= file["name"];
+                var ext = myfile.split('.').pop();
+                if((ext!="jpg") && (ext!="jpeg"))
+                {
+                   //console.log("NOT PDF");
+                   fileErrors++;
+                }    
+            }
+           
+        }
+
+      
+
         let mainform=$("#picToUpload");
         mainform.validate();
         if(mainform.valid()===false)
@@ -193,152 +257,194 @@ $(document).ready(function()
             } 
             else
             {
-                let form=new FormData();
-                let pics=$("#fileUpload").get(0).files[0];
-                //$("#fileUpload").prop('files')[0]
-                form.append("file",pics);
-                form.append("name",arr["name"]);
-                form.append("surname",arr["surname"]);
-                form.append("title",arr["title"]);
-                form.append("email",arr["email"]);
-                form.append("contact",arr["contact"]);
-                form.append("employeeType",arr["employeeType"]);
-                form.append("IDPASS",arr["IDPASS"]);
-                form.append("address",arr["address"]);
-                form.append("suburb",arr["suburb"]);
-                form.append("city",arr["city"]);
-                form.append("zip",arr["zip"]);
-                form.append("status",arr["status"]);
-                console.log(pics);
-                $.ajax({
-                    url:'PHPcode/addEmployee-SQL.php',
-                    type:'POST',
-                    data: form,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    beforeSend: function(){
-                        $('.loadingModal').modal('show');
-                    }
-                })
-                .done(data=>{
-                    $('.loadingModal').modal('hide');
-                    console.log(data);
-                    let confirmation = data.trim();
-                    if(confirmation.includes("success") && !confirmation.includes("Employee does not earn wage"))
-                    {
-                        let id = confirmation.split(",");
-                        let employeeID = parseInt(id[0]);
-                        
-                        console.log(id[0]);
-                        $("#modal-title-default").text("Success!");
-                        $("#MMessage").text("Employee added successfully");
-                        $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
-						$("#modalHeader").css("background-color", "#1ab394");
-                        //$("#btnClose").attr("onclick","window.location='../../employee.php'");
-                        $("#displayModal").modal("show");
+                if((fileErrors==0) && (size < 20971520))
+                {
 
-
-                        setTimeout(function(){
-                            $('#displayModal').modal("hide");
-                             window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
-                        }, 2000);
-
-                        
-                                   
-                                
-                    }
-                    else if(confirmation.includes("success") && confirmation.includes("Employee does not earn wage"))
-                    {
-                        let id = confirmation.split(",");
-                        let employeeID = parseInt(id[0]);
-                        console.log(id[0]);
-                        $("#modal-title-default").text("Success!");
-                        $("#MMessage").text("Employee added successfully but employee does not earn wage ,thus employee tag not generated.");
-                        $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
-						$("#modalHeader").css("background-color", "#1ab394");
-                        //$("#btnClose").attr("onclick","window.location='../../employee.php'");
-                        $("#displayModal").modal("show");
-
-
-                         $("#btnClose").click(function(e) {
-
-                                    e.preventDefault();
-                                   
-                                    window.location=`view.php?employeeID=${employeeID}`;
-                                });
-                                setTimeout(function(){
-                                    $('#displayModal').modal("hide");
-                                     window.open(`view.php?employeeID=${employeeID}`, '_blank');
-                                }, 2000);
-                    }
-                    else if(confirmation.includes("Employee Exists"))
-                    {
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text("Employee Exists! , press close and try again");
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                       
-                        $("#displayModal").modal("show");
-                    }
-                    else if(confirmation == "City found suburb added but address not added.")
-                    {
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text("City found suburb added but address not added.");
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                        $("#displayModal").modal("show");
-                    }
-                    else if(confirmation == "error in saving employee pic or generated employee tag")
-                    {
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text("error in saving employee pic or generated employee tag , generate employee tag or upload picture in mainatain");
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                        $("#displayModal").modal("show");
-
-                        
-                    }
-                    else if(confirmation == "Couldnt get ID of employee details")
-                    {
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text("Couldnt get ID of employee details , generate employee tag or upload picture in mainatain");
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                        $("#displayModal").modal("show");
-                    }
-                    else if(confirmation.includes("There was an error within the picture upload"))
-                    {
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text("Incorrect picture size or format , upload picture in maintain");
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                        $("#displayModal").modal("show");
-                    }
-                    else if(confirmation.includes("Employee QR code could not be generated"))
-                    {
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text("Employee QR code could not be generated, go to regenerate employee tag , to make one!");
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                        $("#displayModal").modal("show");
-                    }
-                    else
-                    {
-                        
-                        $("#modal-title-default").text("Error!");
-                        $("#MMessage").text(confirmation);
-                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
-                        $("#modalHeader").css("background-color", "red");
-                        $("#displayModal").modal("show");
-
-                        
-                    }
+                    let form=new FormData();
+                    let pics=$("#fileUpload").get(0).files[0];
+                    //$("#fileUpload").prop('files')[0]
+                    form.append("file",pics);
+                    form.append("name",arr["name"]);
+                    form.append("surname",arr["surname"]);
+                    form.append("title",arr["title"]);
+                    form.append("email",arr["email"]);
+                    form.append("contact",arr["contact"]);
+                    form.append("employeeType",arr["employeeType"]);
+                    form.append("IDPASS",arr["IDPASS"]);
+                    form.append("address",arr["address"]);
+                    form.append("suburb",arr["suburb"]);
+                    form.append("city",arr["city"]);
+                    form.append("zip",arr["zip"]);
+                    form.append("status",arr["status"]);
+                    console.log(pics);
+                    $.ajax({
+                        url:'PHPcode/addEmployee-SQL.php',
+                        type:'POST',
+                        data: form,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        beforeSend: function(){
+                            $('.loadingModal').modal('show');
+                        }
+                    })
+                    .done(data=>{
+                        $('.loadingModal').modal('hide');
+                        console.log(data);
+                        let confirmation = data.trim();
+                        if(confirmation.includes("success") && !confirmation.includes("Employee does not earn wage"))
+                        {
+                            let id = confirmation.split(",");
+                            let employeeID = parseInt(id[0]);
+                            
+                            console.log(id[0]);
+                            $("#modal-title-default").text("Success!");
+                            $("#MMessage").text("Employee added successfully");
+                            $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "#1ab394");
+                            //$("#btnClose").attr("onclick","window.location='../../employee.php'");
+                            $("#displayModal").modal("show");
+    
+    
+                            $("#btnClose").click(function(e) {
+    
+                                        e.preventDefault();
+                                       
+                                        window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
+                                        window.location='../../employee.php';
+                                    });
+    
+                            setTimeout(function(){
+                                $('#displayModal').modal("hide");
+                                 window.open(`PHPcode/showGeneratedQRCode.php?employeeID=${employeeID}`, '_blank');
+                                 window.location='../../employee.php';
+                                 
+                            }, 2000);
+    
+                            
+                                       
+                                    
+                        }
+                        else if(confirmation.includes("success") && confirmation.includes("Employee does not earn wage"))
+                        {
+                            let id = confirmation.split(",");
+                            let employeeID = parseInt(id[1]);
+                            console.log(id[1]);
+                            $("#modal-title-default").text("Success!");
+                            $("#MMessage").text("Employee added successfully but employee does not earn wage ,thus employee tag not generated.");
+                            $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "#1ab394");
+                            //$("#btnClose").attr("onclick","window.location='../../employee.php'");
+                            $("#displayModal").modal("show");
+    
+    
+                             $("#btnClose").click(function(e) {
+    
+                                        e.preventDefault();
+                                       
+                                        window.location=`view.php?employeeID=${employeeID}`;
+                                    });
+                                    setTimeout(function(){
+                                        $('#displayModal').modal("hide");
+                                         window.open(`view.php?employeeID=${employeeID}`);
+                                        
+                                    }, 2000);
+                        }
+                        else if(confirmation.includes("Employee Exists"))
+                        {
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text("Employee Exists! , press close and try again");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                           
+                            $("#displayModal").modal("show");
+                        }
+                        else if(confirmation == "City found suburb added but address not added.")
+                        {
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text("City found suburb added but address not added.");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#displayModal").modal("show");
+                        }
+                        else if(confirmation == "error in saving employee pic or generated employee tag")
+                        {
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text("error in saving employee pic or generated employee tag , generate employee tag or upload picture in mainatain");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#displayModal").modal("show");
+    
+                            
+                        }
+                        else if(confirmation == "Couldnt get ID of employee details")
+                        {
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text("Couldnt get ID of employee details , generate employee tag or upload picture in mainatain");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#displayModal").modal("show");
+                        }
+                        else if(confirmation.includes("There was an error within the picture upload"))
+                        {
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text("Incorrect picture size or format , upload picture in maintain");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#displayModal").modal("show");
+                        }
+                        else if(confirmation.includes("Employee QR code could not be generated"))
+                        {
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text("Employee QR code could not be generated, go to regenerate employee tag , to make one!");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#displayModal").modal("show");
+                        }
+                        else
+                        {
+                            
+                            $("#modal-title-default").text("Error!");
+                            $("#MMessage").text(confirmation);
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#displayModal").modal("show");
+    
+                            
+                        }
+                      
+                    });
+                }
+                else if(size >20971520)
+                {
+                    $('#modal-title-default').text("Error!");
+                    $('#MMessage').text("Only Images Less than 20MB can be uploaded. Please check file uploads highlighted in red");
+                    $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
                   
-                });
+                    $("#modalHeader").css("background-color", "red");
+                    $('#displayModal').modal("show");   
+                }
+                else if(fileErrors >0)
+                {
+                    $('#modal-title-default').text("Error!");
+                    $('#MMessage').text("Only JPEG images can be uploaded. Please check file uploads highlighted in red");
+                    $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                   
+                    $("#modalHeader").css("background-color", "red");
+                    $('#displayModal').modal("show");   
+                }
+
+               
             }
         }
     });
     
 
 });
+
+function PreviewPic() 
+{
+    pdffile=document.getElementById("fileUpload").files[0];
+    pdffile_url=URL.createObjectURL(pdffile);
+    $('#IDViewer').attr('src',pdffile_url);
+}
