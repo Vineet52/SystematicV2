@@ -171,6 +171,7 @@
   <script src="../../assets/js/additional-methods.min.js"></script>
   <!-- Add Product Type JS -->
   <script src="JS/maintainProductType.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

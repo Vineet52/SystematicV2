@@ -201,6 +201,7 @@
   <!-- Add Product JS -->
   <script src="JS/maintainUserRole.js"></script>
   <script src="JS/deleteUserRole-JS.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

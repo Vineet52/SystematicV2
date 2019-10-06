@@ -239,6 +239,7 @@
   <!-- Optional JS -->
   <script src="../../assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="../../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
   <!-- Argon JS -->
   <!--script src="../../assets/js/argon.js?v=1.0.0"></script-->
 </body>

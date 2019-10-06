@@ -236,6 +236,7 @@
   <!-- Moment JS -->
   <script src="../../assets/js/moment.js"></script>
   <script type="text/javascript" src="JS/viewAudit.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

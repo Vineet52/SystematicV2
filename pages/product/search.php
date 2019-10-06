@@ -143,6 +143,7 @@
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <!-- Search Product JS -->
   <script src="JS/searchProduct.js" type="text/javascript"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

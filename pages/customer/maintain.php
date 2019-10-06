@@ -193,6 +193,7 @@
   <script src="../../assets/jqueryui/jquery-ui.js"></script>
   <!-- validation end -->
   <script type="text/javascript" src="JS/maintainCustomer.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>
