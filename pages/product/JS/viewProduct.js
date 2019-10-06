@@ -95,6 +95,7 @@ $(()=>{
 	//Delete Product
 	$("button#deleteProduct").on('click', event => {
 		event.preventDefault();
+		console.log(PRODUCT_GROUP_ID);
 				$.ajax({
 				url: 'PHPcode/deleteProduct_.php',
 				type: 'POST',
@@ -109,16 +110,16 @@ $(()=>{
 			})
 			.done(response => {
 				console.log(response);
-				if (response == "success")
+				if (response == "T,Product Deleted Successfully")
 				{
 					$('#modal-title-default-deleteModal').text("Success!");
-					$('#modalText').text("Product deleted sucessfully");
+					$('#modalText').text("Product Deleted Successfully");
 					$('#modal-delete').modal("show");
 				}
-				else if(response == "product cannot be deleted")
+				else if(response == "F,SYSTEM RESTRICT: This Product cannot be deleted from the system")
 				{
 					$('#modal-title-default-deleteModal').text("Error!");
-					$('#modalText').text("This product cannot be deleted");
+					$('#modalText').text("This Product cannot be deleted from the system");
 					$("#modalCloseButton").attr("onclick","");
 					$('#modal-delete').modal("show");
 				}
