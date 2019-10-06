@@ -5,6 +5,8 @@
   $saleProducts=getSaleProductDetails($con,$_POST["SALE_ID"]);
   $products=getProductDetails($con);
   $isDelivered=checkDelivery($con,$_POST["SALE_ID"]);
+  mysqli_close($con);
+  $help="../../help/ViewSale.html";
 ?>
 <!DOCTYPE html>
 <html>

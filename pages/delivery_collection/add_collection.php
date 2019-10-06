@@ -4,6 +4,7 @@
   include_once("PHPcode/functions.php");
   $addressData=getCompleteSupplierAddresses($con,$_POST["orderID"]);
   mysqli_close($con);
+  $help="../../help/AddOrderCollection.html";
 ?>
 <!DOCTYPE html>
 <html>

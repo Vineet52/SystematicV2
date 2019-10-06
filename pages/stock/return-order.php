@@ -4,6 +4,7 @@
   $orderDetails = json_decode($_POST['ORDER_DETAILS']);
   $orderProducts = json_decode($_POST['ORDER_PRODUCTS']);
   $orderReturns = json_decode($_POST['ORDER_RETURNS']);
+  $help="../../help/ReturnStock.html";
 ?>
 <script type="text/javascript">
   var ORDER_ID = eval('(<?php echo json_encode($orderDetails->ORDER_ID)?>)');

@@ -5,7 +5,7 @@ if(isset($_SESSION['userID']))
 {
   $userID = $_SESSION["userID"];
 }
-
+$help="help/AdministrationSubsystem.html";
 
 ?>
 <!DOCTYPE html>
