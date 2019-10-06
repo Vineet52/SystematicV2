@@ -1,10 +1,4 @@
-<?php
-  include_once("../sessionCheckPages.php");
-  include_once("PHPcode/connection.php");
-  include_once("PHPcode/functions.php");
-  $addressData=getCompleteSupplierAddresses($con,$_POST["orderID"]);
-  mysqli_close($con);
-?>
+<?php include_once("../../sessionCheckLanding.php");?>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Add Supplier Collection - Stock Path</title>
+  <title>Maintain Inactivity Logout Time - Stock Path</title>
   <!-- Favicon -->
   <link href="../../assets/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -33,7 +27,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Add Supplier Order Collection</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Maintain Inactivity Logout Time</a>
         <?php include_once("../usernavbar.php");?>
         
       </div>
@@ -54,58 +48,57 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header bg-transparent">
-              <h3 class="mb-0"><span id="ordNo">Supplier Order No. #321:</span><span id="supplierName"><b>Coca Cola</b></span></h3>
+              <h3 class="mb-0">New Inactivity Logout Time</h3>
             </div>
             <div class="card-body">
-
+             
               <div class="row mt-3">
                 <div class="tab-content col" id="myTabContent">
                   <div class="tab-pane fade show active" id="home"  aria-labelledby="home-tab">
                     <form>
                       <div class="col">
-                        <div class="form-row ">
-                          <div class="form-group col">
-                            <label id="addData" hidden="true"><?php echo json_encode($addressData);?></label>
-                            <label hidden="true" id="orderDetails"><?php echo $_POST["ordDetails"];?></label>
-                            <label for="exampleInputPassword1">Collection Date</label>
-                            <input type="date" class="form-control" id="datepicker" placeholder="Emter Delivery Date">
+                        <div class="row">
+                          <div class=" col-sm-12 col-lg-4 col-md-4">
+                              <label for="bane">Minutes Of Inacticity Till Logout</label>
+                              <input type="number" min="0" max="60" class="form-control" id="minutesTillLogout" value="" aria-describedby="emailHelp" placeholder="Enter minutes">
                           </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="inputAddress">Select Address</label>
-                          <select class="form-control" id="inputAddress">
-                          </select>
-                        </div>
-                        </div>
-                      </div> 
-                      <div class="form-group col-md-2">
-                          <button type="button" class="btn btn-block btn-primary mb-3" data-toggle="modal" id="btnSave">Save</button>
-                          <div class="form-group col-md-2 errorModal successModal text-center">
-                          <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header" id="modalHeader">
-                                    <h6 class="modal-title" id="MHeader">Success</h6>
-                                </div>
-                                <div class="modal-body">
-                                  <p id="MMessage">Successfully Added</p>
-                                  
-                                  <div id="animation" style="text-align:center;">
-
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="btnClose">Close</button>
-                                </div>
-                              </div>
+        
+                          </div>
+                          <div class="row">
+                            <div class=" pt-3 col-md-4 col-sm-12">
+                                <button type="button" class="btn btn-primary mb-3" id="updateLogoutTime">Save</button>
                             </div>
                           </div>
                         </div>
-                        </div>
+
+                          <div class="modal fade errorModal successModal text-center" id="changeTimeSuccess" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                <div class="modal-content">
+                                  
+                                    <div class="modal-header" id="modalHeader">
+                                        <h6 class="modal-title" id="modal-title-default"></h6>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <p id="modalText"></p>
+
+                                        <div id="animation" style="text-align:center;">
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        
+                                        <button type="button" class="btn btn-link  ml-auto" id="btnClose" data-dismiss="modal" onclick="">Close</button> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                          </div>
+                        
                     </form>
                   </div>
-                
                 </div>
 
               </div>
@@ -113,9 +106,12 @@
           </div>
         </div>
       </div>
+      <!-- Footer -->
       <?php include_once("../footer.php");?>
     </div>
   </div>
+
+
   <div class="modal loadingModal fade bd-example-modal-lg justify-content-center" data-backdrop="static" data-keyboard="false" tabindex="-1">
       <div class="modal-dialog modal-sm">
           <div class="modal-content px-auto" style="">
@@ -132,7 +128,7 @@
   <script src="../../assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
-  <script type="text/javascript" src="JS/addCollection.js"></script>
+  <script src="JS/maintainInactivityLogoutTime.js"></script>
   <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 

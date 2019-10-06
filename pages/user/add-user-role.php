@@ -153,6 +153,7 @@
   <link rel="stylesheet" href="../../assets/css/bootstrap-multiselect.css" />
   <!-- Add Product JS -->
   <script src="JS/addUserRole.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

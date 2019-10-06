@@ -491,6 +491,7 @@
   <!-- <script type="text/javascript" src="JS/assignTruckMap.js"></script> -->
   <script type="text/javascript" src="../../assets/js/hummingbird-treeview.js"></script>
   <script type="text/javascript" src="JS/assignCollection.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

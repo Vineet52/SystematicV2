@@ -189,6 +189,7 @@
   <script src="../../assets/js/moment.js"></script>
   <!-- Search Sale JS -->
   <script type="text/javascript" src="JS/searchSale.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>
