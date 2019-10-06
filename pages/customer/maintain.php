@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/MaintainCustomer.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -193,6 +195,7 @@
   <script src="../../assets/jqueryui/jquery-ui.js"></script>
   <!-- validation end -->
   <script type="text/javascript" src="JS/maintainCustomer.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

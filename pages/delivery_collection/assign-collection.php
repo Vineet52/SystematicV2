@@ -2,6 +2,7 @@
     include_once("../sessionCheckPages.php");
     include_once("PHPcode/connection.php");
     include_once("PHPcode/functions.php");
+    $help="../../help/AssignCollection.html";
     $truckData=getAllTrucks($con);
     $deliveryData=getUnassignedCollections($con,1);
     $addressData=getCompleteAddressCollection($con);
@@ -491,6 +492,7 @@
   <!-- <script type="text/javascript" src="JS/assignTruckMap.js"></script> -->
   <script type="text/javascript" src="../../assets/js/hummingbird-treeview.js"></script>
   <script type="text/javascript" src="JS/assignCollection.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

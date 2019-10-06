@@ -53,7 +53,7 @@
 
 	function updateSupplierAccountAmount($con,$supid,$amount)
 	{
-		$update_query="UPDATE SUPPLIER_ACCOUNT SET AMOUNT_OWED=AMOUNT_OWED+'$amount' WHERE SUPPLIER_ID='$id'";
+		$update_query="UPDATE SUPPLIER_ACCOUNT SET AMOUNT_OWED=AMOUNT_OWED+'$amount' WHERE SUPPLIER_ID='$supid'";
 		$update_result=mysqli_query($con,$update_query);
 		if($update_result)
 		{
@@ -163,7 +163,7 @@
 
 		}
 
-		if ($addOrderCollection == true) 
+		if ($addOrderCollection === true) 
 		{
 			$dateFiveFromNow = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 3, date('Y')));
 

@@ -45,7 +45,7 @@ $("button#maintainProductType").on('click', event => {
 			{
 				$('#modal-title-default').text("Success!");
 				$('#modalText').text("Product type maintained sucessfully");
-				$("#modalCloseButton").attr("onclick","window.location='seach.php'");
+				$("#modalCloseButton").attr("onclick","window.location='search_type.php'");
 				$('#successfullyAdded').modal("show");
 			}
 			else if(response == "product type exists")

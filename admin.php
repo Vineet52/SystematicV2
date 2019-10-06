@@ -5,7 +5,7 @@ if(isset($_SESSION['userID']))
 {
   $userID = $_SESSION["userID"];
 }
-
+$help="help/AdministrationSubsystem.html";
 
 ?>
 <!DOCTYPE html>
@@ -128,40 +128,6 @@ if(isset($_SESSION['userID']))
                 ?>
 
                 <?php 
-                  if (in_array("4.5", $subFunctionality)) {
-                ?>
-                <div class="col-lg-4 col-md-6">
-                  <button type="button" class="btn-icon-clipboard"  href="#">
-                    <a href="pages/admin/backup.php">
-                      <div>
-                        <i class="far fa-save"></i>
-                        <span>Backup</span>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-                <?php
-                  }
-                ?>
-
-                <?php 
-                  if (in_array("4.6", $subFunctionality)) {
-                ?>
-                <div class="col-lg-4 col-md-6">
-                  <button type="button" class="btn-icon-clipboard"  href="#">
-                    <a href="pages/admin/restore.php">
-                      <div>
-                        <i class="fas fa-undo"></i>
-                        <span>Restore</span>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-                <?php
-                  }
-                ?>
-
-                <?php 
                   if (in_array("4.7", $subFunctionality)) {
                 ?>
                 <div class="col-lg-4 col-md-6">
@@ -199,11 +165,11 @@ if(isset($_SESSION['userID']))
                   if (in_array("4.101", $subFunctionality)) {
                 ?>
                 <div class="col-lg-4 col-md-6">
-                  <button type="button" class="btn-icon-clipboard" data-toggle="modal" data-target="#over">
-                    <a href="">
+                  <button type="button" class="btn-icon-clipboard">
+                    <a href="pages/admin/maintain-inactivity-logout-time.php">
                       <div>
                       <i class="far fa-clock"></i>
-                        <span>Configureable timer</span>
+                        <span>Maintain Inactivity Logout Timer</span>
                       </div>
                     </a>
                   </button>
@@ -284,6 +250,7 @@ if(isset($_SESSION['userID']))
   <!-- Argon JS -->
   <script src="./assets/js/argon.js?v=1.0.0"></script>
   <script src="pages/admin/JS/overDue-JS.js"></script>
+  <script src="InactivityLogoutLanding/autologout.js"></script>
 </body>
 
 </html>

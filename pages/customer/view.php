@@ -2,6 +2,7 @@
 <?php
   include_once("PHPcode/connection.php");
   include_once("PHPcode/functions.php");
+  $help="../../help/ViewCustomerProfile.html";
   $cusID=$_POST["ID"];
   $titleName="";
   if($_POST["CUSTOMER_TYPE_ID"]==1)
@@ -257,6 +258,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/viewCustomer.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

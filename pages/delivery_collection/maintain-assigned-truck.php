@@ -4,7 +4,8 @@
   include_once("../sessionCheckPages.php");
   $assignedDeliveryData=getAssignedDeliveries($con);
   $assignedDeliveryProductData=getAssignedDeliveryProducts($con);
-
+  mysqli_close($con);
+  $help="../../help/MaintainAssignedDeliveries.html";
 ?>
 <!DOCTYPE html>
 <html>
@@ -186,6 +187,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/maintainAssignedTruck.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

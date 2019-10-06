@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/AddProduct.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -189,6 +191,7 @@
   <script src="../../assets/js/additional-methods.min.js"></script>
   <!-- Add Product JS -->
   <script src="JS/addProduct.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

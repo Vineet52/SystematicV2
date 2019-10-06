@@ -5,6 +5,8 @@
   $saleProducts=getSaleProductDetails($con,$_POST["SALE_ID"]);
   $products=getProductDetails($con);
   $isDelivered=checkDelivery($con,$_POST["SALE_ID"]);
+  mysqli_close($con);
+  $help="../../help/ViewSale.html";
 ?>
 <!DOCTYPE html>
 <html>
@@ -548,6 +550,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/viewSale.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>
