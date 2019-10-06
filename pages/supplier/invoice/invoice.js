@@ -92,6 +92,72 @@ $(()=>{
 			$("#saleVAT").append(saleVAT);
 
 			var orderID = $("#ORDER_ID").val();
+
+			var target = document.getElementById('sendHTML');
+			var wrap = document.createElement('div');
+			wrap.appendChild(target.cloneNode(true));
+			console.log(wrap.innerHTML);
+
+			var target2 = document.getElementById('styleDiv');
+			var wrap2 = document.createElement('div');
+			wrap2.appendChild(target2.cloneNode(true));
+			console.log(wrap2.innerHTML);
+
+			var dataJSON = {
+				name: SUPPLIER_NAME,
+				email: SUPPLIER_EMAIL,
+				orderNumber: ORDER_ID,
+				orderDate : ORDER_DATE,
+				orderHTML : wrap.innerHTML,
+				styleDiv : wrap2.innerHTML
+			};
+
+			console.log(dataJSON);
+
+
+			$.ajax({
+				url: '../../mailjet/mail_placeOrder.php',
+				type: 'POST',
+				data:{
+					name: SUPPLIER_NAME,
+					email: SUPPLIER_EMAIL,
+					orderNumber: ORDER_ID,
+					orderDate : ORDER_DATE,
+					orderHTML : wrap.innerHTML,
+					styleDiv : wrap2.innerHTML
+				},
+				beforeSend: function() {
+					//$('.loadingModal').modal('show');
+		    	}
+			})
+			.done(data=>{
+				console.log(data);
+				$('.loadingModal').modal('hide');
+				
+				if(data=="success")
+				{
+					$('#modal-title-default2').text("Success!");
+					$('#modalText').text("Order cancellation request successful. An email has been sent to the supplier");
+					$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+					$("#modalHeader").css("background-color", "#1ab394");
+					$('#successfullyAdded').modal("show");
+					$("#btnClose").attr("data-dismiss","modal");
+					//$("#displayModal").modal("show");
+				}
+				else
+				{
+
+					$('#modal-title-default2').text("Error!");
+					$('#modalText').text("Email Failed Sent, Please check email credits");
+					$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+					$("#modalHeader").css("background-color", "red");
+					$('#successfullyAdded').modal("show");
+					$("#btnClose").attr("data-dismiss","modal");
+					//$("#displayModal").modal("show");
+				}
+			});
+
+
 			
 			var divHeight = $('body').height();
 			var divWidth = $('body').width();
@@ -100,14 +166,14 @@ $(()=>{
 			    height: divHeight,
 			    width: divWidth,
 			    onrendered: function(canvas) {
-					var image = canvas.toDataURL("image/png",1.0);
+					var image = canvas.toDataURL("image/png",0.1);
 					var pdf = new jsPDF('p','pt','a4'); // using defaults: orientation=portrait, unit=mm, size=A4
 					var width = pdf.internal.pageSize.getWidth();    
 					var height = pdf.internal.pageSize.getHeight();
 
 					height = ratio * width;
 					pdf.addImage(image, 'PNG', -150, 20, width+300, height-70);
-					//pdf.save('invoices/myPage.pdf'); //Download the rendered PDF.
+					pdf.save('invoices/myPage.pdf'); //Download the rendered PDF.
 
 					var doc = btoa(pdf.output());
 					var data = new FormData();

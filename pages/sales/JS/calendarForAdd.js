@@ -1,6 +1,6 @@
 $(()=>{
   $.ajax({
-    url:'pages/delivery_collection/PHPcode/calendar.php',
+    url:'PHPcode/calendar.php',
     type:'POST',
     data:{}
   })
@@ -31,7 +31,7 @@ $(()=>{
             info.jsEvent.preventDefault();
             let saleid=parseInt(info.event.id);
             $.ajax({
-              url:'pages/delivery_collection/PHPcode/calendardelivery.php',
+              url:'PHPcode/calendardelivery.php',
               type:'POST',
               data:{SALE_ID:saleid}
             })

@@ -85,7 +85,7 @@ $("#addUserRole").on("click",function(event)
         .done(response =>{
            
                 $('.loadingModal').modal('hide');
-            
+            console.log(response);
             
             if(response == "success")
             {

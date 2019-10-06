@@ -173,7 +173,7 @@
       </div>
       <?php 
 
-        if($userID==3){
+        
           echo '      <div class="row mt-5">
         <div class="col">
           <div class="card shadow">
@@ -190,9 +190,13 @@
           </div>
         </div>
       </div>';
-        }
+  
       ?>
-
+      <form id="delView" method="POST" action="pages/delivery_collection/assign-truck-view-delivery.php">
+        <input type="hidden" name="SALE_ID" id="delID">
+        <input type="hidden" name="DEL_INFO" id="delInfo">
+        <input type="hidden" name="choice" value="2">
+      </form>
       <?php include_once("footer.php");?>
     </div>
   </div>
