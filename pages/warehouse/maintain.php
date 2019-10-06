@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/MaintainWarehouse.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -60,7 +62,7 @@
                       <div class="form-group col-lg-12 col-md-12 col-sm-12">
                         <label for="bane">Warehouse Name</label>
                         <label id="wID" hidden="true"><?php echo $_POST["WAREHOUSE_ID"];?></label>
-                        <label id="wName"><?php echo $_POST["NAME"];?></label>
+                        <label id="wName" hidden="true"><?php echo $_POST["NAME"];?></label>
                         <input type="text" class="form-control" maxlength="30" id="warehouseName" name="wName" aria-describedby="emailHelp" required>
                       </div>
                       <br>
@@ -135,7 +137,7 @@
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <script type="text/javascript" src="JS/maintainWarehouse.js"></script>
-
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

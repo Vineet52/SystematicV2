@@ -5,7 +5,7 @@
   $warehouseData=getWarehouseDetails($con);
   $warehouseProduct=getWarehouseStockDetails($con);
   mysqli_close($con);
-
+  $help="../../help/StockTake.html";
 ?>
 <!DOCTYPE html>
 <html>
@@ -148,6 +148,7 @@
   <script type="text/javascript">
     var SESSION = eval('(<?php echo json_encode($_SESSION)?>)');
   </script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@
     $saleProductData=getAllSaleProducts($con);
     $truckProductData=getTruckProductData($con);
     $deliveryTruckData=getDeliveryTruckData($con);
+    $help="../../help/AssignDelivery.html";
 ?>
 <!DOCTYPE html>
 <html>
@@ -200,7 +201,9 @@
 </head>
 
 <body>
-  <?php include_once("../header.php");?>
+  <?php 
+    include_once("../header.php");
+  ?>
    <!-- Main content -->
    <!-- <img src='http://i.imgur.com/pKopwXp.gif' hidden="true" id="loadImage" alt='loading...' style="display:block; margin:0 auto;" /> -->
   <div class="main-content">
@@ -210,7 +213,6 @@
           <!-- Brand -->
           <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Assign Truck</a>
           <?php include_once("../usernavbar.php");?>
-          
         </div>
       </nav>
     <!-- Header -->
@@ -491,6 +493,7 @@
   <!-- <script type="text/javascript" src="JS/assignTruckMap.js"></script> -->
   <script type="text/javascript" src="../../assets/js/hummingbird-treeview.js"></script>
   <script type="text/javascript" src="JS/assignTruck.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

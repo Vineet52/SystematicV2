@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/ViewAuditLog.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -236,6 +238,7 @@
   <!-- Moment JS -->
   <script src="../../assets/js/moment.js"></script>
   <script type="text/javascript" src="JS/viewAudit.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

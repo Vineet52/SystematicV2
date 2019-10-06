@@ -4,6 +4,7 @@
   include_once("PHPcode/functions.php");
   $addressData=getCompleteSupplierAddresses($con,$_POST["orderID"]);
   mysqli_close($con);
+  $help="../../help/AddOrderCollection.html";
 ?>
 <!DOCTYPE html>
 <html>
@@ -133,6 +134,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/addCollection.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>
