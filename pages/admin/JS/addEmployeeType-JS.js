@@ -73,30 +73,33 @@ $(document).ready(function()
                     let confirmation = data.trim();
                     if(confirmation== "success")
                     {
-                        $("#modal-title-default").text("Success!");
-                        $("#modalText").text("Employee Type added successfully");
-                        $("#btnClose").attr("onclick","window.location='../../admin.php'");
-                        $("#displayModal").modal("show");
+		                $("#modal-title-default").text("Success!");
+		                $("#modalText").text("Employee Type added successfully");
+		                $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+		                $("#modalHeader").css("background-color", "#1ab394");
+		                $("#btnClose").attr("onclick","window.location='search-employee-type.php'");
+		                $("#changeTimeSuccess").modal("show");
                     }
                     else if(confirmation == "Employee Type exists!")
                     {
-                        $("#modal-title-default").text("Error!");
-                        $("#modalText").text("Employee Type exists! , press close and try again");
-                        $("#displayModal").modal("show");
+		                $("#modal-title-default").text("Error!");
+		                $("#modalText").text("Employee Type exists! , press close and try again");
+		                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+		                $("#modalHeader").css("background-color", "red");
+		                $("#changeTimeSuccess").modal("show");
                     }
                     else
                     {
-                        $("#modal-title-default").text("Error!");
-                        $("#modalText").text("Database error");
-                       
-                        $("#displayModal").modal("show");
+
+		                $("#modal-title-default").text("Error!");
+		                $("#modalText").text("Database Error");
+		                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+		                $("#modalHeader").css("background-color", "red");
+		                $("#changeTimeSuccess").modal("show");
                     }
                 });
 
             });
-                                $("#modal-title-default").text("Success!");
-                        $("#modalText").text("Employee Type added successfully");
-                        $("#btnClose").attr("onclick","window.location='../../admin.php'");
-                        $("#displayModal").modal("show");
+
 
 });
