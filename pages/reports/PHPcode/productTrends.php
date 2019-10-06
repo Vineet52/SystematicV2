@@ -1,5 +1,6 @@
 <?php		
-		
+        include_once("../../sessionCheckPages.php");
+        
 		$url = 'mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
 	
 		$dbparts = parse_url($url);
@@ -68,16 +69,42 @@
             
         $submit = mysqli_query($con,$alles_query);
      
+        $employee_ID=" ";
+
+        $getIDQuery = "SELECT * FROM USER WHERE USER_ID='$userID'";
+        $subIDQuery = mysqli_query($con , $getIDQuery);
+
+        if(mysqli_num_rows($subIDQuery)>0)
+        {
+            if($rowID= mysqli_fetch_assoc($subIDQuery))
+            {
+              $employee_ID = $rowID["EMPLOYEE_ID"];
+            }
+        }
 
         if (mysqli_num_rows($submit)>0) 
         {
+
+
+          
+
 	        $count=0;
 	        while ($row= $submit->fetch_assoc())
 	        {
 	        	$vals[]=$row;
 	        	//$vals[$count]["ID"]=$row["SUPPLIER_ID"];
 	        	$count=$count+1;
-	        }
+            }
+            
+            $changes="";
+			$changes="ID :".$employee_ID;
+			$changes=$changes." | Product Trends Report Generated"." | Product Trend Start Period :".$startDate. " | Product Trend End Period :".$endDate;
+			
+			$DateAudit = date('Y-m-d H:i:s');
+			$Functionality_ID='12.4';
+			$userID = $_SESSION['userID'];
+			$audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+			$audit_result=mysqli_query($con,$audit_query);  
 
 	        //$vals['time_in']="d";
 	        echo json_encode($vals);
