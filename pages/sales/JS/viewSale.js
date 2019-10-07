@@ -118,6 +118,7 @@ $(()=>{
 	else
 	{
 		$("#btnAddDelivery").attr("disabled",true);
+		// $("#collectSaleButton").attr("disabled",true);
 	}
 	if(saleCheck >= 2)
 	{
@@ -129,16 +130,19 @@ $(()=>{
 	{
 		$("#makePaymentButton").attr("disabled",false);
 		$("#btnAddDelivery").attr("disabled",true);
-		$("#collectSaleButton").attr("disabled",true);
+		// $("#collectSaleButton").attr("disabled",true);
 		$("#btnMakeReturn").attr("disabled",true);
 	}
-
-
 	if(saleCheck == 3)
 	{
 		console.log("EQUAL");
 		$("#collectSaleButton").attr("disabled",true);
+		$("#btnAddDelivery").attr("disabled",true);
 		$("#btnMakeReturn").attr("disabled",false);
+	}
+	if(parseInt(deliveryCheck)==1&&saleCheck==2)
+	{
+		$("#collectSaleButton").attr("disabled",true);
 	}
 
 	let customerData=JSON.parse($("#cData").text());

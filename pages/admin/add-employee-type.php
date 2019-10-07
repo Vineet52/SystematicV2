@@ -77,7 +77,7 @@
                           <br>
                           <label class="custom-toggle mt-3" >
                               <input type="checkbox" id="toggle-two" >
-                                 <span class="custom-toggle-slider rounded-circle"  </span>
+                                 <span class="custom-toggle-slider rounded-circle" > </span>
                           </label>
                         </div>                        
                       </div>
