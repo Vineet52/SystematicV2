@@ -1,4 +1,6 @@
 $(()=>{
+
+
 	let eAddr=$("#eAddress").text();
 	let changedAddress=eAddr.replace(" ","/");
 	let changedSuburb=$("#eSuburb").text().replace(" ","/");
@@ -170,6 +172,8 @@ $(()=>{
     });
 
 
+
+
     $("#checkOUT").click(function(e)
     {//use ID of the form
         e.preventDefault();
@@ -227,6 +231,7 @@ $(()=>{
     });
 
 
+
     $("#wageCalc").click(function(e)
     {//use ID of the form
         e.preventDefault();
@@ -273,7 +278,6 @@ $(()=>{
         });
     });
     
-
 
 
 

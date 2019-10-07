@@ -66,14 +66,13 @@ $(()=>{
 		}
 		else
 		{
-			console.log("Error");
+            $("#modal-title-defaultDismiss").text("Error!");
+            $("#modalTextDismiss").text("User could not be deleted ,user has transactions()");
+            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+            $("#modalHeader").css("background-color", "red");
+            $("#deleteUserModalSuccess").modal("show");
 		}
     });
     
-
-    
-
-
-
 
 });

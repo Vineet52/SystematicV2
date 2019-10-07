@@ -98,21 +98,28 @@ console.log("Early");
                     {
                         $("#modal-title-default").text("Success!");
                         $("#modalText").text("Employee type successfully updated");
-                        $("#btnClose").attr("onclick","window.location='../../admin.php'");
-                        $("#displayUpdateModal").modal("show");
+                        $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                        $("#modalHeader").css("background-color", "#1ab394");
+                        $("#btnClose").attr("onclick","window.location='search-employee-type.php'");
+                        $("#changeTimeSuccess").modal("show");
                     }
                     else if(confirmation == "Nothing is maintained")
                     {
                         $("#modal-title-default").text("Error!");
-                        $("#modalText").text("Nothing was maintained , please try again!");
-                        $("#displayUpdateModal").modal("show");
+                        $("#modalText").text("No changes made, data capture is identical");
+                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                        $("#modalHeader").css("background-color", "red");
+                       
+                        $("#changeTimeSuccess").modal("show");
                     }
                     else
                     {
                         $("#modal-title-default").text("Error!");
-                        $("#modalText").text("Database error");
+                        $("#modalText").text("Database erro");
+                        $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                        $("#modalHeader").css("background-color", "red");
                        
-                        $("#displayModal").modal("show");
+                        $("#changeTimeSuccess").modal("show");
                     }
                 });
 
