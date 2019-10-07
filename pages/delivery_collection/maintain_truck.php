@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/MaintainTruck.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -146,6 +148,7 @@
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <script type="text/javascript" src="JS/maintainTruck.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

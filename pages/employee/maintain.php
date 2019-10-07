@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/MaintainEmployee.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -134,12 +136,17 @@
                           <div class='form-group col-12 uploader' id="ImageUpload"  onclick="$('#fileUpload').click()">
                                 
                               <!--div class=""-->
-                              <img id="uplaodImage" src=""/>
-                                  <label for="fileUpload" id="ImageUploadLabel">Upload Employee Picture</label>
-                                  
-                                  <input type='hidden' class='form-control' name='set' id="UploadsPic" class="form-control"/>
-                                  <input type='file' class='form-control' id="fileUpload" name='UploadsPic'  class="form-control" /><br/>
+                              <label for="exampleInputPassword1">Upload Employee Picture</label>
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="UploadsPic" id="fileUpload" onchange="PreviewPic();">
+                                  <label class="custom-file-label btn-primary" for="inputGroupFile01">Choose file</label>
+                                </div>
                               </div>
+                              <div class="card shadow" style="clear:both">
+                                <iframe id="IDViewer" frameborder="0" scrolling="no" style="height: 230px; width: 100%;"></iframe>
+                              </div>
+
                                    
                          
                         </div> 
@@ -174,7 +181,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+
                     </form>
                   </div>
                 </div>
@@ -208,6 +215,7 @@
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <script src="../../assets/jqueryui/jquery-ui.js"></script>
   <script type="text/javascript" src="JS/maintainEmployee.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

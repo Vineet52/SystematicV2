@@ -1,5 +1,5 @@
 <?php
-
+include_once("../../sessionCheckPages.php");
 function rand_string($length)
 {
   $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -84,6 +84,15 @@ function rand_string($length)
                     $add_result=mysqli_query($DBConnect,$add_query);
                     if($add_result)
                     {
+                      $last_id = mysqli_insert_id($DBConnect);
+                      $DateAudit = date('Y-m-d H:i:s');
+                      $Functionality_ID='3.1';
+                      $userID = $_SESSION['userID'];
+                      $changes="ID : ".$last_id." | Username : ".$username;
+                      $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+                      $audit_result=mysqli_query($DBConnect,$audit_query);
+
+
                       echo "success";
                     }
                     else

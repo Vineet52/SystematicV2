@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/RegisterCustomer.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -269,6 +271,7 @@
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <script src="../../assets/jqueryui/jquery-ui.js"></script>
   <script type="text/javascript" src="JS/registerCustomer.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

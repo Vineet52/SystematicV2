@@ -1,6 +1,8 @@
 <?php
-$name=$_GET['name'];
-$email=$_GET['email'];
+$name=$_POST['name'];
+$email=$_POST['email'];
+$orderNumber=$_POST['orderNumber'];
+$orderDate = $_POST['orderDate'];
 $mailjetApiKey = 'dc7651212c03feea96f539e4b2303634';
 $mailjetApiSecret = '14e46c9f68a9d61e70f455e997f52141';
 $messageData = [
@@ -16,7 +18,7 @@ $messageData = [
                     'Name' =>  $name
                 ]
             ],
-            'Subject' => 'Stockpath Registration',
+            'Subject' => 'Order #'.$orderNumber.' Cancellaton',
             'TextPart' => 'Mailjet test body email message',
             'HTMLPart' => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -73,7 +75,7 @@ $messageData = [
                         <table class="es-content" cellspacing="0" cellpadding="0" align="center">
                             <tbody>
                                 <tr>
-                                    <td class="esd-stripe" style="background-color: rgb(255, 167, 59);" esd-custom-block-id="6340" bgcolor="#ffa73b" align="center">
+                                    <td class="esd-stripe" style="background-color: white" esd-custom-block-id="6340" bgcolor="#ffffff" align="center">
                                         <table class="es-content-body" style="background-color: transparent;" width="600" cellspacing="0" cellpadding="0" align="center">
                                             <tbody>
                                                 <tr>
@@ -89,7 +91,7 @@ $messageData = [
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td class="esd-block-text es-p35t es-p5b es-p30r es-p30l" align="center">
-                                                                                        <h1>Welcome! '.$name.'</h1>
+                                                                                        <h1>To: '.$name.'</h1>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -133,18 +135,18 @@ $messageData = [
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td class="esd-block-text es-p20t es-p20b es-p30r es-p30l es-m-txt-l" bgcolor="#ffffff" align="left">
-                                                                                        <p>We are excited to have you on board. For info and queries please send a mail to info@stockpath.co.za or call us on 012 242 2541.</p>
+                                                                                        <p>This is a request to cancel order #'.$orderNumber.' placed on '.$orderDate.'. </p>
                                                                                     </td>
                                                                                 </tr>
                                                                           
                                                                                 <tr>
                                                                                     <td class="esd-block-text es-p20t es-p30r es-p30l es-m-txt-l" align="left">
-                                                                                        <p>If you have any questions, just reply to this email—were always happy to help out.</p>
+                                                                                        <p>Please reply to this email to confirm the cancellation of the order.</p>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td class="esd-block-text es-p20t es-p40b es-p30r es-p30l es-m-txt-l" align="left">
-                                                                                        <p>Cheers,</p>
+                                                                                        <p>Thank you,</p>
                                                                                         <p>The Greens Supermarket Team</p>
                                                                                     </td>
                                                                                 </tr>
@@ -217,7 +219,7 @@ $messageData = [
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td class="esd-block-text es-p30t es-p30r es-p30l" align="center">
-                                                                                        <h3 style="color:white;">Greens Supermarket</h3>
+                                                                                        <h3 style="color:white;">&nbsp;&nbsp;Greens Supermarket&nbsp;&nbsp;</h3>
                                                                                     </td>
                                                                                 </tr>
                                                                    

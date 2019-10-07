@@ -56,7 +56,7 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up" id="percentageOfCustomers"></i></span>
+                    <span class="text-success mr-2"><i class="fas fa-dot-circle" id="percentageOfCustomers"></i></span>
                     <span class="text-nowrap" >Rate of Credit Customer Growth</span>
                   </p>
                 </div>
@@ -77,7 +77,7 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down" id="percentageOfEmployees"></i></span>
+                    <span class="text-success mr-2"><i class="fas fa-dot-circle" id="percentageOfEmployees"></i></span>
                     <span class="text-nowrap">Available Employees</span>
                   </p>
                 </div>
@@ -88,8 +88,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Active Admin Employees</h5>
+                      <span class="h2 font-weight-bold mb-0" id="NewEmployees"></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -98,8 +98,8 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
+                    <span class="text-success mr-2"><i class="fas fa-dot-circle" id="percentageOfNewEmployees"></i></span>
+                    <span class="text-nowrap">Activity </span>
                   </p>
                 </div>
               </div>
@@ -109,18 +109,18 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Warehouse Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">88,65%</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Daily Deliveries</h5>
+                      <span class="h2 font-weight-bold mb-0" id="noOfDailyDeliveries"></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
+                        <i class="fas fa-truck"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
+                    <span class="text-success mr-2"><i class="fas fa-dot-circle" id="percentageOfDailyDeliveries"></i></span>
+                    <span class="text-nowrap">Today's Deliveries</span>
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@
       </div>
       <?php 
 
-        if($userID==3){
+        
           echo '      <div class="row mt-5">
         <div class="col">
           <div class="card shadow">
@@ -190,9 +190,13 @@
           </div>
         </div>
       </div>';
-        }
+  
       ?>
-
+      <form id="delView" method="POST" action="pages/delivery_collection/assign-truck-view-delivery.php">
+        <input type="hidden" name="SALE_ID" id="delID">
+        <input type="hidden" name="DEL_INFO" id="delInfo">
+        <input type="hidden" name="choice" value="2">
+      </form>
       <?php include_once("footer.php");?>
     </div>
   </div>
@@ -210,11 +214,15 @@
     console.log(session);
   </script>
     <!-- Moment JS -->
-  <script src="assets/js/moment.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <!--script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script-->
   <script src="pages/employee/JS/noOfWorkers.js"> </script>
   <script src="pages/customer/JS/noOfCustomer.js"> </script>
   <script src="pages/sales/JS/salesGraphDashboard.js"> </script>
   <script src="pages/supplier/JS/orderGraph.js"> </script>
+  <script src="pages/employee/JS/newEmployees.js"> </script>
+  <script src="pages/driver/JS/TodaysDeliveries.js"> </script>
 
     <script src='assets/fullcalender/packages/core/main.js'></script>
   <script src='assets/fullcalender/packages/daygrid/main.js'></script>
@@ -222,6 +230,7 @@
   <script src='assets/fullcalender/packages/list/main.js'></script>
   <script src='assets/fullcalender/packages/bootstrap/main.js'></script>
   <script type="text/javascript" src="pages/delivery_collection/JS/calendar.js"></script>
+  <script src="InactivityLogoutLanding/autologout.js"></script>
 </body>
 
 </html>

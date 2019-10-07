@@ -53,60 +53,89 @@ $(document).ready(function()
                   
               });
 
-            $("#maintainUserSave").on("click",function(e)
-                {
+            $("#maintainUserSave").on("click",function(e){
 
                     e.preventDefault();
                     //alert("Yeyi");
                     let accessLevelID = parseInt($("#aLevel option:selected").attr("name")) || -1;
                     let username = $("#inputUsername").val();
-                    let password = $("#inputPassword1").val();
-                    let userID = $("#USER_ID").val();
-                
-    
-                    //let userStatus = 1;//Active
-                    console.log("Update works!");
-                    console.log(accessLevelID);
-                    if(accessLevelID == -1)
-                    {
-                        console.log("Its NaN");
-                        accessLevelID = "";
-                    }
-                    else
-                    {
-                        console.log("Does not go to Nan");
-                    }
-                   
+                    let password = $("#inputOldPassword").val();
+                    let cpassword = $("#inputPassword2").val();
 
-                    //console.log(username);
-                    $.ajax({
-                        url:"PHPcode/maintainUser-SQL.php",
-                        type:'POST',
-                        data:{choice:1 , accessLevel:accessLevelID , email:username , pass:password, user_ID :userID}
-                    })
-                    .done(data=>{
+                    
 
-                        console.log(data);
-                        let confirmation = data.trim();
-                        if(confirmation== "success")
-                        {
-                            $("#modal-title-default").text("Success!");
-                            $("#modalText").text("User updated successfully.");
-                            $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
-                            $("#modalHeader").css("background-color", "#1ab394");
-                            $("#btnClose").attr("onclick","window.location='../../user.php'");
-                            $("#displayModal").modal("show");
-                        }
-                        else
-                        {
+                    if(password==""){
+                            
                             $("#modal-title-default").text("Error!");
                             $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
                             $("#modalHeader").css("background-color", "red");
-                            $("#modalText").text("Database error");
+                            $("#modalText").text("Please Enter Password");
+                            $("#displayModal").modal("show");
+                    }
+                    else if(cpassword==""){
+                            $("#modal-title-default").text("Error!");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#modalText").text("Please Enter Confirm Password");
+                            $("#displayModal").modal("show");
+                    }
+                    else if(password!=cpassword){
+                            $("#modal-title-default").text("Error!");
+                            $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                            $("#modalHeader").css("background-color", "red");
+                            $("#modalText").text("Passwords do not match");
                            
                             $("#displayModal").modal("show");
+                    }
+                    else{
+
+                        let userID = $("#USER_ID").val();
+                    
+        
+                        //let userStatus = 1;//Active
+                        console.log("Update works!");
+                        console.log(accessLevelID);
+                        if(accessLevelID == -1)
+                        {
+                            console.log("Its NaN");
+                            accessLevelID = "";
                         }
-                    });
+                        else
+                        {
+                            console.log("Does not go to Nan");
+                        }
+                       
+
+                        //console.log(username);
+                        $.ajax({
+                            url:"PHPcode/maintainUser-SQL.php",
+                            type:'POST',
+                            data:{choice:1 , accessLevel:accessLevelID , email:username , pass:password, user_ID :userID}
+                        })
+                        .done(data=>{
+
+                            console.log(data);
+                            let confirmation = data.trim();
+                            if(confirmation== "success")
+                            {
+                                $("#modal-title-default").text("Success!");
+                                $("#modalText").text("User updated successfully.");
+                                $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+                                $("#modalHeader").css("background-color", "#1ab394");
+                                $("#btnClose").attr("onclick","window.location='../../user.php'");
+                                $("#displayModal").modal("show");
+                            }
+                            else
+                            {
+                                $("#modal-title-default").text("Error!");
+                                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                                $("#modalHeader").css("background-color", "red");
+                                $("#modalText").text("Database error");
+                               
+                                $("#displayModal").modal("show");
+                            }
+                        });
+                    }
 
                 });
 

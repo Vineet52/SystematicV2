@@ -1,6 +1,6 @@
 <?php
  include_once("../../sessionCheckLanding.php");
-
+ $help="../../help/CollectWage.html";
 $url ='mysql://lf7jfljy0s7gycls:qzzxe2oaj0zj8q5a@u0zbt18wwjva9e0v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/c0t1o13yl3wxe2h3';
 
 $dbparts = parse_url($url);
@@ -393,6 +393,7 @@ $endDate=mktime(
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script src="JS/calculateWage.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

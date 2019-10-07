@@ -51,40 +51,56 @@
                     $employeeQResult = mysqli_query($DBConnect, $employeeQ);
                     $employeeResult = mysqli_fetch_assoc($employeeQResult);
 
-                    $name = $employeeResult['NAME'];
-                    $surname = $employeeResult['SURNAME'];
+                    if ($employeeResult['EMPLOYEE_STATUS_ID'] == 1) 
+                    {
+                        $name = $employeeResult['NAME'];
+                        $surname = $employeeResult['SURNAME'];
 
-                    //Fetch access level functionalities
-                    $userFunctionalityQ = "SELECT * FROM ACCESS_LEVEL_FUNCTIONALITY WHERE ACCESS_LEVEL_ID='$accessLevelID'";
-                    $userFunctionalityQResult = mysqli_query($DBConnect, $userFunctionalityQ);
+                        //Fetch access level functionalities
+                        $userFunctionalityQ = "SELECT * FROM ACCESS_LEVEL_FUNCTIONALITY WHERE ACCESS_LEVEL_ID='$accessLevelID'";
+                        $userFunctionalityQResult = mysqli_query($DBConnect, $userFunctionalityQ);
 
-                    $access = array();
-                    while( $level = mysqli_fetch_array($userFunctionalityQResult))
-                    { 
-                        array_push($access, $level['FUNCTIONALITY_ID']);
+                        $access = array();
+                        while( $level = mysqli_fetch_array($userFunctionalityQResult))
+                        { 
+                            array_push($access, $level['FUNCTIONALITY_ID']);
+                        }
+
+                        //Fetch sub functionality level functionalities
+                        $userSubFunctionalityQ = "SELECT * FROM ACCESS_LEVEL_SUB_FUNCTIONALITY WHERE ACCESS_LEVEL_ID ='$accessLevelID'";
+                        $userSubFunctionalityQResult = mysqli_query($DBConnect, $userSubFunctionalityQ);
+
+                        $subFunctionality = array();
+                        while( $functionality = mysqli_fetch_array($userSubFunctionalityQResult))
+                        { 
+                            array_push($subFunctionality, $functionality['SUB_FUNCTIONALITY_ID']);
+                        }
+                        
+                        //Populate session variable
+                        session_start();
+                        $_SESSION['name'] = $name;
+                        $_SESSION['surname'] = $surname;
+                        $_SESSION['userID'] = $userID;
+                        $_SESSION['employeeID'] = $employeeID;
+                        $_SESSION['accessLevel'] = $access;
+                        $_SESSION['subFunctionality'] = $subFunctionality;
+                        $_SESSION['access'] = true;
+
+
+                        $DateAudit = date('Y-m-d H:i:s');
+                        $Functionality_ID='3.5';
+                        $changes="ID : ".$userID;
+                        $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+                        $audit_result=mysqli_query($DBConnect,$audit_query);
+
+                        echo "success";
                     }
-
-                    //Fetch sub functionality level functionalities
-                    $userSubFunctionalityQ = "SELECT * FROM ACCESS_LEVEL_SUB_FUNCTIONALITY WHERE ACCESS_LEVEL_ID ='$accessLevelID'";
-                    $userSubFunctionalityQResult = mysqli_query($DBConnect, $userSubFunctionalityQ);
-
-                    $subFunctionality = array();
-                    while( $functionality = mysqli_fetch_array($userSubFunctionalityQResult))
-                    { 
-                        array_push($subFunctionality, $functionality['SUB_FUNCTIONALITY_ID']);
+                    else
+                    {
+                        $_SESSION['access'] = false;
+                        $response = "no access";
+                        echo $response;
                     }
-                    
-                    //Populate session variable
-                    session_start();
-                    $_SESSION['name'] = $name;
-                    $_SESSION['surname'] = $surname;
-                    $_SESSION['userID'] = $userID;
-                    $_SESSION['employeeID'] = $employeeID;
-                    $_SESSION['accessLevel'] = $access;
-                    $_SESSION['subFunctionality'] = $subFunctionality;
-                    $_SESSION['access'] = true;
-
-                    echo "success";
                 }
                 else
                 {

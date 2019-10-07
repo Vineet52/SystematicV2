@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/AddUser.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -150,6 +152,7 @@
   <script src="../../assets/jqueryui/jquery-ui.js"></script>
 
   <script src="JS/addUser-JS.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

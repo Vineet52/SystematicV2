@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/MaintainUser.html";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,13 +65,13 @@
                         </div>
                         <div class="form-group">
                           <label for="inputOldPassword">Password</label>
-                          <input type="password" class="form-control" id="inputOldPassword" placeholder="****">
+                          <input type="password" class="form-control" id="inputOldPassword" placeholder="****" required>
                         </div>
                           <div class="form-group">
                             <label for="inputPassword2">Confirm Password</label>
-                            <input type="password" class="form-control" id="inputPassword2" placeholder="****">
+                            <input type="password" class="form-control" id="inputPassword2" placeholder="****" required>
                           </div>
-                        </div>
+                      
                         <div class="form-group col">
                           <label for="bane">Access Level</label>
                           <select class="form-control" id="aLevel">
@@ -103,7 +105,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                      
 
                     </form>
                   </div>
@@ -136,6 +138,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script src="JS/maintainUser-JS.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>
