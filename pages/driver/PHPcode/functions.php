@@ -786,7 +786,8 @@
 	function generateImage($img,$id)
     {
 
-        $folderPath = "../../deliveryImages/";
+        //$folderPath = "../../deliveryImages/";
+        $folderPath="http://stockpath.co.za/pages/deliveryImages/"
 
 
 
