@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/AddSupplier.html";
+?>
 <!DOCTYPE html>
 <html>
 

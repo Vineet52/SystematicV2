@@ -1,4 +1,6 @@
-<?php include_once("sessionCheckLanding.php");?>
+<?php include_once("sessionCheckLanding.php");
+  $help="help/Reporting.html";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -183,7 +185,7 @@
               <h5 class="modal-title" id="exampleModalLabel">Enter Date!</h5>
             </div>
             <div class="modal-body">
-                <form action="pages/reports/employeeAttendance.php" method="POST" id="SubAttForm">
+                <form action="pages/reports/employeeAttendance.php" method="POST" id="SubAttForm" target="_blank">
                 <div class="form-group col">
                   <label for="exampleInputPassword1">Please enter date:</label>
                   <input type="date" class="form-control" id="DATE" name="DATE" placeholder="Enter Delivery From">
@@ -224,7 +226,7 @@
 
             </div>
             <div class="modal-footer">  
-              <a href="pages/reports/debtors.php" class="btn btn-success">Yes</a>  
+              <a href="pages/reports/debtors.php" class="btn btn-success" target="_blank">Yes</a>  
               <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
             </div>
           </div>
@@ -243,7 +245,7 @@
 
             </div>
             <div class="modal-footer">  
-              <a href="pages/reports/stock-report.php" class="btn btn-success">Yes</a>  
+              <a href="pages/reports/stock-report.php" class="btn btn-success" target="_blank">Yes</a>  
               <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
             </div>
           </div>
@@ -278,7 +280,7 @@
             </div>
             <div class="modal-body">
               <p>Are you sure you want to generate the selected report?</p>
-                <form action="pages/reports/wage-slips.php" method="POST">
+                <form action="pages/reports/wage-slips.php" method="POST" target="_blank">
                   <div class="form-row ">
                     <div class="form-group col-lg-12 col-md-12 col-sm-12">
                       <input type="hidden" class="form-control" id="USERNAME" name="USERNAME" value=<?php echo $_SESSION["name"]?> placeholder="Enter Date of Sale From">
@@ -329,7 +331,7 @@
 
             </div>
             <div class="modal-footer">  
-              <a href="pages/reports/creditors-report.php" class="btn btn-success">Yes</a> 
+              <a href="pages/reports/creditors-report.php" class="btn btn-success" target="_blank">Yes</a> 
               <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
             </div>
           </div>
@@ -348,7 +350,7 @@
                   <p>Report generated successfully</p>    
               </div> 
               <div class="modal-footer">
-                   <a href="pages/reports/creditors-report.php"class="btn btn-link  ml-auto" >Close</a>                     
+                   <a href="pages/reports/creditors-report.php"class="btn btn-link  ml-auto" target="_blank">Close</a>                     
                   
               </div>            
             </div>
@@ -362,12 +364,12 @@
             </div>
             <div class="modal-body">
               <p>Please Select a period on which the sales report should be generated!</p>
-                <form action="pages/reports/sale.php" method="POST">
+                <form action="pages/reports/sale.php" method="POST" target="_blank">
                 <div class="form-row ">
                   <div class="form-group col-lg-12 col-md-12 col-sm-12">
                     <label for="bane">Sales Reports Period</label>
-                    <select class="form-control" name="salePeriod" placeholder="Daily" required>
-                      <option value= "Daily">Daily</option>
+                    <select class="form-control" name="salePeriod" placeholder="Weekly" required>
+                      <!--option value= "Daily">Daily</option-->
                       <option value= "Weekly">Weekly</option>
                       <option value= "Monthly">Monthly</option>
                     </select>

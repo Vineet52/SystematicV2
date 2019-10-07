@@ -52,7 +52,11 @@
       </table>
       <table>
         <tfoot>   
-
+          <tr id="total">
+            <td colspan="2"></td>
+            <td colspan="2"><b>TOTAL SALES AMOUNT</b></td>
+            
+          </tr>
         </tfoot>
       </table>
       <div id="notices">
@@ -67,6 +71,7 @@
     </script>
     <!-- Argon Scripts -->
   <!-- Core -->
+  
   <script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Optional JS -->

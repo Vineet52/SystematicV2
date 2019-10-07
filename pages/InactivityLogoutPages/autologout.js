@@ -34,7 +34,7 @@ $(function()
                     {
                         //console.log(" must logout now");
                         sessionStorage.removeItem("lastTimeStamp");
-                        //window.location = "../../assets/logout/PHPcode/logoutInactivity.php";
+                        window.location = "../../assets/logout/PHPcode/logoutInactivity.php";
                         return false;
                     }
                     else

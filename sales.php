@@ -1,4 +1,6 @@
-<?php include_once("sessionCheckLanding.php");?>
+<?php include_once("sessionCheckLanding.php");
+  $help="help/SaleSubsystem.html";
+?>
 <!DOCTYPE html>
 <html>
 <head>

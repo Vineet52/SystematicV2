@@ -7,6 +7,7 @@ include_once("../sessionCheckPages.php");
   // $suburbData=getAllSuburbs($con);
   // $cityData=getAllCity($con);
   mysqli_close($con);
+  $help="../../help/AddSaleDelivery.html";
 ?>
 <!DOCTYPE html>
 <html>

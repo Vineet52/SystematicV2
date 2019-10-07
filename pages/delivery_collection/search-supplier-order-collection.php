@@ -4,6 +4,7 @@
   include_once("PHPcode/functions.php");
   $collectionData=getSearchCollectionData($con);
   mysqli_close($con);
+  $help="../../help/SearchOrderCollection.html";
 ?>
 <!DOCTYPE html>
 <html>

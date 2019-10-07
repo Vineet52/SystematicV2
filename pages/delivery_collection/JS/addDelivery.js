@@ -23,7 +23,7 @@ let checkDate=function()
    var selectedText =$("#delDate").val() //document.getElementById('datepicker').value;
    var selectedDate = new Date(selectedText);
    var now = new Date();
-   if (selectedDate < now) {
+   if (selectedDate.getDate() < now.getDate()) {
     return false;
    }
    else

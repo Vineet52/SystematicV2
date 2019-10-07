@@ -1,6 +1,7 @@
 <?php 
   include_once("../sessionCheckPages.php");
   $orderDetails=json_decode($_POST["ordDetails"]);
+  $help="../../help/ReceiveStock.html";
 ?>
 <!DOCTYPE html>
 <html>
