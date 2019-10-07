@@ -787,7 +787,7 @@
     {
 
         //$folderPath = "../../deliveryImages/";
-        $folderPath="http://stockpath.co.za/pages/deliveryImages/"
+        $folderPath="http://stockpath.co.za/pages/deliveryImages/";
 
 
 

@@ -133,7 +133,8 @@ $(()=>{
 		$("#vEmployeeName").text(employee["NAME"]);
 		if(dctData==5)
 		{
-			let sigPath="../deliveryImages/"+saleData["SALE_ID"]+".png";
+			//let sigPath="../deliveryImages/"+saleData["SALE_ID"]+".png";
+			let sigPath="http://stockpath.co.za/pages/deliveryImages/"+saleData["SALE_ID"]+".png";
 			console.log(sigPath);
 			$("#imgSignature").attr("src",sigPath);
 		}
