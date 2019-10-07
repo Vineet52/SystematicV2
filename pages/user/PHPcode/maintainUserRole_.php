@@ -1,5 +1,6 @@
 <?php
 
+include_once("../../sessionCheckPages.php");
   $userRoleName = "";
   $userRoleSubFunctionalities = Array();
 
@@ -81,12 +82,23 @@
         mysqli_query($DBConnect, $querysubFunctionality);
       }
 
-        //Close database connection
-      mysqli_close($DBConnect);
+       
 
       //Send success response
+      $changes="Changes Made To User Role ID: ". $AccessLevelID;
+      $changes=$changes." | User Role(s) Maintained";
+    
+    
+     $DateAudit = date('Y-m-d H:i:s');
+     $Functionality_ID='3.9';
+     $userID = $_SESSION['userID'];
+     $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+     $audit_result=mysqli_query($DBConnect,$audit_query);
+
       $response = "success";
       echo $response;
+       //Close database connection
+       mysqli_close($DBConnect);
     }
     else
     {
