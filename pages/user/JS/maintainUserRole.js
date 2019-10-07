@@ -132,7 +132,7 @@ $("#addUserRole").on("click",function(event)
                 $("#modalText").text("User role updated successfully");
                 $('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
                 $("#modalHeader").css("background-color", "#1ab394");
-                $("#btnClose").attr("onclick","window.location='../../user.php'");
+                $("#modalCloseButton").attr("onclick","window.location='../../user.php'");
                 $("#displayModal").modal("show");
             }
             else if(response  == "User role exists")

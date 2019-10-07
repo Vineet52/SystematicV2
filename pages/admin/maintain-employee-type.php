@@ -79,7 +79,7 @@
                           <br>
                           <label class="custom-toggle mt-3" >
                               <input type="checkbox" id="toggle-two" >
-                                 <span class="custom-toggle-slider rounded-circle"  </span>
+                                 <span class="custom-toggle-slider rounded-circle" > </span>
                           </label>
                         </div>    
                       </div>
@@ -91,78 +91,32 @@
                         </button>
                     
                     </form>
-                    <div class="modal fade" id="displayUpdateModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                      <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                          <div class="modal-content">
-                            
-                              <div class="modal-header">
-                                  <h6 class="modal-title" id="modal-title-default"></h6>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">×</span>
-                                  </button>
-                              </div>
-                              
-                              <div class="modal-body">
-                                  <p id="modalText"></p>
+                    <div class="modal fade errorModal successModal text-center" id="changeTimeSuccess" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                <div class="modal-content">
                                   
-                              </div>
-                              
-                              <div class="modal-footer">
-                                  
-                                  <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" id="btnClose" onclick="">Close</button> 
-                              </div>
-                              
+                                    <div class="modal-header" id="modalHeader">
+                                        <h6 class="modal-title" id="modal-title-default"></h6>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                        <p id="modalText"></p>
+
+                                        <div id="animation" style="text-align:center;">
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        
+                                        <button type="button" class="btn btn-link  ml-auto" id="btnClose" data-dismiss="modal" onclick="">Close</button> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
                           </div>
-                      </div>
-                    </div>
-                    <div class="modal fade" id="modal-del" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                      <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                          <div class="modal-content">
-                            
-                              <div class="modal-header">
-                                  <h6 class="modal-title" id="modal-title-default">Warning!</h6>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">×</span>
-                                  </button>
-                              </div>
-                              
-                              <div class="modal-body">
-                                  <p>Are you sure you want to delete the employee type? </p>
-                                  
-                              </div>
-                              
-                              <div class="modal-footer">                                 
-                                  <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#success2">Yes</button>
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button> 
-                              </div>
-                              
-                          </div>
-                      </div>
-                    </div>
-                    <div class="modal fade" id="success2" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                      <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                          <div class="modal-content">
-                            
-                              <div class="modal-header">
-                                  <h6 class="modal-title" id="modal-title-default">Success!</h6>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">×</span>
-                                  </button>
-                              </div>
-                              
-                              <div class="modal-body">
-                                  <p>The employee type was successfully deleted</p>
-                                  
-                              </div>
-                              
-                              <div class="modal-footer">
-                                  
-                                  <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" onclick="window.location='../../admin.html'">Close</button> 
-                              </div>
-                              
-                          </div>
-                      </div>
-                    </div>
+
                 </div>
 
               </div>
