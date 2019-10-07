@@ -38,22 +38,23 @@
         <thead>
           <tr>
             <th class="desc-center" >SUPPLIER ID</th>
-            <th class="desc">VAT NUMBER</th>
+            <th class="desc" style="text-align: left;">VAT NUMBER</th>
             <th class="desc">SUPPLIER NAME</th>
             <th class="desc" style="text-align: right;">BALANCE</th>
           </tr>
         </thead>
-        <tbody id="tbody">
-         
+        <tbody>
+  
+          
         </tbody>
       </table>
-      <table>
+      <table id="tbody">
         <tfoot>   
-          <tr>
+          <tr id="TotalAmountOwed">
             <td colspan="2"></td>
-            <td colspan="2"><b>TOTAL AMOUNT OWED</b></td>
-            <td><b id="TotalAmountOwed"></b></td>
+            <td colspan="2"><b>TOTAL AMOUNT OWED</b></td> 
           </tr>
+
         </tfoot>
       </table>
       <div id="notices">

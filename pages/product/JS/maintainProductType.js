@@ -4,7 +4,6 @@ $(()=>{
   		debug: true,
   		success: "valid"
 	});
-
 });
 
 $("button#maintainProductType").on('click', event => {
@@ -43,31 +42,39 @@ $("button#maintainProductType").on('click', event => {
 			console.log(response);
 			if (response == "success")
 			{
-				$('#modal-title-default').text("Success!");
-				$('#modalText').text("Product type maintained sucessfully");
-				$("#modalCloseButton").attr("onclick","window.location='search_type.php'");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Success!");
+				$("#MMessage").text("Product type maintained sucessfully");
+				$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+				$("#modalHeader").css("background-color", "#1ab394");
+				$("#btnClose").attr("onclick","window.location='../../product.php'");
+				$("#displayModal").modal("show");
 			}
 			else if(response == "product type exists")
 			{
-				$('#modal-title-default').text("Error!");
-				$('#modalText').text("A product type with the changed name already exists");
-				$("#modalCloseButton").attr("onclick","");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Error!");
+				$("#MMessage").text("A product type with the same name already exists");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$("#displayModal").modal("show");
 			}
 			else if(response == "no changes made")
 			{
-				$('#modal-title-default').text("Error!");
-				$('#modalText').text("You have not made any changes to the product type");
-				$("#modalCloseButton").attr("onclick","");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Error!");
+				$("#MMessage").text("You have not made any changes to the product type");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$("#displayModal").modal("show");
 			}
 			else if(response == "database error")
 			{
-				$('#modal-title-default').text("Error!");
-				$('#modalText').text("Database error adding product type");
-				$("#modalCloseButton").attr("onclick","");
-				$('#successfullyAdded').modal("show");
+				$('#MHeader').text("Error!");
+				$("#MMessage").text("Database error");
+				$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+				$("#modalHeader").css("background-color", "red");
+				$("#btnClose").attr("data-dismiss","modal");
+				$("#displayModal").modal("show");
 			}
 			
 			ajaxDone = true;

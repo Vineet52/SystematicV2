@@ -76,6 +76,10 @@
 				}
 			}
 		}
+		else
+		{
+			echo "F,Database Error";
+		}
 	}
 	mysqli_close($con);
 ?>

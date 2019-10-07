@@ -1,3 +1,7 @@
+let scanSound = new Audio('../../assets/sounds/qr_scan-sound.mp3');
+let checkinSuccessfulSound = new Audio('../../assets/sounds/checkin-sound.mp3');
+let checkinErrorSound = new Audio('../../assets/sounds/error.mp3');
+
 $(()=>{
 	$.ajax({
 		url: 'PHPcode/employeecode.php',
@@ -28,4 +32,104 @@ $(()=>{
 			alert("Error");
 		}
 	});
+
+	let scanner = new Instascan.Scanner(
+	  	{
+	    	video: document.getElementById('videoElement')
+	  	}
+	);
+
+    scanner.addListener('scan', function(content) {
+    	scanSound.play();
+
+      	console.log(content);
+	    let savedID = content;
+	    
+	    $.ajax({
+	      	type: 'POST',
+	      	url: 'PHPcode/searchScanner-SQL.php',
+	      	data: {qrCode : content},
+	      	beforeSend: function(){
+	        	$('.loadingModal').modal('show');
+	        }
+	     })
+	      .done(data => {
+	      // do something with data
+	      $('.loadingModal').modal('hide');
+            console.log(data);
+            let confirmation = data.trim();
+            
+            if(confirmation == "success")
+            {
+            	checkinSuccessfulSound.play();
+                window.location=`view.php?employeeID='${savedID}'`;
+
+            }
+            else if(confirmation != "success")
+            {
+            	checkinErrorSound.play();
+                $('#modal-title-default').text("Error!");
+                $('#modalText').text("Employee not found , please try again or search employee");
+                $('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+                $("#modalHeader").css("background-color", "red");
+                $('#scannerSearch').modal("show");
+            }
+        })
+        .fail(()=>
+        {
+            console.log("ajax failed");
+        });              
+    });
+    
+
+
+	Instascan.Camera.getCameras().then(cameras => 
+	{
+	  	if(cameras.length > 0)
+	  	{
+	      	scanner.start(cameras[0]);
+	  	} 
+	  	else 
+	  	{
+	      	console.error("No Camera Device");
+	  	}
+	});
 });
+
+ function myFunction() 
+{
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  var showCount = 0;
+  for (i = 0; i < tr.length; i++) 
+  {
+    td = tr[i].getElementsByTagName("td")[1];
+    td2 = tr[i].getElementsByTagName("td")[3];
+    if (td || td2) 
+    {
+      txtValue = td.textContent || td.innerText;
+      txtValue2 = td2.textContent || td2.innerText;
+      if ((txtValue.toUpperCase().indexOf(filter)> -1)|| txtValue2.replace(/\s/g, '').toUpperCase().indexOf(filter)> -1) 
+      {
+        tr[i].style.display = "";
+        showCount += 1;
+      } 
+      else 
+      {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+
+  if (showCount === 0)
+  {
+    $("#emptySearch").show();
+  } 
+  else
+  {
+    $("#emptySearch").hide();
+  }
+}

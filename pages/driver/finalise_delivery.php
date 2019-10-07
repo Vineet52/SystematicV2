@@ -1,5 +1,6 @@
 <?php
   include_once("../sessionCheckPages.php");
+  $help="../../help/MakeDelivery-FinaliseDelivery.html";
 ?>
 <!DOCTYPE html>
 <html>

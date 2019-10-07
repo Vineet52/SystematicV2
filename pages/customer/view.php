@@ -2,6 +2,7 @@
 <?php
   include_once("PHPcode/connection.php");
   include_once("PHPcode/functions.php");
+  $help="../../help/ViewCustomerProfile.html";
   $cusID=$_POST["ID"];
   $titleName="";
   if($_POST["CUSTOMER_TYPE_ID"]==1)

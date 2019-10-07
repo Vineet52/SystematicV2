@@ -9,6 +9,7 @@
   $customerData=getAllCustomer($con);
   $saleData=getAllSales($con);
   mysqli_close($con);
+  $help="../../help/SearchSaleDelivery.html";
 ?>
 <!DOCTYPE html>
 <html>

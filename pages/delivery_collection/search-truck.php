@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/SearchTruck.html";
+?>
 <!DOCTYPE html>
 <html>
 
