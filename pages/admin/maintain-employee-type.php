@@ -1,4 +1,6 @@
-<?php include_once("../../sessionCheckLanding.php");?>
+<?php include_once("../../sessionCheckLanding.php");
+  $help="../../help/MaintainEmployeeType.html";
+?>
 
 <!DOCTYPE html>
 <html>
@@ -182,6 +184,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script src="JS/maintainEmployeeType-JS.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

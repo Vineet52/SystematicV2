@@ -4,6 +4,8 @@
   include_once("PHPcode/functions.php");
   $makeDeliveryTrucks=getMakeCollectionTrucks($con);
   $makeDeliveryProducts=getMakeCollectionProduct($con);
+  mysqli_close($con);
+  $help="../../help/MakeCollection-SelectTruck.html";
 
 ?>
 <!DOCTYPE html>

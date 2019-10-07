@@ -189,13 +189,15 @@ $(()=>{
                 else if(salePeriod=="Monthly")
                 {
                     let weekCounter = 0;
-                   while(saleDates.length-1 != weekCounter )
+                   while(saleDates.length-1 >= weekCounter )
                    {
+                    console.log(saleDates.length-1 + ": Number of total Sales");
+                    console.log(weekCounter + ": Number of Elements that we went over in the saleDates array" );
                             count=0;
                             while(count <7)
                             {
 
-                                if(saleDates.length-1 != countArr)
+                                if(saleDates.length-1 >= countArr)
                                 {
                                     arraComparer = new Date(saleDates[countArr]);
                                     arraComparer = arraComparer.getFullYear()+'-'+(arraComparer.getMonth()+1)+'-'+(arraComparer.getDate());
@@ -226,10 +228,15 @@ $(()=>{
                                 //prevDay = prevDay.getFullYear()+'-'+(prevDay.getMonth())+'-'+(prevDay.getDate()-1);
                                 prevDay.setDate(day.getDate()-1);
                                 comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+prevDay.getDate();
-                                console.log(comDate);
+                                //console.log(comDate);
                                 //console.log(moment(comDate).format('dddd'));
             
                                 }
+                                else
+                                {
+                                    break;
+                                }
+                                console.log("End Of Week and weeks are:" + noOfWeeks);
                             
                             }
                             weekCounter = countArr;
@@ -241,6 +248,7 @@ $(()=>{
                             weeklySales.push(tempVal);
                            
                             weekArray.push("Week: " + noOfWeeks + ".");
+                            console.log("Week: " + noOfWeeks + ".");
                    } 
                    
                 }
@@ -257,7 +265,7 @@ $(()=>{
                 return parseFloat(sum).toFixed(2);
               }
                
-                for(let i =0;i<newWeek.length;i++)
+               for(let i =0;i<newWeek.length;i++)
                 {
                     day = new Date(newWeek[i]);
                     formattedTime = moment(day).format('dddd');
@@ -286,23 +294,23 @@ $(()=>{
 
                 if(salePeriod=="Monthly")
                 {
-                    $("#PeriodAttr").html("Monthly Sales<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleFrom+ " : " + dateSaleTo +"</h3>");
+                    $("#PeriodAttr").html("Monthly Sales Revenue<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleFrom+ " : " + dateSaleTo +"</h3>");
                     tableHeader = "SALES FOR A MONTH";
                 
                 }
                 if(salePeriod=="Weekly")
                 {
-                    $("#PeriodAttr").html("Weekly Sales<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleFrom+ " : " + dateSaleTo +"</h3>");
+                    $("#PeriodAttr").html("Weekly Sales Revenue<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleFrom+ " : " + dateSaleTo +"</h3>");
                         tableHeader = "SALES FOR THE WEEK";
                 }   
                 if(salePeriod=="Daily")
                 {
-                    $("#PeriodAttr").html("Daily Sale<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleTo +"</h3>");
+                    $("#PeriodAttr").html("Daily Sales Revenue<h3 class='text-white mb-0'><i class='far fa-calendar-alt mr-2'></i>" +dateSaleTo +"</h3>");
                     tableHeader = "SALES FOR A DAY";
             
                 }  
                
-                new Chart(document.getElementById("line-chart"), {
+                let chart =new Chart(document.getElementById("line-chart"), {
                     type: 'line',
                     data: {
                       labels: newDatesArray,
@@ -315,14 +323,40 @@ $(()=>{
                       ]
                     },
                     options: {
+                        responsive: true,
+                        scales: {
+                          xAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'DAYS OF THE WEEK'
+                            },
+                            ticks: {
+                              major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                              }
+                            }
+                          } ],
+                          yAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'REVENUE (RANDS)'
+                            }
+                          } ]
+                        }
+                    }
+                });
+                   /* options: {
                       title: {
                         display: true,
                         text: ''
                       }
                     }
-                  });
+                  });*/
 
-
+                  //chart.options.scales.yAxes[ 0 ].scaleLabel.labelString = "New Label";
 
 
                

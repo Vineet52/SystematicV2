@@ -147,7 +147,7 @@ $(()=>{
 				$("#MMessage").text(doneData[1]);
 				$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
 				$("#modalHeader").css("background-color", "#1ab394");
-				$("#btnClose").attr("onclick","window.location='../../delivery_collection.php'");
+				$("#btnClose").attr("onclick","window.location='../../supplier.php'");
 				$("#displayModal").modal("show");
 			}
 			else
@@ -228,3 +228,57 @@ function numberWithSpaces(x)
 {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
+$("#confirmDeleteCustomer").on('click',function(e){
+	e.preventDefault();
+	console.log("Clicked");
+
+	var dataJSON = {
+		name: SUPPLER_NAME,
+		email: SUPPLIER_EMAIL,
+		orderNumber: ORDER_ID,
+		orderDate : ORDER_DATE
+	};
+
+	console.log(dataJSON);
+
+	$.ajax({
+		url: '../mailjet/mail_cancelorder.php',
+		type: 'POST',
+		data:{
+			name: SUPPLIER_NAME,
+			email: SUPPLIER_EMAIL,
+			orderNumber: ORDER_ID,
+			orderDate : ORDER_DATE
+		},
+		beforeSend: function() {
+			$('.loadingModal').modal('show');
+    	}
+	})
+	.done(data=>{
+		console.log(data);
+		$('.loadingModal').modal('hide');
+		
+		if(data=="success")
+		{
+			$('#modal-title-default2').text("Success!");
+			$('#modalText').text("Order cancellation request successful. An email has been sent to the supplier");
+			$('#animation').html('<div style="text-align:center;"><div class="checkmark-circle"><div class="background"></div><div class="checkmark draw" style="text-align:center;"></div></div></div>');
+			$("#modalHeader").css("background-color", "#1ab394");
+			$('#successfullyAdded').modal("show");
+			$("#btnClose").attr("data-dismiss","modal");
+			$("#displayModal").modal("show");
+		}
+		else
+		{
+
+			$('#modal-title-default2').text("Error!");
+			$('#modalText').text("Email Failed Sent, Please check email credits");
+			$('#animation').html('<div class="crossx-circle"><div class="background"></div><div style="position: relative;"><div class="crossx draw" style="text-align:center; position: absolute !important;"></div><div class="crossx2 draw2" style="text-align:center; position: absolute !important;"></div></div></div>');
+			$("#modalHeader").css("background-color", "red");
+			$('#successfullyAdded').modal("show");
+			$("#btnClose").attr("data-dismiss","modal");
+			$("#displayModal").modal("show");
+		}
+	});
+});

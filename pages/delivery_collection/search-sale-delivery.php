@@ -9,6 +9,7 @@
   $customerData=getAllCustomer($con);
   $saleData=getAllSales($con);
   mysqli_close($con);
+  $help="../../help/SearchSaleDelivery.html";
 ?>
 <!DOCTYPE html>
 <html>
@@ -201,6 +202,7 @@
   <!-- Argon JS -->
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <script type="text/javascript" src="JS/searchDelivery.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

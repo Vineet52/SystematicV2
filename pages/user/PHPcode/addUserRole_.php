@@ -1,5 +1,5 @@
 <?php
-
+  include_once("../../sessionCheckPages.php");
   $userRoleName = "";
   $userRoleSubFunctionalities = Array();
 
@@ -56,6 +56,14 @@
       $lastIDQuery = "SELECT LAST_INSERT_ID();";        
       $lastIDQueryResult = mysqli_query($DBConnect, $lastIDQuery);
       $lastID = mysqli_fetch_array($lastIDQueryResult)[0];
+
+      $last_id=$lastID;
+      $DateAudit = date('Y-m-d H:i:s');
+      $Functionality_ID='3.7';
+      $userID = $_SESSION['userID'];
+      $changes="ID : ".$last_id." | User role name : ".$userRoleName;
+      $audit_query="INSERT INTO AUDIT_LOG (AUDIT_DATE,USER_ID,SUB_FUNCTIONALITY_ID,CHANGES) VALUES('$DateAudit','$userID','$Functionality_ID','$changes')";
+      $audit_result=mysqli_query($DBConnect,$audit_query);
 
       $arraySize = sizeof($userRoleFunctionalities);
       for ($i=0; $i < $arraySize; $i++) 

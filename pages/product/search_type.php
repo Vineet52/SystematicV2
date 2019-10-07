@@ -1,4 +1,6 @@
-<?php include_once("../sessionCheckPages.php");?>
+<?php include_once("../sessionCheckPages.php");
+  $help="../../help/SearchProductType.html";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -140,6 +142,7 @@
   <script src="../../assets/js/argon.js?v=1.0.0"></script>
   <!-- Search Product Type JS -->
   <script src="JS/searchProductType.js"></script>
+  <script src="../InactivityLogoutPages/autologout.js"></script>
 </body>
 
 </html>

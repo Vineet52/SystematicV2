@@ -57,7 +57,7 @@ $(()=>{
              
                 var formattedTime;
                 let saleDates = [];
-               
+               let total = 0;
                if(arr != "Empty")
                {
                     for(let k=0;k<arr.length;k++)
@@ -68,7 +68,7 @@ $(()=>{
                             saleDates.push(daysOfTheWeek);
                          
                              
-                              
+                            total=total+parseFloat(arr[k]["SALE_AMOUNT"]);
                              totalSales = arr[k]["TOTAL_SALES"];
                              //console.log(totalSales);
                              formattedTime = daysOfTheWeek;
@@ -89,7 +89,7 @@ $(()=>{
                             saleDates.push(daysOfTheWeek);
                          
                              
-                              
+                            total=total+parseFloat(arr[k]["SALE_AMOUNT"]); 
                              totalSales = arr[k]["TOTAL_SALES"];
                              //console.log(totalSales);
                              formattedTime = daysOfTheWeek;
@@ -114,7 +114,7 @@ $(()=>{
             
                 
                $("#tBody").append(tableEntries);
-             
+               $('#total').append('<td>'+total.toFixed(2)+'</td>');
 
 
                //Display Graph
@@ -205,47 +205,52 @@ $(()=>{
                 else if(salePeriod=="Monthly")
                 {
                     let weekCounter = 0;
-                   while(saleDates.length-1 != weekCounter )
+                  while(saleDates.length-1 >= weekCounter )
                    {
+                      
                             count=0;
                             while(count <7)
                             {
 
-                                if(saleDates.length-1 != countArr)
+                                if(saleDates.length-1 >= countArr)
                                 {
                                     arraComparer = new Date(saleDates[countArr]);
                                     arraComparer = arraComparer.getFullYear()+'-'+(arraComparer.getMonth()+1)+'-'+(arraComparer.getDate());
-                                    console.log(arraComparer);
-                                    console.log(comDate);
-                                if(comDate==arraComparer)
-                                {
-                                        //formattedTime = moment(saleDates[count]).format('dddd');
-                                        newWeek.push(arraComparer);
-                                        tempSaleArray.push(parseFloat(saleTotalArray[countArr]).toFixed(2));
-                                        console.log("Works: " + countArr);
-                                        //count++;
-                                        countArr +=1;
+                                    //console.log(arraComparer);
+                                    //console.log(comDate);
+                                
+                                        if(comDate==arraComparer)
+                                        {
+                                                //formattedTime = moment(saleDates[count]).format('dddd');
+                                                newWeek.push(arraComparer);
+                                                tempSaleArray.push(parseFloat(saleTotalArray[countArr]).toFixed(2));
+                                                
+                                                //count++;
+                                                countArr +=1;
+                    
+                                        }
+                                        else
+                                        {
+                                                //formattedTime = moment(comDate).format('dddd');
+                                                newWeek.push(comDate);
+                                            
+                                                tempSaleArray.push(parseFloat(0).toFixed(2));
+                                                
+                    
+                                        }
+                                        count +=1;
+                                        
+                                        
+                                        day = new Date(prevDay);
+                                        //prevDay = prevDay.getFullYear()+'-'+(prevDay.getMonth())+'-'+(prevDay.getDate()-1);
+                                        prevDay.setDate(day.getDate()-1);
+                                        comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+prevDay.getDate();
+                               
             
                                 }
                                 else
                                 {
-                                        //formattedTime = moment(comDate).format('dddd');
-                                        newWeek.push(comDate);
-                                    
-                                        tempSaleArray.push(parseFloat(0).toFixed(2));
-                                        
-            
-                                }
-                                count +=1;
-                                
-                                
-                                day = new Date(prevDay);
-                                //prevDay = prevDay.getFullYear()+'-'+(prevDay.getMonth())+'-'+(prevDay.getDate()-1);
-                                prevDay.setDate(day.getDate()-1);
-                                comDate = prevDay.getFullYear()+'-'+(prevDay.getMonth()+1)+'-'+prevDay.getDate();
-                                console.log(comDate);
-                                //console.log(moment(comDate).format('dddd'));
-            
+                                    break;
                                 }
                             
                             }
@@ -254,8 +259,7 @@ $(()=>{
                             
                             tempVal = sumAdd(acc,tempSaleArray);
                             acc = tempSaleArray.length;
-                            console.log(tempSaleArray);
-                            console.log(tempVal);
+                           
                             weeklySales.push(tempVal);
                            
                             weekArray.push("Week: " + noOfWeeks + ".");
@@ -319,12 +323,33 @@ $(()=>{
                     tableHeader = "SALES FOR A DAY";
             
                 }  
-                new Chart(document.getElementById("line-chart"), {
+                // new Chart(document.getElementById("line-chart"), {
+                //     type: 'line',
+                //     data: {
+                //         labels: newDatesArray,
+                //         datasets: [{ 
+                //             data: tempSaleArray,
+                //           label: "Sales",
+                //           borderColor: "#3e95cd",
+                //           fill: false
+                //         }
+                //       ]
+                //     },
+                //     options: {
+                //       title: {
+                //         display: true,
+                //         text: tableHeader
+                //       }
+                //     }
+                //   });
+
+
+                let chart =new Chart(document.getElementById("line-chart"), {
                     type: 'line',
                     data: {
-                        labels: newDatesArray,
-                        datasets: [{ 
-                            data: tempSaleArray,
+                      labels: newDatesArray,
+                      datasets: [{ 
+                          data: tempSaleArray,
                           label: "Sales",
                           borderColor: "#3e95cd",
                           fill: false
@@ -332,13 +357,31 @@ $(()=>{
                       ]
                     },
                     options: {
-                      title: {
-                        display: true,
-                        text: tableHeader
-                      }
+                        responsive: true,
+                        scales: {
+                          xAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: tableHeader
+                            },
+                            ticks: {
+                              major: {
+                                fontStyle: 'bold',
+                                fontColor: '#FF0000'
+                              }
+                            }
+                          } ],
+                          yAxes: [ {
+                            display: true,
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Revene (Rands)'
+                            }
+                          } ]
+                        }
                     }
-                  });
-
+                });
 
 
 

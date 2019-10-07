@@ -1,5 +1,6 @@
 <?php
   include_once("../sessionCheckPages.php");
+  $help="../../help/MakeCollection-ListCollection.html";
 ?>
 <!DOCTYPE html>
 <html>
