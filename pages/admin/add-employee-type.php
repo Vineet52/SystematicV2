@@ -86,25 +86,26 @@
 
                       <div class="form-group col-md-2">
                           <button type="button" class="btn btn-block btn-primary mb-3" id="addEmployeeTypeSave">Save</button>
-                          <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                          <div class="modal fade errorModal successModal text-center" id="changeTimeSuccess" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
                             <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
                                 <div class="modal-content">
                                   
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="modal-title-default">Success!</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                                    <div class="modal-header" id="modalHeader">
+                                        <h6 class="modal-title" id="modal-title-default"></h6>
                                     </div>
                                     
                                     <div class="modal-body">
                                         <p id="modalText"></p>
+
+                                        <div id="animation" style="text-align:center;">
+
+                                        </div>
                                         
                                     </div>
                                     
                                     <div class="modal-footer">
                                         
-                                        <button type="button" id="btnClose" class="btn btn-link  ml-auto" data-dismiss="modal" onclick="window.location='../../admin.php'">Close</button> 
+                                        <button type="button" class="btn btn-link  ml-auto" id="btnClose" data-dismiss="modal" onclick="">Close</button> 
                                     </div>
                                     
                                 </div>
