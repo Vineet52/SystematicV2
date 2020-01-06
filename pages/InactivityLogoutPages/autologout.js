@@ -10,7 +10,7 @@ $(function()
         .done(response => {
             //console.log(response);
 
-            if (response != "failed") 
+           /*if (response != "failed") 
             {
                 var maxMinutes  = response;  //GREATER THEN 1 MIN.
                 function timeChecker()
@@ -54,10 +54,10 @@ $(function()
 
                     timeChecker();
                 }  
-            }
+            }*/
             
             
-            ajaxDone = true;
+           // ajaxDone = true;
         });
 
     
